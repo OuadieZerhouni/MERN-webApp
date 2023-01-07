@@ -1,11 +1,5 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "School project (departements)",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Ouadie Zerhouni/Abdessamad Belmadani",
-  "license": "ISC"
+  "name": "client",
+  "version": "0.1.0",
+  "private": true
 }
