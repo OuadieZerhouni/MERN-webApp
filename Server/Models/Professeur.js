@@ -27,6 +27,12 @@ class ProfesseurModel {
     static async getByCIN(CIN) {
         return await Professeur.find({ CIN: CIN });
     }
+    static async getByPhoneNumber(PhoneNumber) {
+        return await Professeur.find({ PhoneNumber: PhoneNumber });
+    }
+    static async getByFullName(FullName) {
+        return await Professeur.find({ FullName: FullName });
+    }
     static async getByDepartement(departement) {
         return await Professeur.find({ departement: departement });
     }
