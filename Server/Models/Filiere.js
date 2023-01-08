@@ -57,6 +57,9 @@ class FiliereModel {
     return await Filiere.findByIdAndDelete(id);
   }
   //CRUD for Options
+  static async getOptionsByFiliereId(id) {
+    return await Filiere.findById(id).select("Options");
+  }
   static async getOptionById(id) {
     return await Filiere.find({ "Options._id": id });
   }
@@ -65,44 +68,44 @@ class FiliereModel {
       $push: { Options: option },
     });
   }
-  static async updateOption(id, option) {
+  static async updateOption(option_id, option) {
     return await Filiere.findOneAndUpdate(
-      { "Options._id": id },
+      { "Options._id": option_id },
       { $set: { "Options.$": option } }
     );
   }
-  static async deleteOption(id) {
+  static async deleteOption(option_id) {
     return await Filiere.findOneAndUpdate(
-      { "Options._id": id },
-      { $pull: { Options: { _id: id } } }
+      { "Options._id": option_id },
+      { $pull: { Options: { _id: option_id } } }
     );
   }
   //CRUD for Emploi_temps
-  static async getEmploiTempsByOptionId(id) {
-    return await Filiere.find({ "Options._id": id }).select(
+  static async getEmploiTempsByOptionId(option_id) {
+    return await Filiere.find({ "Options._id": option_id }).select(
       "Options.Emploi_temps"
     );
   }
-  static async insertEmploiTemps(id, emploi_temps) {
+  static async insertEmploiTemps(option_id, emploi_temps) {
     return await Filiere.findOneAndUpdate(
-      { "Options._id": id },
+      { "Options._id": option_id },
       { $set: { "Options.$.Emploi_temps": emploi_temps } }
     );
   }
-  static async updateEmploiTemps(id, emploi_temps) {
+  static async updateEmploiTemps(option_id, emploi_temps) {
     return await Filiere.findOneAndUpdate(
-      { "Options._id": id },
+      { "Options._id": option_id },
       { $set: { "Options.$.Emploi_temps": emploi_temps } }
     );
   }
-  static async deleteEmploiTemps(id) {
+  static async deleteEmploiTemps(option_id) {
     return await Filiere.findOneAndUpdate(
-      { "Options._id": id },
+      { "Options._id": option_id },
       { $set: { "Options.$.Emploi_temps": {} } }
     );
   }
 
-  
+
 }
 
 module.exports = FiliereModel;

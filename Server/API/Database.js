@@ -5,7 +5,7 @@ const Professeur=require('../Models/Professeur');
 const Departement=require('../Models/Departement');
 const reunion=require('../Models/Reunion');
 
-/*---departement---*/
+/*-------departement-------*/
 app.post('/insert/departement',async (req,res)=>{
     const departement=await Departement.insert(req.body);
     res.send(departement);
@@ -33,7 +33,7 @@ app.post('/get/departement/nom',async (req,res)=>{
     res.send(departement);
 })
 
-/*---filiere---*/
+/*-------filiere-------*/
 app.post('/insert/filiere',async (req,res)=>{
     const filiere=await Filiere.insert(req.body);
     res.send(filiere);
@@ -62,12 +62,124 @@ app.post('/get/filiere/departement',async (req,res)=>{
     const filiere=await Filiere.getByDepartement(req.body.id_Departement);
     res.send(filiere);
 })
-/*---professeur---*/
+/*-------Options-------*/
+app.post('/get/options',async (req,res)=>{
+    const options=await Filiere.getOptionById(req.body._id);
+    res.send(options);
+})
+app.post('/insert/options',async (req,res)=>{
+    const options=await Filiere.insertOptions(req.body);
+    res.send(options);
+})
+app.post('/get/options/Filiere',async (req,res)=>{
+    const options=await Filiere.getOptionsByFiliereId(req.body._id);
+    res.send(options);
+})
+app.post('/delete/options',async (req,res)=>{
+    const options=await Filiere.deleteOptions(req.body._id);
+    res.send(options);
+})
+app.post('/update/options',async (req,res)=>{
+    const options=await Filiere.updateOptions(req.body._id,req.body);
+    res.send(options);
+})
+
+//CRUD emploi du temps
+app.post('/get/emploiTemps/option',async (req,res)=>{
+    const emploiTemps=await Filiere.getEmploiTempsByOptionId(req.body.option_id);
+    res.send(emploiTemps);
+})
+app.post('/insert/emploiTemps',async (req,res)=>{
+    const emploiTemps=await Filiere.insertEmploiTemps(req.body.option_id,req.body.emploiTemps);
+    res.send(emploiTemps);
+})
+app.post('/delete/emploiTemps',async (req,res)=>{
+    const emploiTemps=await Filiere.deleteEmploiTemps(req.body.option_id,req.body.emploiTemps);
+    res.send(emploiTemps);
+})
+app.post('/update/emploiTemps',async (req,res)=>{
+    const emploiTemps=await Filiere.updateEmploiTemps(req.body.option_id,req.body.emploiTemps);
+    res.send(emploiTemps);
+})
+
+/*-------professeur-------*/
 app.post('/insert/professeur',async (req,res)=>{
     const professeur=await Professeur.insert(req.body);
     res.send(professeur);
 });
+app.post('/get/professeur/all',async (req,res)=>{
+    const professeur=await Professeur.getAll();
+    res.send(professeur);
+})
+app.post('/delete/professeur',async (req,res)=>{
+    const professeur=await Professeur.delete(req.body._id);
+    res.send(professeur);
+})
+app.post('/update/professeur',async (req,res)=>{
+    const professeur=await Professeur.update(req.body._id,req.body);
+    res.send(professeur);
+})
+app.post('/get/professeur/id',async (req,res)=>{
+    const professeur=await Professeur.getById(req.body._id);
+    res.send(professeur);
+})
+app.post('/get/professeur/nom',async (req,res)=>{
+    const professeur=await Professeur.getByFullName(req.body.Nom);
+    res.send(professeur);
+})
+app.post('/get/professeur/email',async (req,res)=>{
+    const professeur=await Professeur.getByEmail(req.body.Email);
+    res.send(professeur);
+})
+app.post('/get/professeur/phone',async (req,res)=>{
+    const professeur=await Professeur.getByPhoneNumber(req.body.Phone);
+    res.send(professeur);
+})
+
 /*---reunion---*/
+app.post('/insert/reunion',async (req,res)=>{
+    const reunion=await Reunion.insert(req.body);
+    res.send(reunion);
+})
+app.post('/get/reunion/all',async (req,res)=>{
+    const reunion=await Reunion.getAll();
+    res.send(reunion);
+})
+app.post('/delete/reunion',async (req,res)=>{
+    const reunion=await Reunion.delete(req.body._id);
+    res.send(reunion);
+})
+app.post('/update/reunion',async (req,res)=>{
+    const reunion=await Reunion.update(req.body._id,req.body);
+    res.send(reunion);
+})
+app.post('/get/reunion/id',async (req,res)=>{
+    const reunion=await Reunion.getById(req.body._id);
+    res.send(reunion);
+})
+app.post('/get/reunion/Date',async (req,res)=>{
+    const reunion=await Reunion.getByDate(req.body.Date);
+    res.send(reunion);
+})
+app.post('/get/reunion/departement',async (req,res)=>{
+    const reunion=await Reunion.getByDepartement(req.body.id_Departement);
+    res.send(reunion);
+})
+//CRUD pv
+app.post('/insert/pv',async (req,res)=>{
+    const pv=await Reunion.insertPV(req.body.reunion_id,req.body.pv);
+    res.send(pv);
+})
+app.post('/get/pv',async (req,res)=>{
+    const pv=await Reunion.getPV(req.body.reunion_id);
+    res.send(pv);
+})
+app.post('/delete/pv',async (req,res)=>{
+    const pv=await Reunion.deletePV(req.body.reunion_id);
+    res.send(pv);
+})
+
+
 
 
 
