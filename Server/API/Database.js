@@ -3,7 +3,7 @@ const app=express();
 const Filiere=require('../Models/Filiere');
 const Professeur=require('../Models/Professeur');
 const Departement=require('../Models/Departement');
-const reunion=require('../Models/Reunion');
+const Reunion=require('../Models/Reunion');
 
 /*-------departement-------*/
 app.post('/insert/departement',async (req,res)=>{
@@ -22,7 +22,7 @@ app.post('/delete/departement',async (req,res)=>{
 })
 app.post('/update/departement',async (req,res)=>{
     const departement=await Departement.update(req.body._id,req.body);
-    res.send(departement);
+    res.send("departement");
 })
 app.post('/get/departement/id',async (req,res)=>{
     const departement=await Departement.getById(req.body._id);
@@ -178,6 +178,30 @@ app.post('/delete/pv',async (req,res)=>{
     const pv=await Reunion.deletePV(req.body.reunion_id);
     res.send(pv);
 })
+app.post('/update/pv',async (req,res)=>{
+    const pv=await Reunion.updatePV(req.body.reunion_id,req.body.pv);
+    res.send(pv);
+})
+
+//crud comment
+app.post('/insert/comment',async (req,res)=>{
+    const comment=await Reunion.AddComment(req.body.reunion_id,req.body.comment);
+    res.send(comment);
+})
+app.post('/get/comment',async (req,res)=>{
+    const comment=await Reunion.getCommentsByPV(req.body.reunion_id,req.body.pv_id);
+    res.send(comment);
+})
+app.post('/delete/comment',async (req,res)=>{
+    const comment=await Reunion.deleteComment(req.body.reunion_id,req.body.pv_id,req.body.comment_id);
+    res.send(comment);
+})
+app.post('/update/comment',async (req,res)=>{
+    const comment=await Reunion.updateComment(req.body.reunion_id,req.body.pv_id,req.body.comment_id,req.body.comment);
+    res.send(comment);
+})
+
+module.exports=app;
 
 
 
