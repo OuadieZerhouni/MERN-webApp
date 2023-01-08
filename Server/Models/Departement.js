@@ -3,6 +3,7 @@ require('dotenv').config();
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 const DepartementSchema = new mongoose.Schema({
+  _id: mongoose.Types.ObjectId,
   Nom: String,
   description: String,
   Date_Creation: Date,
