@@ -56,6 +56,53 @@ class FiliereModel {
   static async delete(id) {
     return await Filiere.findByIdAndDelete(id);
   }
+  //CRUD for Options
+  static async getOptionById(id) {
+    return await Filiere.find({ "Options._id": id });
+  }
+  static async insertOption(id, option) {
+    return await Filiere.findByIdAndUpdate(id, {
+      $push: { Options: option },
+    });
+  }
+  static async updateOption(id, option) {
+    return await Filiere.findOneAndUpdate(
+      { "Options._id": id },
+      { $set: { "Options.$": option } }
+    );
+  }
+  static async deleteOption(id) {
+    return await Filiere.findOneAndUpdate(
+      { "Options._id": id },
+      { $pull: { Options: { _id: id } } }
+    );
+  }
+  //CRUD for Emploi_temps
+  static async getEmploiTempsByOptionId(id) {
+    return await Filiere.find({ "Options._id": id }).select(
+      "Options.Emploi_temps"
+    );
+  }
+  static async insertEmploiTemps(id, emploi_temps) {
+    return await Filiere.findOneAndUpdate(
+      { "Options._id": id },
+      { $set: { "Options.$.Emploi_temps": emploi_temps } }
+    );
+  }
+  static async updateEmploiTemps(id, emploi_temps) {
+    return await Filiere.findOneAndUpdate(
+      { "Options._id": id },
+      { $set: { "Options.$.Emploi_temps": emploi_temps } }
+    );
+  }
+  static async deleteEmploiTemps(id) {
+    return await Filiere.findOneAndUpdate(
+      { "Options._id": id },
+      { $set: { "Options.$.Emploi_temps": {} } }
+    );
+  }
+
+  
 }
 
 module.exports = FiliereModel;
