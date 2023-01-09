@@ -1,11 +1,9 @@
 const express=require('express');
 const app=express();
 const Database=require('./API/Database');
-//cors
 const cors=require('cors');
 
 app.use(cors());
-//cors add http://localhost:3000 to the list of allowed origins
 app.use(cors({origin:'http://localhost:3000'}));
 
 app.use(express.json());

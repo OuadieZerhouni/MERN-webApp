@@ -6,7 +6,6 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 
 const filiereSchema = new mongoose.Schema({
-  _id: mongoose.Types.ObjectId,
   Nom: String,
   Description: String,
   Date_Creation: Date,

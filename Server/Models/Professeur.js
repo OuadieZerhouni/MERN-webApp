@@ -5,7 +5,6 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 
 const professeurSchema = new mongoose.Schema({
-  _id: mongoose.Types.ObjectId,
   CIN: String,
   PhoneNumber: String,
   FullName: String,
