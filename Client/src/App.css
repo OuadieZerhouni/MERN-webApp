@@ -30,7 +30,7 @@
 .form-button {
   width: 150px;
   height: 40px;
-  margin: 20px;
+  margin: 20px auto 0;
   border: none;
   border-radius: 4px;
   background-color: #0084ff;
@@ -47,4 +47,19 @@
 a{
   text-decoration: none;
   color:inherit;
+  /* make a like btn */
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #0084ff;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 300ms;
+}
+a:hover{
+  background-color: #5c93c7;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 2);
 }
