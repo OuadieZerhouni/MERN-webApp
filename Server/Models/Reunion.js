@@ -8,15 +8,13 @@ try {
     console.log(error);
 }
 const reunionSchema = new mongoose.Schema({
-  _id: mongoose.Types.ObjectId,
   Date: String,
   lieu: String,
   id_departement: mongoose.Types.ObjectId,
   LOJ: [{ _id: mongoose.Types.ObjectId, value: String }],
   prof_present: [{ _id: mongoose.Types.ObjectId }],
   prof_absent: [{ _id: mongoose.Types.ObjectId }],
-  PVs: [
-    {
+  PVs:{
       _id: mongoose.Types.ObjectId,
       link: String,
       date_upload: Date,
@@ -29,7 +27,6 @@ const reunionSchema = new mongoose.Schema({
         },
       ],
     },
-  ],
 });
 
 const Reunion = mongoose.model("Reunion", reunionSchema);

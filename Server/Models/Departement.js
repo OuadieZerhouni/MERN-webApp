@@ -19,7 +19,7 @@ const DepartementSchema = new mongoose.Schema({
   Filieres: [ String ],
 });
 const Departement = mongoose.model('departement', DepartementSchema);
-
+  
 
 class DepartementModel {
 
