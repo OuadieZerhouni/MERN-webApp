@@ -10,7 +10,8 @@ export default function Home() {
         </button>
         <button className="form-button"><a href="/Add/Reunion">Insert Reunion</a>
         </button>
-        <button className="form-button"> <a href="/Add/Reunion">Get All Reunion</a></button>
+        <button className="form-button"> <a href="/Add/Professeur" >Insert Professeur</a>
+        </button>
 
         </div>
     );

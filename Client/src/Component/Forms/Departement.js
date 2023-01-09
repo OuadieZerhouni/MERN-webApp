@@ -107,7 +107,7 @@ const DepartementForm = () => {
       <button
         type="button"
         onClick={handleInsertDepartement}
-        className="departement-form-button"
+        className="form-button"
       >
         Insert Departement
       </button>

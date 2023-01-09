@@ -75,4 +75,6 @@ const ProfesseurForm = () => {
     );
 };
 
+export default ProfesseurForm;
+
 

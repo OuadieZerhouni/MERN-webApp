@@ -5,6 +5,7 @@ import DepartementForm from './Component/Forms/Departement';
 import FiliereForm from './Component/Forms/Filiere';
 import Home from './Component/Home';
 import ReunionForm from './Component/Forms/Reunion';
+import Professeur from './Component/Forms/Professeur';
 
 
 function App() {
@@ -16,11 +17,9 @@ function App() {
           <Route path="/Add/Departement" element={<DepartementForm />} />
           <Route path="/Add/Filiere" element={<FiliereForm />} />
           <Route path="/Add/Reunion" element={<ReunionForm />} />
+          <Route path="/Add/Professeur" element={<Professeur />} />
         </Routes>
       </Router>
-
-
-      
     </div>
   );
 }
