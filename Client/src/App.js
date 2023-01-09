@@ -1,7 +1,7 @@
 import './App.css';
 import { Route, Routes,BrowserRouter as Router } from "react-router-dom";
 
-import DepartementForm from './Component/Component';
+import DepartementForm from './Component/Departement';
 
 
 function App() {
