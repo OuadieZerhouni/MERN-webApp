@@ -109,6 +109,7 @@ app.post('/insert/professeur',async (req,res)=>{
 });
 app.post('/get/professeur/all',async (req,res)=>{
     const professeur=await Professeur.getAll();
+    console.log(professeur);
     res.send(professeur);
 })
 app.post('/delete/professeur',async (req,res)=>{

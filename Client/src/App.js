@@ -18,6 +18,7 @@ function App() {
           <Route path="/Add/Filiere" element={<FiliereForm />} />
           <Route path="/Add/Reunion" element={<ReunionForm />} />
           <Route path="/Add/Professeur" element={<Professeur />} />
+          <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </Router>
     </div>

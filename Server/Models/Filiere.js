@@ -6,22 +6,56 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 
 const filiereSchema = new mongoose.Schema({
-  Nom: String,
-  Description: String,
-  Date_Creation: Date,
-  effectif: Number,
+  Nom: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  Description: {
+    type: String,
+    required: true
+  },
+  Date_Creation: {
+    type: Date,
+    required: true
+  },
+  effectif: {
+    type: Number,
+    required: true
+  },
   Options: [
     {
-      _id: mongoose.Types.ObjectId,
-      Nom: String,
-      Description: String,
-      Date_Creation: Date,
-      effectif: Number,
+      Nom: {
+        type: String,
+        unique: true,
+        required: true
+      },
+      Description: {
+        type: String,
+        required: true
+      },
+      Date_Creation: {
+        type: Date,
+        required: true
+      },
+      effectif: {
+        type: Number,
+        required: true
+      },
       Emploi_temps: {
-        Lien_modification: String,
-        Lien_consultation: String,
+        Lien_modification: {
+          type: String,
+          required: true
+        },
+        Lien_consultation: {
+          type: String,
+          required: true
+        },
         Semestre: Number,
-        Date_Creation: Date,
+        Date_Creation: {
+          type: Date,
+          required: true
+        },
       },
     },
   ],

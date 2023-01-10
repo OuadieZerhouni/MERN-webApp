@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import ProfModal from "./Modals/ProfModal";
+import ChefModal from "./Modals/ChefModal";
 import "./Form.css";
 
 const DepartementForm = () => {
@@ -12,7 +12,7 @@ const DepartementForm = () => {
   const [departementFilieres, setDepartementFilieres] = useState([]);
   const [responseData, setResponseData] = useState(null);
   const [professeurs, setProfesseurs] = useState([]);
-  const [ProfModalIsOpen, setProfModalIsOpen] = useState(false);
+  const [ChefModalIsOpen, setChefModalIsOpen] = useState(false);
   const [SelectedChef, setSelectedChef] = useState("Not Selected");
 
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
@@ -20,10 +20,10 @@ const DepartementForm = () => {
   const handleChefSelection = (chefId) => {
     setDepartementIdChef(chefId[0]); 
     setSelectedChef(chefId[1  ]);
-    setProfModalIsOpen(false);
+    setChefModalIsOpen(false);
   };
-  const toggleProfModal = () => {
-    setProfModalIsOpen(!ProfModalIsOpen);
+  const toggleChefModal = () => {
+    setChefModalIsOpen(!ChefModalIsOpen);
   };
 
   const handleInsertDepartement = () => {
@@ -37,7 +37,7 @@ const DepartementForm = () => {
         Filieres: departementFilieres,
       })
       .then((response) => {
-        setResponseData(JSON.stringify(response.data));
+        console.log(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -47,7 +47,7 @@ const DepartementForm = () => {
   useEffect(() => {
     axios.post(API_DATABASE + "/get/professeur/all").then((response) => {
       setProfesseurs(response.data);
-      console.log(response.data);
+      console.log("from useEffect"+response.data);
     });
   }, [API_DATABASE]);
 
@@ -90,10 +90,10 @@ const DepartementForm = () => {
         <label htmlFor="departement-Chef" className="form-label">
         Chef de Departement : 
         </label>
-        <button onClick={toggleProfModal} id="departement-Chef" className="Modal-button"> {SelectedChef} </button>
-        <ProfModal open={ProfModalIsOpen} toggleModal={toggleProfModal} professeurs={professeurs} handleChefSelection={handleChefSelection}>
-          Fancy ProfModal
-      </ProfModal>
+        <button onClick={toggleChefModal} id="departement-Chef" className="Modal-button"> {SelectedChef} </button>
+        <ChefModal open={ChefModalIsOpen} toggleModal={toggleChefModal} professeurs={professeurs} handleChefSelection={handleChefSelection}>
+          Fancy ChefModal
+      </ChefModal>
 
         <br />
         <label htmlFor="departement-professeurs" className="form-label">

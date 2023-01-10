@@ -2,12 +2,6 @@ body.active-modal {
     overflow-y: hidden;
 }
 
-.btn-modal {
-    padding: 10px 20px;
-    display: block;
-    margin: 100px auto 0;
-    font-size: 18px;
-}
 
 .modal, .overlay {
     width: 100vw;
@@ -40,10 +34,15 @@ body.active-modal {
     top: 10px;
     right: 10px;
     padding: 5px 7px;
+    cursor: pointer;
 }
 li{
     cursor: pointer;
     list-style: none;
     padding: 10px 0;
     border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+li:hover{
+    background-color: #acc2eb;
 }
