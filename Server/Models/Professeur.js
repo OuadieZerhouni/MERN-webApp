@@ -18,17 +18,14 @@ const Professeur = mongoose.model("Professeur", professeurSchema);
 
 class ProfesseurModel {
     static async getAll() {
-        return await Professeur.find({});
+        return await Professeur.find({}, { _id: 1, FullName: 1 });
     }
     
     static async getById(id) {
-        return await Professeur.findById(id);
+        return await Professeur.findById(id, { _id: 1, FullName: 1 });
     }
     static async getByCIN(CIN) {
         return await Professeur.find({ CIN: CIN });
-    }
-    static async getByPhoneNumber(PhoneNumber) {
-        return await Professeur.find({ PhoneNumber: PhoneNumber });
     }
     static async getByFullName(FullName) {
         return await Professeur.find({ FullName: FullName });

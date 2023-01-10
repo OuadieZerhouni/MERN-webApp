@@ -3,9 +3,8 @@ import ReactDom from 'react-dom'
 import './Modal.css'
 
 
-export default function Modal({ open,toggleModal,professeurs ,handleChefSelection}) {
+export default function ProfModal({ open,toggleModal,professeurs ,handleChefSelection}) {
   if (!open) return null
-
   return ReactDom.createPortal(
     <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
