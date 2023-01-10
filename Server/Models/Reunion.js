@@ -11,9 +11,9 @@ const reunionSchema = new mongoose.Schema({
   Date: String,
   lieu: String,
   id_departement: mongoose.Types.ObjectId,
-  LOJ: [{ _id: mongoose.Types.ObjectId, value: String }],
-  prof_present: [{ _id: mongoose.Types.ObjectId }],
-  prof_absent: [{ _id: mongoose.Types.ObjectId }],
+  LOJ: [{  value: String }],
+  prof_present: [ mongoose.Types.ObjectId ],
+  prof_absent: [ mongoose.Types.ObjectId ],
   PVs:{
       _id: mongoose.Types.ObjectId,
       link: String,

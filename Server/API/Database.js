@@ -8,7 +8,7 @@ const Reunion=require('../Models/Reunion');
 /*-------departement-------*/
 app.post('/insert/departement',async (req,res)=>{
     const departement=await Departement.insert(req.body);
-    res.send("Inserted !");
+    res.send(departement);
 });
 
 app.post('/get/departement/all',async (req,res)=>{
