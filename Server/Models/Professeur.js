@@ -10,7 +10,7 @@ const professeurSchema = new mongoose.Schema({
   FullName: String,
   email: String,
   password: String,
-  departement: String,
+  departement_Name: String,
   role: String,
 });
 
@@ -22,7 +22,7 @@ class ProfesseurModel {
     }
     
     static async getById(id) {
-        return await Professeur.findById(id, { _id: 1, FullName: 1 });
+        return await Professeur.findById(id, { _id: 1, FullName: 1 , CIN: 1, PhoneNumber: 1, email: 1, departement: 1, role: 1});
     }
     static async getByCIN(CIN) {
         return await Professeur.find({ CIN: CIN });

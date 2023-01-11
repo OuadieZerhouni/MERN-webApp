@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDom from 'react-dom'
-import './Modal.css'
+import '../FormsCSS/Modal.css'
 
 
-export default function ChefModal({ open,toggleModal,professeurs ,handleChefSelection}) {
-  if (!open) return null
+export default function ChefModal({ IsOpen,toggleModal,professeurs ,handleChefSelection}) {
+  if (!IsOpen) return null
 
   return ReactDom.createPortal(
     <div className="modal">
