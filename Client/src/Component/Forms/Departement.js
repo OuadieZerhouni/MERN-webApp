@@ -3,7 +3,7 @@ import axios from "axios";
 
 import ChefModal from "./Modals/ChefModal";
 import ProfModal from "./Modals/ProfModal";
-import FiliereModal from "./Modals/FileireModal";
+// import FiliereModal from "./Modals/FileireModal";
 import "./FormsCSS/Form.css";
 
 const DepartementForm = () => {
@@ -13,15 +13,15 @@ const DepartementForm = () => {
   const [departementDateCreation, setDepartementDateCreation] = useState("");
   const [departementIdChef, setDepartementIdChef] = useState("");
   const [departementProfesseurs, setDepartementProfesseurs] = useState([]);
-  const [departementFilieres, setDepartementFilieres] = useState([]);
+  // const [departementFilieres, setDepartementFilieres] = useState([]);
   const [professeurs, setProfesseurs] = useState([]);
   const [SelectedChef, setSelectedChef] = useState("Not Selected");
-  const [filieres, setFilieres] = useState([]);
+  // const [filieres, setFilieres] = useState([]);
 
 
   const [ChefModalIsOpen, setChefModalIsOpen] = useState(false);
   const [ProfModalIsOpen, setProfModalIsOpen] = useState(false);
-  const [FiliereModalIsOpen, setFiliereModalIsOpen] = useState(false);
+  // const [FiliereModalIsOpen, setFiliereModalIsOpen] = useState(false);
 
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
 /* Chef Modal handling */
@@ -30,7 +30,7 @@ const DepartementForm = () => {
     setSelectedChef(chefId[1  ]);
     setChefModalIsOpen(false);
   };
-  const toggleChefModal = () => {
+  const handleChefModal = () => {
     setChefModalIsOpen(!ChefModalIsOpen);
   };
 
@@ -47,14 +47,14 @@ const DepartementForm = () => {
 
 /* Filiere Modal handling */
 
-  const handleFiliereSelection = (filiereIds) => {
-    setDepartementFilieres(filiereIds);
-    setFiliereModalIsOpen(false);
+  // const handleFiliereSelection = (filiereIds) => {
+  //   setDepartementFilieres(filiereIds);
+  //   setFiliereModalIsOpen(false);
     
-  };
-  const toggleFiliereModal = () => {
-    setFiliereModalIsOpen(!FiliereModalIsOpen);
-  };
+  // };
+  // const toggleFiliereModal = () => {
+  //   setFiliereModalIsOpen(!FiliereModalIsOpen);
+  // };
 
 
 
@@ -80,10 +80,9 @@ const DepartementForm = () => {
         Date_Creation: departementDateCreation,
         id_Chef: departementIdChef,
         professeurs: departementProfesseurs,
-        Filieres: departementFilieres,
+        // Filieres: departementFilieres,
       })
       .then((response) => {
-        //send user to home page
         window.location.href = "/";
         
       })
@@ -96,9 +95,9 @@ const DepartementForm = () => {
     axios.post(API_DATABASE + "/get/professeur/all").then((response) => {
       setProfesseurs(response.data);
     });
-    axios.post(API_DATABASE + "/get/filiere/all").then((response) => {
-      setFilieres(response.data);
-    })
+    // axios.post(API_DATABASE + "/get/filiere/all").then((response) => {
+    //   setFilieres(response.data);
+    // })
 
   }, [API_DATABASE]);
 
@@ -141,8 +140,8 @@ const DepartementForm = () => {
         <label htmlFor="departement-Chef" className="form-label">
         Chef de Departement : 
         </label>
-        <button onClick={toggleChefModal} id="departement-Chef" className="Modal-button"> {SelectedChef} </button>
-        <ChefModal IsOpen={ChefModalIsOpen} toggleModal={toggleChefModal} professeurs={professeurs} handleChefSelection={handleChefSelection}></ChefModal>
+        <button onClick={handleChefModal} id="departement-Chef" className="Modal-button"> {SelectedChef} </button>
+        <ChefModal IsOpen={ChefModalIsOpen} toggleModal={handleChefModal} professeurs={professeurs} handleChefSelection={handleChefSelection}></ChefModal>
         <br />
         <label htmlFor="departement-professeurs" className="form-label">
           Departement Professeurs:
@@ -150,11 +149,8 @@ const DepartementForm = () => {
         <button onClick={toggleProfModal} id="departement-professeurs" className="Modal-button"> Select Professeur </button>
         <ProfModal IsOpen={ProfModalIsOpen} toggleModal={toggleProfModal} professeurs={professeurs} handelProfselection={handleProfSelection} AlreadySelectedProf={departementProfesseurs}></ProfModal>
         <br />
-        <label htmlFor="departement-filieres" className="form-label" >
-          Departement Filieres:
-        </label>
-        <button onClick={toggleFiliereModal} id="departement-filieres" className="Modal-button"> Select Filiere </button>
-        <FiliereModal IsOpen={FiliereModalIsOpen} toggleModal={toggleFiliereModal} filieres={filieres} handleFiliereSelection={handleFiliereSelection} AlreadySelectedFilieres={departementFilieres}></FiliereModal>
+        {/* <button onClick={toggleFiliereModal} id="departement-filieres" className="Modal-button"> Select Filiere </button>
+        <FiliereModal IsOpen={FiliereModalIsOpen} toggleModal={toggleFiliereModal} filieres={filieres} handleFiliereSelection={handleFiliereSelection} AlreadySelectedFilieres={departementFilieres}></FiliereModal> */}
         <br />
         <button
 

@@ -2,14 +2,14 @@ import React from "react";
 import ReactDom from "react-dom";
 import "../FormsCSS/Modal.css";
 
-export default function ChefModal({
+export default function DepartModal({
   IsOpen,
   toggleModal,
-  professeurs,
-  handleChefSelection,
+  Departements,
+  handleDepartementSelection,
 }) {
+    console.log(IsOpen)
   if (!IsOpen) return null;
-
   return ReactDom.createPortal(
     <div className="modal">
       <div onClick={toggleModal} className="overlay"></div>
@@ -17,14 +17,12 @@ export default function ChefModal({
         <h2>Selectionez le Chef de Departement</h2>
 
         <ul>
-          {professeurs.map((professeur) => (
+          {Departements.map((Departement) => (
             <li
-              key={professeur._id}
-              onClick={() =>
-                handleChefSelection([professeur._id, professeur.FullName])
-              }
+              key={Departement._id}
+              onClick={(e) => handleDepartementSelection(Departement)}
             >
-              {professeur.FullName}
+              {Departement.Nom}
             </li>
           ))}
         </ul>

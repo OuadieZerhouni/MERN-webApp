@@ -1,47 +1,58 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import DepartModal from "./Modals/DepartModal";
 
 const FiliereForm = () => {
-  const [filiereNom, setFiliereNom] = useState('');
-  const [filiereDateCreation, setFiliereDateCreation] = useState('');
-  const [filiereIdDepartement, setFiliereIdDepartement] = useState('');
+  const [filiereNom, setFiliereNom] = useState("");
+  const [filiereDescription, setFiliereDescription] = useState("");
+  const [filiereDateCreation, setFiliereDateCreation] = useState("");
+  const [filiereIdDepartement, setFiliereIdDepartement] = useState("");
+  const [SelectedDepart, setSelectedDepart] = useState("Not Selected");
+  const [Departements, setDepartements] = useState([]);
   const [filiereOptions, setFiliereOptions] = useState([]);
-  const [responseData, setResponseData] = useState(null);
 
-  let API_DATABASE=process.env.REACT_APP_API_DATABASE;
+  const [DepartModatIsOpen, setDepartModalIsOpen] = useState(false);
+
+  let API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
   const handleInsertFiliere = () => {
     axios
-      .post(API_DATABASE+'/insert/filiere', {
+      .post(API_DATABASE + "/insert/filiere", {
         Nom: filiereNom,
+        description: filiereDescription,
         Date_Creation: filiereDateCreation,
         id_Departement: filiereIdDepartement,
         options: filiereOptions,
       })
-      .then(response => {
-        setResponseData(JSON.stringify(response.data));
+      .then((response) => {
+        console.log(response);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
+  /*hanle departModal*/
+  const handleDepartModal = () => {
+    setDepartModalIsOpen(!DepartModatIsOpen);
+  };
 
-  const handleGetAllFilieres = () => {
-    axios
-      .post(API_DATABASE+'/get/filiere/all', {})
-      .then(response => {
-        setResponseData(JSON.stringify(response.data));
-      })
-      .catch(error => {
-        console.error(error);
-      });
+  const handleDepartementSelection = (Depart) => {
+    setSelectedDepart(Depart.Nom);
+    setFiliereIdDepartement(Depart._id);
+    setDepartModalIsOpen(false);
   };
 
 
 
+
+  useEffect(() => {
+    axios.post(API_DATABASE + "/get/departement/all").then((response) => {
+      setDepartements(response.data);
+    });
+  }, [API_DATABASE]);
 
   return (
-    <form className="form">
+    <div className="form">
       <label htmlFor="filiere-nom" className="form-label">
         Filiere Nom:
       </label>
@@ -50,7 +61,18 @@ const FiliereForm = () => {
         type="text"
         id="filiere-nom"
         value={filiereNom}
-        onChange={e => setFiliereNom(e.target.value)}
+        onChange={(e) => setFiliereNom(e.target.value)}
+      />
+      <br />
+      <label htmlFor="filiere-Desc" className="form-label">
+        Filiere Description:
+      </label>
+      <input
+        className="form-input"
+        type="text"
+        id="filiere-Desc"
+        value={filiereNom}
+        onChange={(e) => setFiliereDescription(e.target.value)}
       />
       <br />
       <label htmlFor="filiere-date-creation" className="form-label">
@@ -58,34 +80,17 @@ const FiliereForm = () => {
       </label>
       <input
         className="form-input"
-        type="text"
+        type="Date"
         id="filiere-date-creation"
         value={filiereDateCreation}
-        onChange={e => setFiliereDateCreation(e.target.value)}
+        onChange={(e) => setFiliereDateCreation(e.target.value)}
       />
       <br />
       <label htmlFor="filiere-id-departement" className="form-label">
         Filiere Id Departement:
       </label>
-      <input
-        className="form-input"
-        type="text"
-        id="filiere-id-departement"
-        value={filiereIdDepartement}
-        onChange={e => setFiliereIdDepartement(e.target.value)}
-      />
-      <br />
-      <label htmlFor="filiere-options" className="form-label">
-        Filiere Options:
-      </label>
-      <input
-        className="form-input"
-        type="text"
-        id="filiere-options"
-        value={filiereOptions}
-        onChange={e => setFiliereOptions(e.target.value)}
-      />
-      <br />
+      <button onClick={handleDepartModal}  className="Modal-button" type="button">{SelectedDepart}</button>
+      <DepartModal IsOpen={DepartModatIsOpen} toggleModal={handleDepartModal} Departements={Departements} handleDepartementSelection={handleDepartementSelection}  ></DepartModal>
       <button
         className="form-button"
         type="button"
@@ -93,18 +98,8 @@ const FiliereForm = () => {
       >
         Insert Filiere
       </button>
-      <button
-        className="form-button"
-        type="button"
-        onClick={handleGetAllFilieres}
-      >
-        Get All Filieres
-      </button>
-      
-      <div className="response-data">{responseData}</div>
-    </form>
+    </div>
   );
 };
 
 export default FiliereForm;
-
