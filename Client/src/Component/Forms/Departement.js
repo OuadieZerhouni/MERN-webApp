@@ -14,7 +14,6 @@ const DepartementForm = () => {
   const [departementIdChef, setDepartementIdChef] = useState("");
   const [departementProfesseurs, setDepartementProfesseurs] = useState([]);
   const [departementFilieres, setDepartementFilieres] = useState([]);
-  const [responseData, setResponseData] = useState(null);
   const [professeurs, setProfesseurs] = useState([]);
   const [SelectedChef, setSelectedChef] = useState("Not Selected");
   const [filieres, setFilieres] = useState([]);
@@ -84,7 +83,9 @@ const DepartementForm = () => {
         Filieres: departementFilieres,
       })
       .then((response) => {
-        console.log(response.data);
+        //send user to home page
+        window.location.href = "/";
+        
       })
       .catch((error) => {
         console.error(error);
