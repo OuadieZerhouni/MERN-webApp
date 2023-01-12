@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import DepartModal from "./Modals/DepartModal";
-import CoordinateurModal from "./Modals/ChefModal";
+import DepartModal from "../Modals/DepartModal";
+import CoordinateurModal from "../Modals/ChefModal";
 
 const FiliereForm = () => {
   const [filiereNom, setFiliereNom] = useState("");

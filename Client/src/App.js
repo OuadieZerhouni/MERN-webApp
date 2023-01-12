@@ -1,11 +1,11 @@
 import './App.css';
 import { Route, Routes,BrowserRouter as Router } from "react-router-dom";
 
-import DepartementForm from './Component/Forms/Departement';
-import FiliereForm from './Component/Forms/Filiere';
+import DepartementForm from './Component/Forms/Inserer/Departement';
+import FiliereForm from './Component/Forms/Inserer/Filiere';
+import ReunionForm from './Component/Forms/Inserer/Reunion';
+import Professeur from './Component/Forms/Inserer/Professeur';
 import Home from './Component/Home';
-import ReunionForm from './Component/Forms/Reunion';
-import Professeur from './Component/Forms/Professeur';
 
 
 function App() {

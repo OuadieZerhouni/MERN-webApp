@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import ProfModalPresent from "./Modals/ProfModal";
-import ProfModalAbsent from "./Modals/ProfModal";
-import DepartModal from "./Modals/DepartModal";
+import ProfModalPresent from "../Modals/ProfModal";
+import ProfModalAbsent from "../Modals/ProfModal";
+import DepartModal from "../Modals/DepartModal";
 
 
 const ReunionForm = () => {
