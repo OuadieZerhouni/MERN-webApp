@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ProfModalPresent from "./Modals/ProfModal";
 import ProfModalAbsent from "./Modals/ProfModal";
+import DepartModal from "./Modals/DepartModal";
+
 
 const ReunionForm = () => {
   const [reunionDate, setReunionDate] = useState("");
@@ -11,9 +13,12 @@ const ReunionForm = () => {
   const [reunionProfPresent, setReunionProfPresent] = useState([]);
   const [reunionProfAbsent, setReunionProfAbsent] = useState([]);
   const [Professeurs, setProfesseurs] = useState([]);
+  const [SelectedDepart, setSelectedDepart] = useState("Not Selected");
 
   const [ProfModalPresentIsOpen, setProfModalPresentIsOpen] = useState(false);
   const [ProfModalAbsentIsOpen, setProfModalAbsentIsOpen] = useState(false);
+  const [Departements, setDepartements] = useState([]);
+  const [DepartModatIsOpen, setDepartModalIsOpen] = useState(false);
 
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
@@ -34,13 +39,37 @@ const ReunionForm = () => {
         console.error(error);
       });
   };
-  /*handle Modal*/
+  /*handle ProfModal*/
   const toggleModalPresent = () => {
-    setProfModalPresentIsOpen(!ProfModalPresentIsOpen);
-    console.log(ProfModalAbsentIsOpen);
-  };
+    if (SelectedDepart === "Not Selected") {
+      alert("Please Select Departement First");
+      return;
+    } else {
+      axios
+        .post(API_DATABASE + "/get/professeur/departement", {
+          id_Departement: reunionIdDepartement,
+        })
+        .then((response) => {
+          if(response.data.length === 0){alert("No Professeur in this Departement");return;}
+          setProfesseurs(response.data);
+          setProfModalPresentIsOpen(!ProfModalPresentIsOpen);
+        });
+  }}
   const toggleModalAbsent = () => {
-    setProfModalAbsentIsOpen(!ProfModalAbsentIsOpen);
+    if (SelectedDepart === "Not Selected") {
+      alert("Please Select Departement First");
+      return;
+    } else {
+      axios
+        .post(API_DATABASE + "/get/professeur/departement", {
+          id_Departement: reunionIdDepartement,
+        })
+        .then((response) => {
+          if(response.data.length === 0){alert("No Professeur in this Departement");return;}
+          setProfesseurs(response.data);
+          setProfModalAbsentIsOpen(!ProfModalAbsentIsOpen);
+        });
+    }
   };
 
   const handlePresentSelection = (Presents) => {
@@ -54,16 +83,30 @@ const ReunionForm = () => {
     setProfModalAbsentIsOpen(false);
   };
 
+  /*hanle departModal*/
+  const handleDepartModal = () => {
+    setDepartModalIsOpen(!DepartModatIsOpen);
+  };
+
+  const handleDepartementSelection = (Depart) => {
+    setSelectedDepart(Depart.Nom);
+    setReunionIdDepartement(Depart._id);
+    setReunionProfPresent([]);
+    setReunionProfAbsent([]);
+    setDepartModalIsOpen(false);
+  };
+
   useEffect(() => {
     axios
-      .post(API_DATABASE + "/get/professeur/all")
+      .post(API_DATABASE + "/get/departement/all")
       .then((response) => {
-        setProfesseurs(response.data);
+        setDepartements(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
   }, [API_DATABASE]);
+
 
   return (
     <div className="form">
@@ -92,13 +135,15 @@ const ReunionForm = () => {
       <label htmlFor="reunion-id-departement" className="form-label">
         Selectionez le Departement:
       </label>
-      <input
-        className="form-input"
-        type="text"
-        id="reunion-id-departement"
-        value={reunionIdDepartement}
-        onChange={(e) => setReunionIdDepartement(e.target.value)}
-      />
+      <button onClick={handleDepartModal} className="Modal-button">
+        {SelectedDepart}
+      </button>
+      <DepartModal
+        IsOpen={DepartModatIsOpen}
+        toggleModal={handleDepartModal}
+        Departements={Departements}
+        handleDepartementSelection={handleDepartementSelection}
+      ></DepartModal>
       <br />
       <label htmlFor="reunion-loj" className="form-label">
         Reunion LOJ:
