@@ -131,10 +131,11 @@ app.post('/get/professeur/email',async (req,res)=>{
     const professeur=await Professeur.getByEmail(req.body.Email);
     res.send(professeur);
 })
-app.post('/get/professeur/phone',async (req,res)=>{
-    const professeur=await Professeur.getByPhoneNumber(req.body.Phone);
+app.post('/get/professeur/departement',async (req,res)=>{
+    const professeur=await Professeur.getByDepartement(req.body.id_Departement);
     res.send(professeur);
 })
+
 
 /*---reunion---*/
 app.post('/insert/reunion',async (req,res)=>{

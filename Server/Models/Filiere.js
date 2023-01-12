@@ -19,10 +19,12 @@ const filiereSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
-  effectif: {
+  Effectif: {
     type: Number,
     required: true
   },
+  id_coordinateur: mongoose.Types.ObjectId,
+  id_departement: mongoose.Types.ObjectId,
   Options: [
     {
       Nom: {
@@ -59,8 +61,6 @@ const filiereSchema = new mongoose.Schema({
       },
     },
   ],
-  id_coordinateur: mongoose.Types.ObjectId,
-  id_departement: mongoose.Types.ObjectId,
 });
 
 const Filiere = mongoose.model("Filiere", filiereSchema);

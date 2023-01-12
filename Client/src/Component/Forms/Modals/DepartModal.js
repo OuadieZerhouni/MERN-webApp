@@ -14,7 +14,7 @@ export default function DepartModal({
     <div className="modal">
       <div onClick={toggleModal} className="overlay"></div>
       <div className="modal-content">
-        <h2>Selectionez le Chef de Departement</h2>
+        <h2>Selectionez le Departement Parent du Filiere</h2>
 
         <ul>
           {Departements.map((Departement) => (

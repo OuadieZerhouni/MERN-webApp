@@ -1,24 +1,24 @@
 const mongoose = require("mongoose");
 require('dotenv').config();
+const Departement = require('./Departement');
 mongoose.set("strictQuery", false);
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 
 const professeurSchema = new mongoose.Schema({
-  CIN: String,
-  PhoneNumber: String,
-  FullName: String,
-  email: String,
-  password: String,
-  departement_Name: String,
-  role: String,
+  CIN: {type:String, unique: true, required: true},
+  PhoneNumber:  {type:String, unique: true, required: true},
+  FullName:  {type:String, required: true},
+  email:  {type:String, unique: true, required: true},
+  password:  {type:String, unique: true, required: true},
+  role:  {type:String, required: true},
 });
 
 const Professeur = mongoose.model("Professeur", professeurSchema);
 
-class ProfesseurModel {
+class ProfesseurModel {//reutrn all info except password
     static async getAll() {
-        return await Professeur.find({}, { _id: 1, FullName: 1 });
+        return await Professeur.find({}, { _id: 1, FullName: 1 , CIN: 1, PhoneNumber: 1, email: 1, departement: 1, role: 1});
     }
     
     static async getById(id) {
@@ -28,10 +28,11 @@ class ProfesseurModel {
         return await Professeur.find({ CIN: CIN });
     }
     static async getByFullName(FullName) {
-        return await Professeur.find({ FullName: FullName });
+        return await Professeur.find({ FullName: FullName }, { _id: 1, FullName: 1 , CIN: 1, PhoneNumber: 1, email: 1, departement: 1, role: 1});
     }
-    static async getByDepartement(departement) {
-        return await Professeur.find({ departement: departement });
+    static async getByDepartement(departementId) {
+        let Depart = await Departement.getById(departementId)
+        return await Professeur.find({ _id: { $in: Depart.professeurs } }, { _id: 1, FullName: 1 , CIN: 1, PhoneNumber: 1, email: 1, departement: 1, role: 1});
     }
     static async insert(professeur) {
         return await new Professeur(professeur).save();

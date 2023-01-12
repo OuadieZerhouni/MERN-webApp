@@ -7,8 +7,7 @@ const ProfesseurForm = () => {
   const [professeurFullName, setProfesseurFullName] = useState("");
   const [professeurEmail, setProfesseurEmail] = useState("");
   const [professeurPassword, setProfesseurPassword] = useState("");
-  const [professeurDepartement, setProfesseurDepartement] = useState("");
-  const [professeurRole, setProfesseurRole] = useState("");
+  const [professeurRole, setProfesseurRole] = useState("PA");
 
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
@@ -20,7 +19,6 @@ const ProfesseurForm = () => {
         FullName: professeurFullName,
         email: professeurEmail,
         password: professeurPassword,
-        departement: professeurDepartement,
         role: professeurRole,
       })
       .then((response) => {
@@ -31,22 +29,23 @@ const ProfesseurForm = () => {
       });
   };
 
-  const handleGetAllProfesseurs = () => {
-    axios
-      .post(API_DATABASE + "/get/professeur/all", {})
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
+  //virefy emaill 
+  const handleEmail = (e) => {
+    const email = e;
+    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let Error= document.getElementsByClassName('Error')[0]
+    if (emailRegex.test(email)) {
+      setProfesseurEmail(email);
+      Error.innerHTML=""
+    } else {
+      Error.innerHTML="Email is not valid"
+    }
+  }
   return (
     <div className="form">
       <label htmlFor="professeur-cin" className="form-label">
         {" "}
-        Professeur CIN:{" "}
+        CIN:{" "}
       </label>
       <input
         className="form-input"
@@ -57,8 +56,8 @@ const ProfesseurForm = () => {
       />
       <br />
       <label htmlFor="professeur-phone-number" className="form-label">
-        {" "}
-        Professeur Phone Number:{" "}
+     
+        N° de telephone:
       </label>
       <input
         className="form-input"
@@ -70,20 +69,21 @@ const ProfesseurForm = () => {
       />
       <br />
       <label htmlFor="professeur-full-name" className="form-label">
-        {" "}
-        Professeur Full Name:{" "}
+       
+        Nom & prénom:
       </label>
       <input
         className="form-input"
         type="text"
         id="professeur-full-name"
+        pattern="[A-Za-z]{1,32}"
         value={professeurFullName}
         onChange={(e) => setProfesseurFullName(e.target.value)}
       />
       <br />
       <label htmlFor="professeur-email" className="form-label">
-        {" "}
-        Professeur Email:{" "}
+       
+        Email:
       </label>
       <input
         className="form-input"
@@ -91,11 +91,12 @@ const ProfesseurForm = () => {
         id="professeur-email"
         value={professeurEmail}
         onChange={(e) => setProfesseurEmail(e.target.value)}
+        onBlur={(e) => handleEmail(e.target.value)}
       />
       <br />
       <label htmlFor="professeur-password" className="form-label">
-        {" "}
-        Professeur Password:{" "}
+       
+        Mot de Pass:
       </label>
       <input
         className="form-input"
@@ -105,21 +106,9 @@ const ProfesseurForm = () => {
         onChange={(e) => setProfesseurPassword(e.target.value)}
       />
       <br />
-      <label htmlFor="professeur-departement" className="form-label">
-        {" "}
-        Professeur Departement:{" "}
-      </label>
-      <input
-        className="form-input"
-        type="text"
-        id="professeur-departement"
-        value={professeurDepartement}
-        onChange={(e) => setProfesseurDepartement(e.target.value)}
-      />
-      <br />
       <label htmlFor="professeur-role" className="form-label">
-        {" "}
-        Professeur Role:{" "}
+        
+        Professeur Role:
       </label>
       <select
         className="form-input"
@@ -133,13 +122,14 @@ const ProfesseurForm = () => {
       </select>
 
       <br />
+      <div className="Error"></div>
       <button
         className="form-button"
         type="button"
         onClick={handleInsertProfesseur}
       >
-        {" "}
-        Insert Professeur{" "}
+        
+        Insérer
       </button>
     </div>
   );

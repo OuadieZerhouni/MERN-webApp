@@ -21,10 +21,10 @@ export default function ChefModal({
             <li
               key={professeur._id}
               onClick={() =>
-                handleChefSelection([professeur._id, professeur.FullName])
+                handleChefSelection(professeur._id, professeur.FullName)
               }
             >
-              {professeur.FullName}
+              {professeur.FullName} : {"(" + professeur.email + ")"}
             </li>
           ))}
         </ul>

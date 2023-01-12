@@ -26,7 +26,6 @@ const DepartementSchema = new mongoose.Schema({
     required: true,
   },
   professeurs: [{ type: mongoose.Types.ObjectId, ref: "professeurs" }],
-  Filieres: [{ type: mongoose.Types.ObjectId, ref: "Filieres" }],
 });
 const Departement = mongoose.model("departement", DepartementSchema);
 
@@ -42,7 +41,7 @@ class DepartementModel {
   }
 
   static async getById(id) {
-    return await Departement.findById(id);
+    return await Departement.findById(id).exec();
   }
   static async getByNom(nom) {
     return await Departement.find({ Nom: nom });

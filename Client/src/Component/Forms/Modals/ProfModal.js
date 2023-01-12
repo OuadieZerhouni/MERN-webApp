@@ -27,7 +27,7 @@ return ReactDom.createPortal(
     <div className="modal">
       <div onClick={toggleModal} className="overlay"></div>
       <div className="modal-content">
-        <h2>Selectionez le Chef de Departement</h2>
+        <h2>Selectionez Les Porfesseurs</h2>
 
         <ul>
           {professeurs.map((professeur) => (
@@ -36,7 +36,7 @@ return ReactDom.createPortal(
               onClick={(e) => handelClick(e ,professeur._id)}
               className={`${AlreadySelectedProf.includes(professeur._id) ? "selected" : ""}`}
             >
-              {professeur.FullName}
+              {professeur.FullName} : {"(" + professeur.email + ")"}
             </li>
           ))}
         </ul>
