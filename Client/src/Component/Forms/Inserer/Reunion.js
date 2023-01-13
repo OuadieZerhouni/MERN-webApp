@@ -28,9 +28,9 @@ const ReunionForm = () => {
         Date: reunionDate,
         lieu: reunionLieu,
         id_departement: reunionIdDepartement,
-        LOJ: [reunionLoj],
-        prof_present: [reunionProfPresent],
-        prof_absent: [reunionProfAbsent],
+        LOJ: reunionLoj,
+        prof_present: reunionProfPresent,
+        prof_absent: reunionProfAbsent,
       })
       .then((response) => {
         window.location.href = "/";

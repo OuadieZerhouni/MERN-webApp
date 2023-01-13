@@ -5,15 +5,20 @@ import DepartementForm from './Component/Forms/Inserer/Departement';
 import FiliereForm from './Component/Forms/Inserer/Filiere';
 import ReunionForm from './Component/Forms/Inserer/Reunion';
 import Professeur from './Component/Forms/Inserer/Professeur';
+import Header from './Component/Header';
 import Home from './Component/Home';
+
 
 
 function App() {
   return (
     <div className="App">
-      <Router>
+      
+      <Router> 
+      <Header/>
+     
         <Routes>
-          <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />} />
           <Route path="/Add/Departement" element={<DepartementForm />} />
           <Route path="/Add/Filiere" element={<FiliereForm />} />
           <Route path="/Add/Reunion" element={<ReunionForm />} />
