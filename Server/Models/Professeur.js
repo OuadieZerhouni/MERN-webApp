@@ -34,6 +34,10 @@ class ProfesseurModel {//reutrn all info except password
         let Depart = await Departement.getById(departementId)
         return await Professeur.find({ _id: { $in: Depart.professeurs } }, { _id: 1, FullName: 1 , CIN: 1, PhoneNumber: 1, email: 1, departement: 1, role: 1});
     }
+    static async getByEmail(email) {
+    let prof=Professeur.find({email:email});
+    }
+
     static async insert(professeur) {
         return await new Professeur(professeur).save();
     }
