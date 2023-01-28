@@ -1,22 +1,18 @@
 header {
-    background-color: #1e1e1e;
+    background-color: #3a81b1;
     height: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-    
-    
-
+    padding: 0 20px; ;
     
   }
   
   header img {
-    width: 50px;
-    height: 50px;
+    height: 50px; 
   }
   
-  header ul {
+.ul-header {
     display: flex;
     flex-direction: row;
     list-style: none;
@@ -25,29 +21,62 @@ header {
 
   }
   
-  header li {
+  .header-list {
+    color:inherit;
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #0084ff;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 300ms;
     margin: 0 10px;
-    font-size: 20px;
+    padding: auto;
+    border: none;
   }
-  
-  header a {
+  .header-list a{
+    color:inherit;
     text-decoration: none;
-    color: white;
   }
-  
-  header ul li ul {
+  .header-list:hover{
+    background-color: #5c93c7;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 2);
+  }
+  .ul-hover{
+    
+    color:inherit;
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #0084ff;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 300ms;
+    margin: 0 10px;
+    padding: auto;
+    border: none;
+  }
+  .ul-hover ul {
     display: none;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    background-color: white;
+  }.ul-hover:hover{
+    background-color: #5c93c7;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 2);
   }
-  
-  header ul li:hover ul {
+  .ul-hover:hover ul{
     display: block;
     position: absolute;
-    top: 50px;
-    left: 0;
-    background-color: white;
+    list-style: none;
+    background-color: #4784df;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    padding: 0 10px ;
   }
+ 
   
