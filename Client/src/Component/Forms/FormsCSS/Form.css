@@ -42,7 +42,7 @@
     background-color: #2495ff;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 2);
   }
-  a{
+  /* a{
     text-decoration: none;
     color:inherit;
     display: inline-block;
@@ -59,7 +59,7 @@
   a:hover{
     background-color: #5c93c7;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 2);
-  }
+  } */
   .Modal-button{
     width: 80%;
     height: 40px;

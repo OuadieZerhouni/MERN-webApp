@@ -21,11 +21,17 @@ class Header extends React.Component {
         <Link to="/">
           <img src={logo} alt="Logo" />
         </Link>
-        <ul>
-          <li>
+        <ul className='ul-header'>
+          <li  className='header-list'>
             <Link to="/">Home</Link>
           </li>
-          <li onClick={this.toggleContactList}>
+          <li className='header-list'>
+            <Link to="/departments">Departments</Link>
+          </li>
+          <li className='header-list'>
+            <Link to="/filiere">Filiere</Link>
+          </li>
+          <li className='ul-hover' onClick={this.toggleContactList}>
             Contact
             {this.state.showContactList && (
               <ul>
@@ -35,15 +41,14 @@ class Header extends React.Component {
               </ul>
             )}
           </li>
-          <li>
+          <li className='header-list'>
             <Link to="/about">About Us</Link>
           </li>
-          <li>
-            <Link to="/departments">Departments</Link>
+          
+          <li className='header-list'>
+            <Link to="/login">Log-in</Link>
           </li>
-          <li>
-            <Link to="/filiere">Filiere</Link>
-          </li>
+
         </ul>
       </header>
     );

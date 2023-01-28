@@ -16,9 +16,10 @@ export default function ChefModal({
       <div className="modal-content">
         <h2>Selectionez le Chef de Departement</h2>
 
-        <ul>
+        <ul className="modal-ul">
           {professeurs.map((professeur) => (
             <li
+            className="modal-list"
               key={professeur._id}
               onClick={() =>
                 handleChefSelection(professeur._id, professeur.FullName)

@@ -28,12 +28,12 @@ export default function FiliereModal({
       <div onClick={toggleModal} className="overlay"></div>
       <div className="modal-content">
         <h2>Select Filieres</h2>
-        <ul>
+        <ul className="modal-ul">
           {filieres.map((filiere) => (
-            <li
+            <li 
               key={filiere._id}
               onClick={(e) => handleClick(e, filiere._id)}
-              className={`${AlreadySelectedFilieres.includes(filiere._id) ? "selected" : ""}`}
+              className={"modal-list "+`${AlreadySelectedFilieres.includes(filiere._id) ? "selected" : ""}`}
             >
               {filiere.Nom}
             </li>

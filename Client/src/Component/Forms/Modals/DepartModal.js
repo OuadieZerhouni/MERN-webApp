@@ -16,9 +16,9 @@ export default function DepartModal({
       <div className="modal-content">
         <h2>Selectionez le Departement Parent du Filiere</h2>
 
-        <ul>
+        <ul className="modal-ul">
           {Departements.map((Departement) => (
-            <li
+            <li className="modal-list"
               key={Departement._id}
               onClick={(e) => handleDepartementSelection(Departement)}
             >
