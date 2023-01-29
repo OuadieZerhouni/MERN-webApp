@@ -14,6 +14,10 @@ class Header extends React.Component {
   toggleContactList = () => {
     this.setState({ showContactList: !this.state.showContactList });
   }
+  Logout = () => {
+    localStorage.removeItem('token');
+    window.location.reload();
+  }
 
   render() {
     return (
@@ -44,12 +48,13 @@ class Header extends React.Component {
           <li className='header-list'>
             <Link to="/about">About Us</Link>
           </li>
-          
-          <li className='header-list'>
-            <Link to="/login">Log-in</Link>
-          </li>
-
+          {localStorage.getItem('token') && (
+            <li className='header-list' onClick={this.Logout}>
+              Log-out
+            </li>
+          )}
         </ul>
+
       </header>
     );
   }

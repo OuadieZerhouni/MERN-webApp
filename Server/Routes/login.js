@@ -9,8 +9,9 @@ app.use(express.json());
 //recive the request from '/' and take email and password and verify them
 app.post('/',async (req,res)=>{
     const {email,password}=req.body;
-    const prof=await professeur.getByEmail(email);
+    const prof=await professeur.getByEmail(email)
     if(prof){
+        console.log(prof.password);
         if(prof.password===password){
             const token=jwt.sign({id:prof._id},process.env.SECRET_KEY);
             //send token a "prof" to the client

@@ -23,8 +23,13 @@ const filiereSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  id_coordinateur: mongoose.Types.ObjectId,
-  id_departement: mongoose.Types.ObjectId,
+  id_coordinateur: {type:mongoose.Types.ObjectId,
+    ref:"professeurs",
+    required:true},
+  id_departement: {
+    type: mongoose.Types.ObjectId,
+    ref: "departements",
+    required: true,},
   Options: [
     {
       Nom: {
@@ -53,11 +58,8 @@ const filiereSchema = new mongoose.Schema({
           type: String,
           required: true
         },
-        Semestre: Number,
-        Date_Creation: {
-          type: Date,
-          required: true
-        },
+        
+        
       },
     },
   ],

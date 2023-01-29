@@ -23,7 +23,6 @@ const DepartementSchema = new mongoose.Schema({
   Date_Creation: { type: Date, required: true },
   id_Chef: {
     type: String,
-    required: true,
   },
   professeurs: [{ type: mongoose.Types.ObjectId, ref: "professeurs" }],
 });

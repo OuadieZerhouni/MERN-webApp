@@ -1,10 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./ComponentCSS/Home.css";
+
+
+
+
 export default function Home() {
+    
   return (
     <div>
-      <h1>Home</h1>
+      {/* <a href="/Add/Departement">Insert Departement</a>
+      <a href="/Add/Filiere">Insert Filiere</a>
+      <a href="/Add/Reunion">Insert Reunion</a>
+      <a href="/Add/Professeur">Insert Professeur</a> */}
       <Link to="/Add/Departement">
         <button className="Insert-Btn">Insert Departement</button>
       </Link>

@@ -16,8 +16,10 @@ export default function Login() {
         if (res.data["error"]) {
           document.getElementById("error").innerHTML = res.data["error"];
         } else {
-          localStorage.setItem("jwt", res.data.token);
-            localStorage.setItem("role", res.data.role);
+          localStorage.setItem("token", res.data.token);
+          console.log(res.data.token)
+          localStorage.setItem("role", res.data.role);
+          window.location.href = "/Dashboard";
             
         }
       });

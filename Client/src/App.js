@@ -9,6 +9,7 @@ import Professeur from './Component/Forms/Inserer/Professeur';
 import Header from './Component/Header';
 import Home from './Component/Home';
 import Login from './Component/Forms/Login';
+import Dashboard from './Component/Dashboard';
 import {  useEffect } from 'react';
 
 
@@ -34,6 +35,7 @@ const WithAuthDepartementForm = withAuth(DepartementForm);
 const WithAuthFiliereForm = withAuth(FiliereForm);
 const WithAuthReunionForm = withAuth(ReunionForm);
 const WithAuthProfesseur = withAuth(Professeur);
+const WithAuthDashboard = withAuth(Dashboard);
 
 function App() {
   return (
@@ -48,6 +50,7 @@ function App() {
           <Route path="/Add/Filiere" element={<WithAuthFiliereForm />} />
           <Route path="/Add/Reunion" element={<WithAuthReunionForm />} />
           <Route path="/Add/Professeur" element={<WithAuthProfesseur />} />
+          <Route path="/DashBoard" element={<WithAuthDashboard />} />
           <Route path="/Login" element={<Login />} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
