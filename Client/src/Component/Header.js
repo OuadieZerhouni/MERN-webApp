@@ -4,16 +4,9 @@ import "./ComponentCSS/Header.css"
 import logo from '../Logo.png';
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showContactList: false
-    };
-  }
+  
 
-  toggleContactList = () => {
-    this.setState({ showContactList: !this.state.showContactList });
-  }
+
   Logout = () => {
     localStorage.removeItem('token');
     window.location.reload();
@@ -35,16 +28,7 @@ class Header extends React.Component {
           <li className='header-list'>
             <Link to="/filiere">Filiere</Link>
           </li>
-          <li className='ul-hover' onClick={this.toggleContactList}>
-            Contact
-            {this.state.showContactList && (
-              <ul>
-                <li>Email: contact@example.com</li>
-                <li>Phone: 555-555-5555</li>
-                <li>Address: 123 Main St</li>
-              </ul>
-            )}
-          </li>
+          
           <li className='header-list'>
             <Link to="/about">About Us</Link>
           </li>

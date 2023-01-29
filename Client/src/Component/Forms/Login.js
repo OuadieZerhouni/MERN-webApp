@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import "./FormsCSS/login.css";
+import "./FormsCSS/Form.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -36,27 +36,27 @@ export default function Login() {
   };
 
     return (
-        <div className="login">
-            <div className="loginRight">
+        <div className="form">
+            
                 <div className="loginBox">
                     <h3>Log-in</h3>
-                    <label htmlFor="email">Email :</label>
+                    <label htmlFor="email" className="form-label">Email :</label>
                     <input
                         type="email"
                         placeholder="Email"
-                        className="loginInput"
+                        className="form-input"
                         onChange={(e) => setEmail(e.target.value)}
                         onBlur={(e) => CheckEmail(e.target.value)}
                     />
 
-                    <label htmlFor="password">Password :</label>
+                    <label htmlFor="password" className="form-label">Password :</label>
                     <input
                         type="password"
                         placeholder="Password"
-                        className="loginInput"
+                        className="form-input"
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <button className="loginButton" onClick={HandleLogin}>
+                    <button className="form-button" onClick={HandleLogin}>
                         Log In
                     </button>
                     <p id="error"></p>
@@ -64,7 +64,6 @@ export default function Login() {
                             <Link className="link" to="/register">Create a New Account</Link>
                         </button> */}
                 </div>
-            </div>
         </div>
     );
 }

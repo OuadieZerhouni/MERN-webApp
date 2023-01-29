@@ -1,5 +1,5 @@
 .Insert-Btn{
-    background-color: #0084ff;
+    background-color: #0A2E5F;
     border: none;
     color: white;
     padding: 15px ;
@@ -11,6 +11,10 @@
     cursor: pointer;
 }
 .Insert-Btn:hover{
-    background-color: #5c93c7;
+    background-color: #333333;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 2);
+}
+.Home-cont{
+    padding-left: 50px;
+    
 }
