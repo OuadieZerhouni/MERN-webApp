@@ -8,22 +8,21 @@ export default function Login() {
 
   let proxy = process.env.REACT_APP_proxy;
   const HandleLogin = () => {
-    axios.post(`${proxy}/login`, {
+    axios
+      .post(`${proxy}/login`, {
         email: email,
-        password: password
+        password: password,
       })
       .then((res) => {
         if (res.data["error"]) {
           document.getElementById("error").innerHTML = res.data["error"];
         } else {
           localStorage.setItem("token", res.data.token);
-          console.log(res.data.token)
+          console.log(res.data.token);
           localStorage.setItem("role", res.data.role);
           window.location.href = "/Dashboard";
-            
         }
       });
-
   };
   const CheckEmail = (_email) => {
     const emailRegex =
@@ -35,35 +34,36 @@ export default function Login() {
     }
   };
 
-    return (
-        <div className="form">
-            
-                <div className="loginBox">
-                    <h3>Log-in</h3>
-                    <label htmlFor="email" className="form-label">Email :</label>
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        className="form-input"
-                        onChange={(e) => setEmail(e.target.value)}
-                        onBlur={(e) => CheckEmail(e.target.value)}
-                    />
+  return (
+    <div className="form">
+        <h3>Log-in</h3>
+        <label htmlFor="email" className="form-label">
+          Email :
+        </label>
+        <input
+          type="email"
+          placeholder="Email"
+          className="form-input"
+          onChange={(e) => setEmail(e.target.value)}
+          onBlur={(e) => CheckEmail(e.target.value)}
+        />
 
-                    <label htmlFor="password" className="form-label">Password :</label>
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        className="form-input"
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <button className="form-button" onClick={HandleLogin}>
-                        Log In
-                    </button>
-                    <p id="error"></p>
-                    {/* <button className="loginRegisterButton">
+        <label htmlFor="password" className="form-label">
+          Password :
+        </label>
+        <input
+          type="password"
+          placeholder="Password"
+          className="form-input"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button className="form-button" type="button" onClick={HandleLogin}>
+          Log In
+        </button>
+        <p id="error" className="Error"></p>
+        {/* <button className="loginRegisterButton">
                             <Link className="link" to="/register">Create a New Account</Link>
                         </button> */}
-                </div>
-        </div>
-    );
+    </div>
+  );
 }

@@ -1,14 +1,16 @@
 .Insert-Btn{
-    background-color: #0A2E5F;
-    border: none;
-    color: white;
-    padding: 15px ;
-    text-align: center;
-    text-decoration: none;
+    color:inherit;
     display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    background-color: #0A2E5F;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
+    transition: 300ms;
+    margin: 0 10px;
+    padding: auto;
 }
 .Insert-Btn:hover{
     background-color: #333333;

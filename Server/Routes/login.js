@@ -12,17 +12,16 @@ app.post('/',async (req,res)=>{
     const prof=await professeur.getByEmail(email)
     if(prof){
         console.log(prof.password);
-        if(prof.password===password){
-            const token=jwt.sign({id:prof._id},process.env.SECRET_KEY);
-            //send token a "prof" to the client
+        if(prof.password===password){//expire in 24 hour
+            const token=jwt.sign({"id":prof._id},process.env.SECRET_KEY,{expiresIn:60*60*24})
             res.send({token,"role":prof.role});
         }
         else{
-            res.send({"error":"wrong password"});
+            res.send({"error":"wrong password !"});
         }
     }
     else{
-        res.send({"error":"wrong email"});
+        res.send({"error":"wrong email !"});
     }
 })
 
