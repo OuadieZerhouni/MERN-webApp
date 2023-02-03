@@ -12,8 +12,7 @@ const FiliereForm = () => {
   const [filiereCoordinateur, setFiliereCoordinateur] = useState("");
 
   const [SelectedDepart, setSelectedDepart] = useState("Not Selected");
-  const [SelectedCoordinateur, setSelectedCoordinateur] =
-    useState("Not Selected");
+  const [SelectedCoordinateur, setSelectedCoordinateur] = useState("Not Selected");
 
   const [Departements, setDepartements] = useState([]);
   const [Professeurs, setProfesseurs] = useState([]);
@@ -47,7 +46,9 @@ const FiliereForm = () => {
         Effectif: filiereEffectif,
         id_coordinateur: filiereCoordinateur,
         id_departement: filiereIdDepartement,
-      })
+      },
+      { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+      )
       .then((response) => {
         console.log(response);
         window.location.href="/";
@@ -78,7 +79,8 @@ const FiliereForm = () => {
       axios
         .post(API_DATABASE + "/get/professeur/departement", {
           id_Departement: filiereIdDepartement,
-        })
+        },
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } })
         .then((response) => {
           if(response.data.length === 0){alert("No Professeur in this Departement");return;}
           setProfesseurs(response.data);
@@ -95,9 +97,12 @@ const FiliereForm = () => {
   };
 
   useEffect(() => {
-    axios.post(API_DATABASE + "/get/departement/all").then((response) => {
+    axios.post(API_DATABASE + "/get/departement/all",{},
+    { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }}
+    ).then((response) => {
       setDepartements(response.data);
-    });
+    })
+
   }, [API_DATABASE]);
 
   return (

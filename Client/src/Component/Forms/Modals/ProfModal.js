@@ -34,7 +34,7 @@ return ReactDom.createPortal(
             <li
               key={professeur._id}
               onClick={(e) => handelClick(e ,professeur._id)}
-              className={"modal-list"+`${AlreadySelectedProf.includes(professeur._id) ? "selected" : ""}`}
+              className={`modal-list ${AlreadySelectedProf.includes(professeur._id) ? "selected" : ""}`}
             >
               {professeur.FullName} : {"(" + professeur.email + ")"}
             </li>

@@ -8,7 +8,6 @@ export default function DepartModal({
   Departements,
   handleDepartementSelection,
 }) {
-    console.log(IsOpen)
   if (!IsOpen) return null;
   return ReactDom.createPortal(
     <div className="modal">

@@ -42,19 +42,7 @@ const DepartementForm = () => {
     setProfModalIsOpen(!ProfModalIsOpen);
   };
 
-  /* Filiere Modal handling */
-
-  // const handleFiliereSelection = (filiereIds) => {
-  //   setDepartementFilieres(filiereIds);
-  //   setFiliereModalIsOpen(false);
-
-  // };
-  // const toggleFiliereModal = () => {
-  //   setFiliereModalIsOpen(!FiliereModalIsOpen);
-  // };
-
   const handleInsertDepartement = (button) => {
-    //verifie si les champs sont remplis
     if (
       departementNom === "" ||
       departementDescription === "" ||
@@ -67,14 +55,19 @@ const DepartementForm = () => {
 
     button.target.disabled = true;
     axios
-      .post(API_DATABASE + "/insert/departement", {
-        Nom: departementNom,
-        description: departementDescription,
-        Date_Creation: departementDateCreation,
-        id_Chef: departementIdChef,
-        professeurs: departementProfesseurs,
-        // Filieres: departementFilieres,
-      })
+      .post(
+        API_DATABASE + "/insert/departement",
+        {
+          Nom: departementNom,
+          description: departementDescription,
+          Date_Creation: departementDateCreation,
+          id_Chef: departementIdChef,
+          professeurs: departementProfesseurs,
+        },
+        {
+          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+        }
+      )
       .then((response) => {
         window.location.href = "/";
       })
@@ -84,12 +77,20 @@ const DepartementForm = () => {
   };
 
   useEffect(() => {
-    axios.post(API_DATABASE + "/get/professeur/all").then((response) => {
-      setProfesseurs(response.data);
-    });
-    // axios.post(API_DATABASE + "/get/filiere/all").then((response) => {
-    //   setFilieres(response.data);
-    // })
+    //sent the token to the server in header to verify the user
+    axios
+      .post(
+        API_DATABASE + "/get/professeur/all",
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((response) => {
+        setProfesseurs(response.data);
+      });
   }, [API_DATABASE]);
 
   return (

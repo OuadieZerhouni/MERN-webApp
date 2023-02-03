@@ -1,14 +1,29 @@
 const express=require('express');
 const app=express();
+
 const Filiere=require('../Models/Filiere');
 const Professeur=require('../Models/Professeur');
 const Departement=require('../Models/Departement');
 const Reunion=require('../Models/Reunion');
 
+const verifyToken=(req,res,next)=>{
+    const bearerHeader=req.headers['authorization'];
+    if(typeof bearerHeader !== 'undefined'){
+        const bearer=bearerHeader.split(' ');
+        const bearerToken=bearer[1];
+        req.token=bearerToken;
+        next();
+    }else{
+        res.sendStatus(403);
+    }
+}
+app.use(verifyToken);
+
 /*-------departement-------*/
 app.post('/insert/departement',async (req,res)=>{
     const departement=await Departement.insert(req.body);
     res.send(departement);
+    console.log(departement);
 });
 
 app.post('/get/departement/all',async (req,res)=>{
@@ -84,7 +99,7 @@ app.post('/update/options',async (req,res)=>{
     res.send(options);
 })
 
-//CRUD emploi du temps
+/*---- emploi du temps------*/
 app.post('/get/emploiTemps/option',async (req,res)=>{
     const emploiTemps=await Filiere.getEmploiTempsByOptionId(req.body.option_id);
     res.send(emploiTemps);
@@ -166,7 +181,7 @@ app.post('/get/reunion/departement',async (req,res)=>{
     const reunion=await Reunion.getByDepartement(req.body.id_Departement);
     res.send(reunion);
 })
-//CRUD pv
+/*----PV-----*/
 app.post('/insert/pv',async (req,res)=>{
     const pv=await Reunion.insertPV(req.body.reunion_id,req.body.pv);
     res.send(pv);
@@ -184,7 +199,7 @@ app.post('/update/pv',async (req,res)=>{
     res.send(pv);
 })
 
-//crud comment
+/*----commentaire-----*/
 app.post('/insert/comment',async (req,res)=>{
     const comment=await Reunion.AddComment(req.body.reunion_id,req.body.comment);
     res.send(comment);
@@ -203,9 +218,6 @@ app.post('/update/comment',async (req,res)=>{
 })
 
 module.exports=app;
-
-
-
 
 
 

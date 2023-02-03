@@ -23,6 +23,7 @@ const professeurSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+
   password: {
     type: String,
     unique: true,
@@ -30,6 +31,11 @@ const professeurSchema = new mongoose.Schema({
   },
   grade: {
     type: String,
+    required: true,
+  },
+  id_departement: {
+    type: mongoose.Types.ObjectId,
+    ref: "departements",
     required: true,
   },
 });

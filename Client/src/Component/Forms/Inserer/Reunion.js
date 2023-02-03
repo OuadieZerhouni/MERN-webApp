@@ -4,7 +4,6 @@ import ProfModalPresent from "../Modals/ProfModal";
 import ProfModalAbsent from "../Modals/ProfModal";
 import DepartModal from "../Modals/DepartModal";
 
-
 const ReunionForm = () => {
   const [reunionDate, setReunionDate] = useState("");
   const [reunionLieu, setReunionLieu] = useState("");
@@ -21,17 +20,24 @@ const ReunionForm = () => {
   const [DepartModatIsOpen, setDepartModalIsOpen] = useState(false);
 
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
-
   const handleInsertReunion = () => {
     axios
-      .post(API_DATABASE + "/insert/reunion", {
-        Date: reunionDate,
-        lieu: reunionLieu,
-        id_departement: reunionIdDepartement,
-        LOJ: reunionLoj,
-        prof_present: reunionProfPresent,
-        prof_absent: reunionProfAbsent,
-      })
+      .post(
+        API_DATABASE + "/insert/reunion",
+        {
+          Date: reunionDate,
+          lieu: reunionLieu,
+          id_departement: reunionIdDepartement,
+          LOJ: reunionLoj,
+          prof_present: reunionProfPresent,
+          prof_absent: reunionProfAbsent,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      )
       .then((response) => {
         window.location.href = "/";
       })
@@ -39,6 +45,7 @@ const ReunionForm = () => {
         console.error(error);
       });
   };
+
   /*handle ProfModal*/
   const toggleModalPresent = () => {
     if (SelectedDepart === "Not Selected") {
@@ -46,26 +53,49 @@ const ReunionForm = () => {
       return;
     } else {
       axios
-        .post(API_DATABASE + "/get/professeur/departement", {
-          id_Departement: reunionIdDepartement,
-        })
+        .post(
+          API_DATABASE + "/get/professeur/departement",
+          {
+            id_Departement: reunionIdDepartement,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
         .then((response) => {
-          if(response.data.length === 0){alert("No Professeur in this Departement");return;}
+          if (response.data.length === 0) {
+            alert("No Professeur in this Departement");
+            return;
+          }
           setProfesseurs(response.data);
           setProfModalPresentIsOpen(!ProfModalPresentIsOpen);
         });
-  }}
+    }
+  };
   const toggleModalAbsent = () => {
     if (SelectedDepart === "Not Selected") {
       alert("Please Select Departement First");
       return;
     } else {
       axios
-        .post(API_DATABASE + "/get/professeur/departement", {
-          id_Departement: reunionIdDepartement,
-        })
+        .post(
+          API_DATABASE + "/get/professeur/departement",
+          {
+            id_Departement: reunionIdDepartement,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
         .then((response) => {
-          if(response.data.length === 0){alert("No Professeur in this Departement");return;}
+          if (response.data.length === 0) {
+            alert("No Professeur in this Departement");
+            return;
+          }
           setProfesseurs(response.data);
           setProfModalAbsentIsOpen(!ProfModalAbsentIsOpen);
         });
@@ -98,7 +128,13 @@ const ReunionForm = () => {
 
   useEffect(() => {
     axios
-      .post(API_DATABASE + "/get/departement/all")
+      .post(
+        API_DATABASE + "/get/departement/all",
+        {},
+        {
+          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+        }
+      )
       .then((response) => {
         setDepartements(response.data);
       })
@@ -106,7 +142,6 @@ const ReunionForm = () => {
         console.error(error);
       });
   }, [API_DATABASE]);
-
 
   return (
     <div className="form">
@@ -182,7 +217,6 @@ const ReunionForm = () => {
         className="Modal-button"
         id="reunion-prof-absent"
       >
-       
         Selectionner
       </button>
       <ProfModalAbsent

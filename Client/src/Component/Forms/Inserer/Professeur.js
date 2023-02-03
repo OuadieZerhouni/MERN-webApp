@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import axios from "axios";
+import DepartModal from "../Modals/DepartModal";
+
 
 const ProfesseurForm = () => {
   const [professeurCIN, setProfesseurCIN] = useState("");
@@ -8,6 +10,10 @@ const ProfesseurForm = () => {
   const [professeurEmail, setProfesseurEmail] = useState("");
   const [professeurPassword, setProfesseurPassword] = useState("");
   const [professeurRole, setProfesseurRole] = useState("PA");
+  const [professeurDepartement, setProfesseurDepartement] = useState("");
+  const [Departements, setDepartements] = useState([]);
+  const [DepartModatIsOpen, setDepartModalIsOpen] = useState(false);
+  const [SelectedDepart, setSelectedDepart] = useState("Not Selected");
 
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
@@ -19,8 +25,9 @@ const ProfesseurForm = () => {
         FullName: professeurFullName,
         email: professeurEmail,
         password: professeurPassword,
-        role: professeurRole,
-      })
+        grade: professeurRole,
+        id_departement: professeurDepartement,
+      },{headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
       .then((response) => {
         console.log(response.data);
       })
@@ -41,6 +48,28 @@ const ProfesseurForm = () => {
       Error.innerHTML="Email is not valid"
     }
   }
+  
+  /*hanle departModal*/
+  const handleDepartModal = () => {
+    setDepartModalIsOpen(!DepartModatIsOpen);
+  };
+
+  const handleDepartementSelection = (Depart) => {
+    setSelectedDepart(Depart.Nom);
+    setProfesseurDepartement(Depart.Nom);
+    setDepartModalIsOpen(false);
+  };
+
+ useEffect(() => {
+    axios.post(API_DATABASE + "/get/departement/all",{},
+    { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }}
+    ).then((response) => {
+      setDepartements(response.data);
+    })
+
+  }, [API_DATABASE]);
+
+
   return (
     <div className="form">
       <label htmlFor="professeur-cin" className="form-label">
@@ -122,6 +151,19 @@ const ProfesseurForm = () => {
       </select>
 
       <br />
+      <br />
+      <label htmlFor="filiere-id-departement" className="form-label">
+        Filiere Id Departement:
+      </label>
+      <button onClick={handleDepartModal} className="Modal-button">
+        {SelectedDepart}
+      </button>
+      <DepartModal
+        IsOpen={DepartModatIsOpen}
+        toggleModal={handleDepartModal}
+        Departements={Departements}
+        handleDepartementSelection={handleDepartementSelection}
+      ></DepartModal>
       <div className="Error"></div>
       <button
         className="form-button"

@@ -15,10 +15,16 @@ class Header extends React.Component {
   render() {
     return (
       <header>
+        
         <Link to="/">
           <img src={logo} alt="Logo" />
         </Link>
         <ul className='ul-header'>
+        {localStorage.getItem('token') && (
+             <li className='header-list' >
+             <Link to="/Dashboard">Dashboard</Link>
+           </li>
+          )}
           <li  className='header-list'>
             <Link to="/">Home</Link>
           </li>
@@ -35,6 +41,11 @@ class Header extends React.Component {
           {localStorage.getItem('token') && (
             <li className='header-list' onClick={this.Logout}>
               Log-out
+            </li>
+          )}
+          {!localStorage.getItem('token') && (
+            <li className='header-list' >
+              <Link to="/login">Log-in</Link>
             </li>
           )}
         </ul>

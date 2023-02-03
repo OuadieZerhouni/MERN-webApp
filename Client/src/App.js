@@ -50,7 +50,7 @@ function App() {
           <Route path="/Add/Filiere" element={<WithAuthFiliereForm />} />
           <Route path="/Add/Reunion" element={<WithAuthReunionForm />} />
           <Route path="/Add/Professeur" element={<WithAuthProfesseur />} />
-          <Route path="/DashBoard" element={<WithAuthDashboard />} />
+          <Route path="/Dashboard" element={<WithAuthDashboard />} />
           <Route path="/Login" element={<Login />} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
