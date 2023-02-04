@@ -5,9 +5,7 @@ export default function Home() {
   return (
     <div className="Home-cont">
       <h1>Home</h1>
-      <Link to="/Login">
-        <button className="Insert-Btn">Login</button>
-      </Link>
+      
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./ComponentCSS/Home.css";
+import Sidebar from "./SideBar";
 
 
 
@@ -21,6 +22,9 @@ export default function Home() {
       <Link to="/Add/Professeur">
         <button className="Insert-Btn">Insert Professeur</button>
       </Link>
+      <Sidebar />
+
+
     </div>
   );
 }

@@ -59,8 +59,10 @@ class ProfesseurModel {
     );
   }
 
-  static async getById(id) {
-    return await Professeur.findById(id, {
+  static async getById(id) {//convert id to oject id
+    console.log(id)
+    return await Professeur.findById(mongoose.Types.ObjectId(id)
+      , {
       _id: 1,
       FullName: 1,
       CIN: 1,
