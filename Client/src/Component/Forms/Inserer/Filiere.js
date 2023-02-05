@@ -90,9 +90,9 @@ const FiliereForm = () => {
     }
   };
 
-  const handleCoordinateurSelection = (_id,FullName) => {
-    setSelectedCoordinateur(FullName);
-    setFiliereCoordinateur(_id);
+  const handleCoordinateurSelection = (_coordinateur) => {
+    setSelectedCoordinateur(_coordinateur[1]);
+    setFiliereCoordinateur(_coordinateur[0]);
     setCoordinateurModalIsOpen(false);
   };
 

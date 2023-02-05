@@ -22,7 +22,7 @@ export default function ChefModal({
             className="modal-list"
               key={professeur._id}
               onClick={() =>
-                handleChefSelection(professeur._id, professeur.FullName)
+                handleChefSelection([professeur._id, professeur.FullName])
               }
             >
               {professeur.FullName} : {"(" + professeur.email + ")"}

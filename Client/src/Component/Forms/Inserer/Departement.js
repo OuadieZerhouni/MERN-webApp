@@ -23,9 +23,10 @@ const DepartementForm = () => {
 
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
   /* Chef Modal handling */
-  const handleChefSelection = (chefId) => {
-    setDepartementIdChef(chefId[0]);
-    setSelectedChef(chefId[1]);
+  const handleChefSelection = (chef) => {
+    console.log(chef)
+    setDepartementIdChef(chef[0]);
+    setSelectedChef(chef[1]);
     setChefModalIsOpen(false);
   };
   const handleChefModal = () => {

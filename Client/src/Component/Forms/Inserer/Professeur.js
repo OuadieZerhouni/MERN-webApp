@@ -56,7 +56,7 @@ const ProfesseurForm = () => {
 
   const handleDepartementSelection = (Depart) => {
     setSelectedDepart(Depart.Nom);
-    setProfesseurDepartement(Depart.Nom);
+    setProfesseurDepartement(Depart._id);
     setDepartModalIsOpen(false);
   };
 

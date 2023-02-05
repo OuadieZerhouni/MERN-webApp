@@ -54,7 +54,7 @@ class ProfesseurModel {
         PhoneNumber: 1,
         email: 1,
         departement: 1,
-        role: 1,
+        grade: 1,
       }
     );
   }
@@ -69,7 +69,7 @@ class ProfesseurModel {
       PhoneNumber: 1,
       email: 1,
       departement: 1,
-      role: 1,
+      grade: 1,
     });
   }
   static async getByCIN(CIN) {
@@ -85,7 +85,7 @@ class ProfesseurModel {
         PhoneNumber: 1,
         email: 1,
         departement: 1,
-        role: 1,
+        grade: 1,
       }
     );
   }
@@ -100,12 +100,12 @@ class ProfesseurModel {
         PhoneNumber: 1,
         email: 1,
         departement: 1,
-        role: 1,
+        grade: 1,
       }
     );
   }
   static async getByEmail(email) {
-    return Professeur.findOne({ email: email });
+    return await Professeur.findOne({ email: email });
   }
 
   static async insert(professeur) {

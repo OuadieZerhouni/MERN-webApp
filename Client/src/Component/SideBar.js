@@ -5,17 +5,20 @@ import "./ComponentCSS/SideBar.css";
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState("departments");
   const [departments, setDepartments] = useState([]);
-  const [filiere, setFiliere] = useState([]);
+  const [filieres, setFilieres] = useState([]);
   const [professeurs, setProfesseurs] = useState([]);
   const [reunion, setReunion] = useState([]);
-  const [professeurName, setProfesseurName] = useState("");
   const [chefs, setChefs] = useState({});
+  const [coords, setCoords] = useState({});
+  const [FiliereDepartement, setFiliereDepartement] = useState({});
+
 
   const API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+
   const getChefDepartement = async (id) => {
     return axios
       .post(
@@ -27,6 +30,36 @@ const Sidebar = () => {
       )
       .then((response) => {
         return response.data.FullName;
+      })
+      .catch((error) => {
+        console.error(error);
+        throw error;
+      });
+  };
+  const getCoordFiliere = async (id) => {
+    return axios
+      .post(
+        API_DATABASE + "/get/professeur/id",
+        { _id: id },
+        {
+          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+        }
+      )
+      .then((response) => {
+        return response.data.FullName;
+      })
+      .catch((error) => {
+        console.error(error);
+        throw error;
+      });
+  };
+
+  const getDepartFiliere = async (id) => {
+    return axios
+      .post(
+        API_DATABASE + "/get/departement/id",{ _id: id },{headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+      .then((response) => {
+        return response.data.Nom;
       })
       .catch((error) => {
         console.error(error);
@@ -71,7 +104,34 @@ const Sidebar = () => {
         }
       )
       .then((response) => {
-        setFiliere(response.data);
+        setFilieres(response.data);
+        response.data.forEach(async (filiere) => {
+          const coordName = await getCoordFiliere(filiere.id_coordinateur)
+            .then((fullName) => {
+              return fullName;
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+          setCoords((prevState) => ({
+            ...prevState,
+            [filiere._id]: coordName,
+          })
+          );
+          const departementName=await getDepartFiliere(filiere.id_departement)
+          .then((departementName) => {
+            return departementName;
+          })
+          .catch((error) => {
+            console.error(error);
+          }
+          );
+          setFiliereDepartement((prevState) => ({
+            ...prevState,
+            [filiere._id]: departementName,
+          })
+          );
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -175,37 +235,66 @@ const Sidebar = () => {
                 <th>Cordinateur</th>
                 <th>departement</th>
                 <th>Options</th>
-                
               </tr>
             </thead>
-            <tbody>{
-                filiere.map((filiere) => (
-                    <tr key={filiere._id}>
-                        <td>{filiere.Nom}</td>
-                        <td>{filiere.description}</td>
-                    </tr>
-                ))
-                
-                }</tbody>
+            <tbody>
+              {filieres.map((filiere) => (
+                <tr key={filiere._id}>
+                  <td>{filiere.Nom}</td>
+                  <td>
+                    {filiere.Description.length > 50
+                      ? filiere.Description.substring(0, 50) + "..."
+                      : filiere.Description}
+                  </td>
+                  <td>{filiere.Date_Creation}</td>
+                  <td>{filiere.Effectif}</td>
+                  <td>{coords[filiere._id] ? coords[filiere._id] : ""}</td>
+                  <td>{FiliereDepartement[filiere._id] ? FiliereDepartement[filiere._id] : ""}</td>
+                  <td>
+                    {filiere.Options.map((option) => (
+                      <div key={option._id}>
+                        <p>{option.Nom}</p>
+                        <p>{option.Description}</p>
+                      </div>
+                    ))}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         )}
         {activeTab === "professeurs" && (
           <table>
             <thead>
               <tr>
-                <th>Professor Name</th>
-                <th>Subjects Taught</th>
+                <th>Nom & Prénom</th>
+                <th>Email</th>
+                <th>CIN</th>
+                <th>Telephone</th>
+                <th>grade</th>
               </tr>
             </thead>
-            <tbody>{/* Render professor data here */}</tbody>
+            <tbody>{professeurs.map((professeur) => (
+              <tr key={professeur._id}>
+                <td>{professeur.FullName} </td>
+                <td>{professeur.email}</td>
+                <td>{professeur.CIN}</td>
+                <td>{professeur.PhoneNumber}</td>
+                <td>{professeur.grade}</td>
+              </tr>
+            ))}</tbody>
+
           </table>
         )}
         {activeTab === "reunions" && (
           <table>
             <thead>
               <tr>
-                <th>Meeting Title</th>
-                <th>Date and Time</th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
               </tr>
             </thead>
             <tbody>{/* Render reunion data here */}</tbody>
