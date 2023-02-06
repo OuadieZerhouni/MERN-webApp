@@ -5,7 +5,7 @@ const cors=require('cors');
 const login=require('./Routes/login');
 
 app.use(cors());
-app.use(cors({origin:'http://localhost:3000'}));
+app.use(cors({origin:'http://localhost:3030'}));
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));

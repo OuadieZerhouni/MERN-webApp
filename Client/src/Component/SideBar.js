@@ -11,6 +11,7 @@ const Sidebar = () => {
   const [chefs, setChefs] = useState({});
   const [coords, setCoords] = useState({});
   const [FiliereDepartement, setFiliereDepartement] = useState({});
+  const[ReunionDepartement,setReunionDepartement]=useState({});
 
 
   const API_DATABASE = process.env.REACT_APP_API_DATABASE;
@@ -19,55 +20,60 @@ const Sidebar = () => {
     setActiveTab(tab);
   };
 
-  const getChefDepartement = async (id) => {
-    return axios
-      .post(
-        API_DATABASE + "/get/professeur/id",
-        { _id: id },
-        {
-          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-        }
-      )
-      .then((response) => {
-        return response.data.FullName;
-      })
-      .catch((error) => {
-        console.error(error);
-        throw error;
-      });
-  };
-  const getCoordFiliere = async (id) => {
-    return axios
-      .post(
-        API_DATABASE + "/get/professeur/id",
-        { _id: id },
-        {
-          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-        }
-      )
-      .then((response) => {
-        return response.data.FullName;
-      })
-      .catch((error) => {
-        console.error(error);
-        throw error;
-      });
-  };
+  
+ 
 
-  const getDepartFiliere = async (id) => {
-    return axios
-      .post(
-        API_DATABASE + "/get/departement/id",{ _id: id },{headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
-      .then((response) => {
-        return response.data.Nom;
-      })
-      .catch((error) => {
-        console.error(error);
-        throw error;
-      });
-  };
 
   useEffect(() => {
+    document.title = "Dashboard";
+    const getChefDepartement = async (id) => {
+      return axios
+        .post(
+          API_DATABASE + "/get/professeur/id",
+          { _id: id },
+          {
+            headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+          }
+        )
+        .then((response) => {
+          return response.data.FullName;
+        })
+        .catch((error) => {
+          console.error(error);
+          throw error;
+        });
+    };
+    const getCoordFiliere = async (id) => {
+      return axios
+        .post(
+          API_DATABASE + "/get/professeur/id",
+          { _id: id },
+          {
+            headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+          }
+        )
+        .then((response) => {
+          return response.data.FullName;
+        })
+        .catch((error) => {
+          console.error(error);
+          throw error;
+        });
+    };
+    const getDepartFiliere = async (id) => {
+      return axios
+        .post(
+          API_DATABASE + "/get/departement/id",{ _id: id },{headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+        .then((response) => {
+          return response.data.Nom;
+        })
+        .catch((error) => {
+          console.error(error);
+          throw error;
+        });
+    };
+  
+    //departments
     axios
       .post(
         API_DATABASE + "/get/departement/all",
@@ -95,6 +101,7 @@ const Sidebar = () => {
       .catch((error) => {
         console.error(error);
       });
+      //filieres
     axios
       .post(
         API_DATABASE + "/get/filiere/all",
@@ -136,6 +143,7 @@ const Sidebar = () => {
       .catch((error) => {
         console.error(error);
       });
+    //professeurs
     axios
       .post(
         API_DATABASE + "/get/professeur/all",
@@ -150,6 +158,7 @@ const Sidebar = () => {
       .catch((error) => {
         console.error(error);
       });
+    //reunion
     axios
       .post(
         API_DATABASE + "/get/reunion/all",
@@ -160,10 +169,26 @@ const Sidebar = () => {
       )
       .then((response) => {
         setReunion(response.data);
+        response.data.forEach(async (reunion) => {
+          const departementName=await getDepartFiliere(reunion.id_departement)
+          .then((departementName) => {
+            return departementName;
+          })
+          .catch((error) => {
+            console.error(error);
+          }
+          );
+          setReunionDepartement((prevState) => ({
+            ...prevState,
+            [reunion._id]: departementName,
+          })
+          );
+        });
       })
       .catch((error) => {
         console.error(error);
       });
+
   }, [API_DATABASE]);
 
   return (
@@ -290,14 +315,26 @@ const Sidebar = () => {
           <table>
             <thead>
               <tr>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
+              <th>Date</th>
+              <th>lieu</th>
+              <th>Departement</th>
+              <th>Liste Ordres de Jour</th>
+              <th>prof. presents</th>
+              <th>PV</th>
               </tr>
             </thead>
-            <tbody>{/* Render reunion data here */}</tbody>
+            <tbody>
+              {reunion.map((reunion) => (
+                <tr key={reunion._id}>
+                  <td>{reunion.Date}</td>
+                  <td>{reunion.lieu}</td>
+                  <td>{ReunionDepartement[reunion._id] ? ReunionDepartement[reunion._id] : ""}</td>
+                  <td>{reunion.LOJ.map((loj)=>(<p className="loj">{loj.Sujet}</p>))}</td>
+                  <td>{reunion.prof_present.map((prof)=>(<p className="prof-liste">{prof}</p>))}</td>
+                  <td>{reunion.PV.link}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         )}
       </div>
