@@ -36,14 +36,27 @@ const professeurSchema = new mongoose.Schema({
   id_departement: {
     type: mongoose.Types.ObjectId,
     ref: "departements",
-    required: true,
   },
 });
 
 const Professeur = mongoose.model("Professeur", professeurSchema);
 
 class ProfesseurModel {
-  //reutrn all info except password
+  static async getByEmail(email) {
+    return await Professeur.findOne({ email: email });
+  }
+
+  static async insert(professeur) {
+    return await new Professeur(professeur).save();
+  }
+
+  static async update(id, professeur) {
+    return await Professeur.findByIdAndUpdate(id, professeur);
+  }
+
+  static async delete(id) {
+    return await Professeur.findByIdAndDelete(id);
+  }
   static async getAll() {
     return await Professeur.find(
       {},
@@ -59,10 +72,13 @@ class ProfesseurModel {
     );
   }
 
-  static async getById(id) {//convert id to oject id
-    console.log(id)
-    return await Professeur.findById(mongoose.Types.ObjectId(id)
-      , {
+  static async getById(id) {
+    console.log("id:"+id);
+    try{
+      if(id===""){
+        return {FullName:"None",CIN:"",PhoneNumber:"",email:"",departement:"",grade:""}
+      }
+      else{return await Professeur.findById(id, {
       _id: 1,
       FullName: 1,
       CIN: 1,
@@ -70,7 +86,12 @@ class ProfesseurModel {
       email: 1,
       departement: 1,
       grade: 1,
-    });
+    });}}
+    catch(err){
+      console.log(err);
+    }
+
+
   }
   static async getByCIN(CIN) {
     return await Professeur.find({ CIN: CIN });
@@ -104,20 +125,11 @@ class ProfesseurModel {
       }
     );
   }
-  static async getByEmail(email) {
-    return await Professeur.findOne({ email: email });
-  }
 
-  static async insert(professeur) {
-    return await new Professeur(professeur).save();
-  }
-
-  static async update(id, professeur) {
-    return await Professeur.findByIdAndUpdate(id, professeur);
-  }
-
-  static async delete(id) {
-    return await Professeur.findByIdAndDelete(id);
+  static async setIdDepartement(id_prof, departementId) {
+    return await Professeur.findByIdAndUpdate(id_prof, {
+      id_departement: departementId,
+    });
   }
 }
 

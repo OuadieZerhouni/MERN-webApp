@@ -32,7 +32,7 @@ export default function ChefModal({
         <button className="close-modal" onClick={toggleModal}>
           CLOSE
         </button>
-      </div>
+      </div> 
     </div>,
     document.getElementById("portal")
   );

@@ -22,8 +22,12 @@ app.use(verifyToken);
 /*-------departement-------*/
 app.post('/insert/departement',async (req,res)=>{
     const departement=await Departement.insert(req.body);
+  
+    req.body.professeurs.forEach(async (prof)=>{
+        await Professeur.setIdDepartement(prof,departement._id);
+    })
+
     res.send(departement);
-    console.log(departement);
 });
 
 app.post('/get/departement/all',async (req,res)=>{

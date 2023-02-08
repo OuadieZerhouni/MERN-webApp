@@ -1,7 +1,10 @@
 const mongoose = require("mongoose");
+
 require("dotenv").config();
+
 mongoose.set("strictQuery", false);
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+
 var conn = mongoose.connection;
 conn.on("connected", function () {
   console.log("database is connected successfully");
@@ -9,6 +12,7 @@ conn.on("connected", function () {
 conn.on("disconnected", function () {
   console.log("database is disconnected successfully");
 });
+
 
 const DepartementSchema = new mongoose.Schema({
   Nom: {
@@ -30,9 +34,8 @@ const Departement = mongoose.model("departement", DepartementSchema);
 
 class DepartementModel {
   static async insert(departement) {
-    return await new Departement(departement).save((err) => {
-      if (err) return console.log(err);
-    });
+    return await Departement.create(departement)
+   
   }
 
   static async getAll() {
