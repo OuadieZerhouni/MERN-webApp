@@ -56,6 +56,13 @@ class DepartementModel {
   static async delete(id) {
     return await Departement.findByIdAndDelete(id);
   }
+  static async addProfesseur(id_Dep, id_professeur) {
+    return await Departement.findByIdAndUpdate(id_Dep, {
+      $addToSet: { professeurs: id_professeur },
+
+    });
+  }
+
 }
 
 module.exports = DepartementModel;

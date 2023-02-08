@@ -23,7 +23,6 @@ const DepartementForm = () => {
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
   /* Chef Modal handling */
   const handleChefSelection = (chef) => {
-    console.log(chef);
     setDepartementIdChef(chef[0]);
     setSelectedChef(chef[1]);
     setChefModalIsOpen(false);
@@ -93,8 +92,13 @@ const DepartementForm = () => {
         }
       )
       .then((response) => {
-        console.log(response.data)
-        setProfesseurs(response.data);
+        console.log(response.data);
+        setProfesseurs([]);
+        response.data.forEach((prof) => {
+          if ((prof.id_departement === undefined) | (prof.id_departement === "")) {
+            setProfesseurs((prev) => [...prev, prof]);
+          }
+        });
       });
   }, [API_DATABASE]);
 

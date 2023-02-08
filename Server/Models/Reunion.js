@@ -33,7 +33,7 @@ const Reunion = mongoose.model("Reunion", reunionSchema);
 class ReunionModel {
     
     static async insert(reunion) {
-        return await new Reunion(reunion).save();
+        return await Reunion.create(reunion);
     }
     static async getAll() {
         return await Reunion.find({});
@@ -47,7 +47,7 @@ class ReunionModel {
     }
     static async AddLOJ(id, value) {
         return await Reunion.findByIdAndUpdate(id, {
-            $push: { LOJ: value },
+            $addToSet: { LOJ: value },
         });
     }
     static async RemoveLOJ(id, value) {
@@ -57,7 +57,7 @@ class ReunionModel {
     }
     static async AddProfPresent(id, value) {
         return await Reunion.findByIdAndUpdate(id, {
-            $push: { prof_present: value },
+            $addToSet: { prof_present: value },
         });
     }
     static async RemoveProfPresent(id, value) {
@@ -67,7 +67,7 @@ class ReunionModel {
     }
     static async AddProfAbsent(id, value) {
         return await Reunion.findByIdAndUpdate(id, {
-            $push: { prof_absent: value },
+            $addToSet: { prof_absent: value },
         });
     }
     static async RemoveProfAbsent(id, value) {
@@ -96,7 +96,7 @@ class ReunionModel {
     /* PVs */
     static async AddPV(id, value) {
         return await Reunion.findByIdAndUpdate(id, {
-            $push: { PVs: value },
+            $addToSet: { PVs: value },
         });
     }
     static async RemovePV(id, value) {
@@ -119,7 +119,7 @@ class ReunionModel {
     static async AddComment(id_reunion, id_pv, value) {
         return await Reunion.updateOne(
             { _id: id_reunion, "PVs._id": id_pv },
-            { $push: { "PVs.$.comments": value } }
+            { $addToSet: { "PVs.$.comments": value } }
         );
     }
     static async RemoveComment(id_reunion, id_pv,id_comment) {

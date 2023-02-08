@@ -84,7 +84,7 @@ class FiliereModel {
     });
   }
   static async insert(filiere) {
-    return await new Filiere(filiere).save();
+    return await Filiere.create(filiere);
   }
 
   static async update(id, filiere) {
@@ -103,7 +103,7 @@ class FiliereModel {
   }
   static async insertOption(id, option) {
     return await Filiere.findByIdAndUpdate(id, {
-      $push: { Options: option },
+      $addToSet: { Options: option },
     });
   }
   static async updateOption(option_id, option) {

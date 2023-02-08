@@ -22,7 +22,6 @@ app.use(verifyToken);
 /*-------departement-------*/
 app.post('/insert/departement',async (req,res)=>{
     const departement=await Departement.insert(req.body);
-  
     req.body.professeurs.forEach(async (prof)=>{
         await Professeur.setIdDepartement(prof,departement._id);
     })
@@ -124,6 +123,8 @@ app.post('/update/emploiTemps',async (req,res)=>{
 /*-------professeur-------*/
 app.post('/insert/professeur',async (req,res)=>{
     const professeur=await Professeur.insert(req.body);
+    Departement.addProfesseur(req.body.id_departement,professeur._id);
+
     res.send(professeur);
 });
 app.post('/get/professeur/all',async (req,res)=>{

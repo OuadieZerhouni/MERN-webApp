@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./ComponentCSS/Home.css";
-import Sidebar from "./SideBar";
+import DataTable from "./DataTable";
 
 
 
@@ -22,7 +22,7 @@ export default function Home() {
       <Link to="/Add/Professeur">
         <button className="Insert-Btn">Insert Professeur</button>
       </Link>
-      <Sidebar />
+      <DataTable />
 
 
     </div>

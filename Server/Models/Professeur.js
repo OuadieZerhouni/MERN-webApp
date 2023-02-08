@@ -26,7 +26,6 @@ const professeurSchema = new mongoose.Schema({
 
   password: {
     type: String,
-    unique: true,
     required: true,
   },
   grade: {
@@ -47,7 +46,9 @@ class ProfesseurModel {
   }
 
   static async insert(professeur) {
-    return await new Professeur(professeur).save();
+
+    return await Professeur.create(professeur);
+
   }
 
   static async update(id, professeur) {
@@ -66,32 +67,37 @@ class ProfesseurModel {
         CIN: 1,
         PhoneNumber: 1,
         email: 1,
-        departement: 1,
         grade: 1,
+        id_departement: 1,
       }
     );
   }
 
   static async getById(id) {
-    console.log("id:"+id);
-    try{
-      if(id===""){
-        return {FullName:"None",CIN:"",PhoneNumber:"",email:"",departement:"",grade:""}
+    try {
+      if (id === "") {
+        return {
+          FullName: "None",
+          CIN: "",
+          PhoneNumber: "",
+          email: "",
+          departement: "",
+          grade: "",
+        };
+      } else {
+        return await Professeur.findById(id, {
+          _id: 1,
+          FullName: 1,
+          CIN: 1,
+          PhoneNumber: 1,
+          email: 1,
+          grade: 1,
+          id_departement: 1,
+        });
       }
-      else{return await Professeur.findById(id, {
-      _id: 1,
-      FullName: 1,
-      CIN: 1,
-      PhoneNumber: 1,
-      email: 1,
-      departement: 1,
-      grade: 1,
-    });}}
-    catch(err){
+    } catch (err) {
       console.log(err);
     }
-
-
   }
   static async getByCIN(CIN) {
     return await Professeur.find({ CIN: CIN });
@@ -105,7 +111,7 @@ class ProfesseurModel {
         CIN: 1,
         PhoneNumber: 1,
         email: 1,
-        departement: 1,
+        id_departement: 1,
         grade: 1,
       }
     );
@@ -120,7 +126,7 @@ class ProfesseurModel {
         CIN: 1,
         PhoneNumber: 1,
         email: 1,
-        departement: 1,
+        id_departement: 1,
         grade: 1,
       }
     );

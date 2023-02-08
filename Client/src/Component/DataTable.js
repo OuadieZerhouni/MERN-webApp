@@ -11,18 +11,13 @@ const Sidebar = () => {
   const [chefs, setChefs] = useState({});
   const [coords, setCoords] = useState({});
   const [FiliereDepartement, setFiliereDepartement] = useState({});
-  const[ReunionDepartement,setReunionDepartement]=useState({});
-
+  const [ReunionDepartement, setReunionDepartement] = useState({});
 
   const API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
-
-  
- 
-
 
   useEffect(() => {
     document.title = "Dashboard";
@@ -32,7 +27,9 @@ const Sidebar = () => {
           API_DATABASE + "/get/professeur/id",
           { _id: id },
           {
-            headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
           }
         )
         .then((response) => {
@@ -49,7 +46,9 @@ const Sidebar = () => {
           API_DATABASE + "/get/professeur/id",
           { _id: id },
           {
-            headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
           }
         )
         .then((response) => {
@@ -63,7 +62,14 @@ const Sidebar = () => {
     const getDepartFiliere = async (id) => {
       return axios
         .post(
-          API_DATABASE + "/get/departement/id",{ _id: id },{headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+          API_DATABASE + "/get/departement/id",
+          { _id: id },
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
         .then((response) => {
           return response.data.Nom;
         })
@@ -72,7 +78,7 @@ const Sidebar = () => {
           throw error;
         });
     };
-  
+
     //departments
     axios
       .post(
@@ -101,7 +107,7 @@ const Sidebar = () => {
       .catch((error) => {
         console.error(error);
       });
-      //filieres
+    //filieres
     axios
       .post(
         API_DATABASE + "/get/filiere/all",
@@ -123,21 +129,18 @@ const Sidebar = () => {
           setCoords((prevState) => ({
             ...prevState,
             [filiere._id]: coordName,
-          })
-          );
-          const departementName=await getDepartFiliere(filiere.id_departement)
-          .then((departementName) => {
-            return departementName;
-          })
-          .catch((error) => {
-            console.error(error);
-          }
-          );
+          }));
+          const departementName = await getDepartFiliere(filiere.id_departement)
+            .then((departementName) => {
+              return departementName;
+            })
+            .catch((error) => {
+              console.error(error);
+            });
           setFiliereDepartement((prevState) => ({
             ...prevState,
             [filiere._id]: departementName,
-          })
-          );
+          }));
         });
       })
       .catch((error) => {
@@ -170,25 +173,22 @@ const Sidebar = () => {
       .then((response) => {
         setReunion(response.data);
         response.data.forEach(async (reunion) => {
-          const departementName=await getDepartFiliere(reunion.id_departement)
-          .then((departementName) => {
-            return departementName;
-          })
-          .catch((error) => {
-            console.error(error);
-          }
-          );
+          const departementName = await getDepartFiliere(reunion.id_departement)
+            .then((departementName) => {
+              return departementName;
+            })
+            .catch((error) => {
+              console.error(error);
+            });
           setReunionDepartement((prevState) => ({
             ...prevState,
             [reunion._id]: departementName,
-          })
-          );
+          }));
         });
       })
       .catch((error) => {
         console.error(error);
       });
-
   }, [API_DATABASE]);
 
   return (
@@ -274,7 +274,11 @@ const Sidebar = () => {
                   <td>{filiere.Date_Creation}</td>
                   <td>{filiere.Effectif}</td>
                   <td>{coords[filiere._id] ? coords[filiere._id] : ""}</td>
-                  <td>{FiliereDepartement[filiere._id] ? FiliereDepartement[filiere._id] : ""}</td>
+                  <td>
+                    {FiliereDepartement[filiere._id]
+                      ? FiliereDepartement[filiere._id]
+                      : ""}
+                  </td>
                   <td>
                     {filiere.Options.map((option) => (
                       <div key={option._id}>
@@ -299,28 +303,29 @@ const Sidebar = () => {
                 <th>grade</th>
               </tr>
             </thead>
-            <tbody>{professeurs.map((professeur) => (
-              <tr key={professeur._id}>
-                <td>{professeur.FullName} </td>
-                <td>{professeur.email}</td>
-                <td>{professeur.CIN}</td>
-                <td>{professeur.PhoneNumber}</td>
-                <td>{professeur.grade}</td>
-              </tr>
-            ))}</tbody>
-
+            <tbody>
+              {professeurs.map((professeur) => (
+                <tr key={professeur._id}>
+                  <td>{professeur.FullName} </td>
+                  <td>{professeur.email}</td>
+                  <td>{professeur.CIN}</td>
+                  <td>{professeur.PhoneNumber}</td>
+                  <td>{professeur.grade}</td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         )}
         {activeTab === "reunions" && (
           <table>
             <thead>
               <tr>
-              <th>Date</th>
-              <th>lieu</th>
-              <th>Departement</th>
-              <th>Liste Ordres de Jour</th>
-              <th>prof. presents</th>
-              <th>PV</th>
+                <th>Date</th>
+                <th>lieu</th>
+                <th>Departement</th>
+                <th>Liste Ordres de Jour</th>
+                <th>prof. presents</th>
+                <th>PV</th>
               </tr>
             </thead>
             <tbody>
@@ -328,9 +333,25 @@ const Sidebar = () => {
                 <tr key={reunion._id}>
                   <td>{reunion.Date}</td>
                   <td>{reunion.lieu}</td>
-                  <td>{ReunionDepartement[reunion._id] ? ReunionDepartement[reunion._id] : ""}</td>
-                  <td>{reunion.LOJ.map((loj)=>(<p className="loj">{loj.Sujet}</p>))}</td>
-                  <td>{reunion.prof_present.map((prof)=>(<p className="prof-liste">{prof}</p>))}</td>
+                  <td>
+                    {ReunionDepartement[reunion._id]
+                      ? ReunionDepartement[reunion._id]
+                      : ""}
+                  </td>
+                  <td>
+                    {reunion.LOJ.map((loj) => (
+                      <p 
+                      key={loj}
+                      className="loj">{loj.Sujet}</p>
+                    ))}
+                  </td>
+                  <td>
+                    {reunion.prof_present.map((prof) => (
+                      <p 
+                      key={prof}
+                      className="prof">{prof}</p>
+                    ))}
+                  </td>
                   <td>{reunion.PV.link}</td>
                 </tr>
               ))}
