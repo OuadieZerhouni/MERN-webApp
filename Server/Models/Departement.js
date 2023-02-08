@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 mongoose.set("strictQuery", false);
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
 
 var conn = mongoose.connection;
 conn.on("connected", function () {
@@ -12,7 +12,6 @@ conn.on("connected", function () {
 conn.on("disconnected", function () {
   console.log("database is disconnected successfully");
 });
-
 
 const DepartementSchema = new mongoose.Schema({
   Nom: {
@@ -32,37 +31,35 @@ const DepartementSchema = new mongoose.Schema({
 });
 const Departement = mongoose.model("departement", DepartementSchema);
 
-class DepartementModel {
-  static async insert(departement) {
-    return await Departement.create(departement)
-   
-  }
+module.exports = Departement;
 
-  static async getAll() {
-    return await Departement.find({});
-  }
+// class DepartementModel {
+//   static async insert(departement) {
+//     return await Departement.create(departement);
+//   }
 
-  static async getById(id) {
-    return await Departement.findById(id).exec();
-  }
-  static async getByNom(nom) {
-    return await Departement.find({ Nom: nom });
-  }
+//   static async getAll() {
+//     return await Departement.find({});
+//   }
 
-  static async update(id, departement) {
-    return await Departement.findByIdAndUpdate(id, departement);
-  }
+//   static async getById(id) {
+//     return await Departement.findById(id).exec();
+//   }
+//   static async getByNom(nom) {
+//     return await Departement.find({ Nom: nom });
+//   }
 
-  static async delete(id) {
-    return await Departement.findByIdAndDelete(id);
-  }
-  static async addProfesseur(id_Dep, id_professeur) {
-    return await Departement.findByIdAndUpdate(id_Dep, {
-      $addToSet: { professeurs: id_professeur },
+//   static async update(id, departement) {
+//     return await Departement.findByIdAndUpdate(id, departement);
+//   }
 
-    });
-  }
+//   static async delete(id) {
+//     return await Departement.findByIdAndDelete(id);
+//   }
+//   static async addProfesseur(id_Dep, id_professeur) {
+//     return await Departement.findByIdAndUpdate(id_Dep, {
+//       $addToSet: { professeurs: id_professeur },
+//     });
+//   }
+// }
 
-}
-
-module.exports = DepartementModel;

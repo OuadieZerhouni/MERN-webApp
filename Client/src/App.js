@@ -5,7 +5,7 @@ import { Route, Routes,BrowserRouter as Router,useNavigate } from "react-router-
 import DepartementForm from './Component/Forms/Inserer/Departement';
 import FiliereForm from './Component/Forms/Inserer/Filiere';
 import ReunionForm from './Component/Forms/Inserer/Reunion';
-import Professeur from './Component/Forms/Inserer/Professeur';
+import ProfesseurForm from './Component/Forms/Inserer/Professeur';
 import Header from './Component/Header';
 import Home from './Component/Home';
 import Login from './Component/Forms/Login';
@@ -34,7 +34,7 @@ const withAuth = (Component) => {
 const WithAuthDepartementForm = withAuth(DepartementForm);
 const WithAuthFiliereForm = withAuth(FiliereForm);
 const WithAuthReunionForm = withAuth(ReunionForm);
-const WithAuthProfesseur = withAuth(Professeur);
+const WithAuthProfesseur = withAuth(ProfesseurForm);
 const WithAuthDashboard = withAuth(Dashboard);
 
 function App() {

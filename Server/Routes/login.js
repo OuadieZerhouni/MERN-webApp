@@ -1,6 +1,6 @@
 const express=require('express');
 const jwt=require('jsonwebtoken');
-const professeur=require('../Models/Professeur');
+const professeur=require('../Services/Professeur');
 
 const app=express();
 

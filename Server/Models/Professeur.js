@@ -20,7 +20,6 @@ const professeurSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    unique: true,
     required: true,
   },
 
@@ -40,103 +39,105 @@ const professeurSchema = new mongoose.Schema({
 
 const Professeur = mongoose.model("Professeur", professeurSchema);
 
-class ProfesseurModel {
-  static async getByEmail(email) {
-    return await Professeur.findOne({ email: email });
-  }
 
-  static async insert(professeur) {
 
-    return await Professeur.create(professeur);
+module.exports = Professeur;
 
-  }
+// class ProfesseurModel {
+//   static async getByEmail(email) {
+//     return await Professeur.findOne({ email: email });
+//   }
 
-  static async update(id, professeur) {
-    return await Professeur.findByIdAndUpdate(id, professeur);
-  }
+//   static async insert(professeur) {
 
-  static async delete(id) {
-    return await Professeur.findByIdAndDelete(id);
-  }
-  static async getAll() {
-    return await Professeur.find(
-      {},
-      {
-        _id: 1,
-        FullName: 1,
-        CIN: 1,
-        PhoneNumber: 1,
-        email: 1,
-        grade: 1,
-        id_departement: 1,
-      }
-    );
-  }
+//     return await Professeur.create(professeur);
 
-  static async getById(id) {
-    try {
-      if (id === "") {
-        return {
-          FullName: "None",
-          CIN: "",
-          PhoneNumber: "",
-          email: "",
-          departement: "",
-          grade: "",
-        };
-      } else {
-        return await Professeur.findById(id, {
-          _id: 1,
-          FullName: 1,
-          CIN: 1,
-          PhoneNumber: 1,
-          email: 1,
-          grade: 1,
-          id_departement: 1,
-        });
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
-  static async getByCIN(CIN) {
-    return await Professeur.find({ CIN: CIN });
-  }
-  static async getByFullName(FullName) {
-    return await Professeur.find(
-      { FullName: FullName },
-      {
-        _id: 1,
-        FullName: 1,
-        CIN: 1,
-        PhoneNumber: 1,
-        email: 1,
-        id_departement: 1,
-        grade: 1,
-      }
-    );
-  }
-  static async getByDepartement(departementId) {
-    let Depart = await Departement.getById(departementId);
-    return await Professeur.find(
-      { _id: { $in: Depart.professeurs } },
-      {
-        _id: 1,
-        FullName: 1,
-        CIN: 1,
-        PhoneNumber: 1,
-        email: 1,
-        id_departement: 1,
-        grade: 1,
-      }
-    );
-  }
+//   }
 
-  static async setIdDepartement(id_prof, departementId) {
-    return await Professeur.findByIdAndUpdate(id_prof, {
-      id_departement: departementId,
-    });
-  }
-}
+//   static async update(id, professeur) {
+//     return await Professeur.findByIdAndUpdate(id, professeur);
+//   }
 
-module.exports = ProfesseurModel;
+//   static async delete(id) {
+//     return await Professeur.findByIdAndDelete(id);
+//   }
+//   static async getAll() {
+//     return await Professeur.find(
+//       {},
+//       {
+//         _id: 1,
+//         FullName: 1,
+//         CIN: 1,
+//         PhoneNumber: 1,
+//         email: 1,
+//         grade: 1,
+//         id_departement: 1,
+//       }
+//     );
+//   }
+
+//   static async getById(id) {
+//     try {
+//       if (id === "") {
+//         return {
+//           FullName: "None",
+//           CIN: "",
+//           PhoneNumber: "",
+//           email: "",
+//           departement: "",
+//           grade: "",
+//         };
+//       } else {
+//         return await Professeur.findById(id, {
+//           _id: 1,
+//           FullName: 1,
+//           CIN: 1,
+//           PhoneNumber: 1,
+//           email: 1,
+//           grade: 1,
+//           id_departement: 1,
+//         });
+//       }
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   }
+//   static async getByCIN(CIN) {
+//     return await Professeur.find({ CIN: CIN });
+//   }
+//   static async getByFullName(FullName) {
+//     return await Professeur.find(
+//       { FullName: FullName },
+//       {
+//         _id: 1,
+//         FullName: 1,
+//         CIN: 1,
+//         PhoneNumber: 1,
+//         email: 1,
+//         id_departement: 1,
+//         grade: 1,
+//       }
+//     );
+//   }
+//   static async getByDepartement(departementId) {
+//     let Depart = await Departement.getById(departementId);
+//     return await Professeur.find(
+//       { _id: { $in: Depart.professeurs } },
+//       {
+//         _id: 1,
+//         FullName: 1,
+//         CIN: 1,
+//         PhoneNumber: 1,
+//         email: 1,
+//         id_departement: 1,
+//         grade: 1,
+//       }
+//     );
+//   }
+
+//   static async setIdDepartement(id_prof, departementId) {
+//     return await Professeur.findByIdAndUpdate(id_prof, {
+//       id_departement: departementId,
+//     });
+//   }
+// }

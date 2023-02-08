@@ -1,10 +1,10 @@
 const express=require('express');
 const app=express();
 
-const Filiere=require('../Models/Filiere');
-const Professeur=require('../Models/Professeur');
-const Departement=require('../Models/Departement');
-const Reunion=require('../Models/Reunion');
+const Filiere=require('../Services/Filiere');
+const Professeur=require('../Services/Professeur');
+const Departement=require('../Services/Departement');
+const Reunion=require('../Services/Reunion');
 
 const verifyToken=(req,res,next)=>{
     const bearerHeader=req.headers['authorization'];
