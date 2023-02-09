@@ -10,6 +10,7 @@ import Header from './Component/Header';
 import Home from './Component/Home';
 import Login from './Component/Forms/Login';
 import Dashboard from './Component/Dashboard';
+import ModifyDepartment from './Component/Forms/Update/Departement';
 import {  useEffect } from 'react';
 
 
@@ -36,6 +37,7 @@ const WithAuthFiliereForm = withAuth(FiliereForm);
 const WithAuthReunionForm = withAuth(ReunionForm);
 const WithAuthProfesseur = withAuth(ProfesseurForm);
 const WithAuthDashboard = withAuth(Dashboard);
+const WithAuthModifyDepartment = withAuth(ModifyDepartment);
 
 function App() {
   return (
@@ -50,6 +52,8 @@ function App() {
           <Route path="/Add/Filiere" element={<WithAuthFiliereForm />} />
           <Route path="/Add/Reunion" element={<WithAuthReunionForm />} />
           <Route path="/Add/Professeur" element={<WithAuthProfesseur />} />
+          <Route path="/modify/department/:id" element={<WithAuthModifyDepartment />} />
+
           <Route path="/Dashboard" element={<WithAuthDashboard />} />
           <Route path="/Login" element={<Login />} />
           <Route path="*" element={<h1>404 Not Found</h1>} />

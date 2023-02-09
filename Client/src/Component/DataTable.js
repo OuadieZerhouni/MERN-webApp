@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import "./ComponentCSS/SideBar.css";
+import "./ComponentCSS/DataTable.css";
 
-const Sidebar = () => {
+const DataTable = () => {
   const [activeTab, setActiveTab] = useState("departments");
   const [departments, setDepartments] = useState([]);
   const [filieres, setFilieres] = useState([]);
@@ -18,6 +19,7 @@ const Sidebar = () => {
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+
 
   useEffect(() => {
     document.title = "Dashboard";
@@ -192,7 +194,7 @@ const Sidebar = () => {
   }, [API_DATABASE]);
 
   return (
-    <div className="sidebar">
+    <div className="DataTable">
       <div className="tabs">
         <div
           className={`tab ${activeTab === "departments" ? "active" : ""}`}
@@ -228,6 +230,7 @@ const Sidebar = () => {
                 <th>description</th>
                 <th>Date de Creation</th>
                 <th>Chef de departement</th>
+                <th>modify</th>
               </tr>
             </thead>
             <tbody>
@@ -243,6 +246,11 @@ const Sidebar = () => {
                   <td>{departement.Date_Creation}</td>
                   <td>
                     {chefs[departement._id] ? chefs[departement._id] : ""}
+                  </td>
+                  <td>
+                    <Link className="btn btn-primary"  to={"/modify/departement/" + departement._id}>
+                      modify
+                    </Link>
                   </td>
                 </tr>
               ))}
@@ -340,16 +348,16 @@ const Sidebar = () => {
                   </td>
                   <td>
                     {reunion.LOJ.map((loj) => (
-                      <p 
-                      key={loj}
-                      className="loj">{loj.Sujet}</p>
+                      <p key={loj} className="loj">
+                        {loj.Sujet}
+                      </p>
                     ))}
                   </td>
                   <td>
                     {reunion.prof_present.map((prof) => (
-                      <p 
-                      key={prof}
-                      className="prof">{prof}</p>
+                      <p key={prof} className="prof">
+                        {prof}
+                      </p>
                     ))}
                   </td>
                   <td>{reunion.PV.link}</td>
@@ -363,4 +371,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default DataTable;
