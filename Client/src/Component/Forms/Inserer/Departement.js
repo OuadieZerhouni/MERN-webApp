@@ -95,7 +95,7 @@ const DepartementForm = () => {
         console.log(response.data);
         setProfesseurs([]);
         response.data.forEach((prof) => {
-          if ((prof.id_departement === undefined) | (prof.id_departement === "")) {
+          if (!(prof.id_departement === undefined) && !(prof.id_departement === "")) {
             setProfesseurs((prev) => [...prev, prof]);
           }
         });
@@ -175,8 +175,6 @@ const DepartementForm = () => {
           handleChefSelection={handleChefSelection}
         ></ChefModal>
 
-        {/* <button onClick={toggleFiliereModal} id="departement-filieres" className="Modal-button"> Select Filiere </button>
-        <FiliereModal IsOpen={FiliereModalIsOpen} toggleModal={toggleFiliereModal} filieres={filieres} handleFiliereSelection={handleFiliereSelection} AlreadySelectedFilieres={departementFilieres}></FiliereModal> */}
         <br />
         <button
           type="button"

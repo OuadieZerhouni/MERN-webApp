@@ -2,9 +2,6 @@ const mongoose = require("mongoose");
 
 require("dotenv").config();
 
-mongoose.set("strictQuery", false);
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
-
 var conn = mongoose.connection;
 conn.on("connected", function () {
   console.log("database is connected successfully");

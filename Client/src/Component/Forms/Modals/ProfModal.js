@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDom from "react-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import "../FormsCSS/Modal.css";
 
 export default function ProfModal({
@@ -8,10 +8,14 @@ export default function ProfModal({
   toggleModal,
   professeurs,
   handelProfselection,
-  AlreadySelectedProf,
+  AlreadySelectedProf
 }) {
   const [selectedProf, setSelectedProf] = useState([]);
+  useEffect(() => {
+    setSelectedProf(AlreadySelectedProf);
+  }, [AlreadySelectedProf]);
   if (!IsOpen) return null;
+  
 
   const handelClick = (li , id) => {
     

@@ -9,7 +9,7 @@ exports.insert = async function (departement) {
   }
 
     exports.getById = async function (id) {
-    return await Departement.findById(id).exec();
+    return await Departement.findById(id);
   }
     exports.getByNom = async function (nom) {
     return await Departement.find({ Nom: nom });

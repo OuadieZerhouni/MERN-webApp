@@ -52,7 +52,7 @@ function App() {
           <Route path="/Add/Filiere" element={<WithAuthFiliereForm />} />
           <Route path="/Add/Reunion" element={<WithAuthReunionForm />} />
           <Route path="/Add/Professeur" element={<WithAuthProfesseur />} />
-          <Route path="/modify/department/:id" element={<WithAuthModifyDepartment />} />
+          <Route path='/modify/departement/:id' element={<WithAuthModifyDepartment/>} />
 
           <Route path="/Dashboard" element={<WithAuthDashboard />} />
           <Route path="/Login" element={<Login />} />

@@ -1,12 +1,6 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-mongoose.set("strictQuery", false);
-try {
-  mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
-} catch (error) {
-    console.log(error);
-}
 const reunionSchema = new mongoose.Schema({
   Date: String,
   lieu: String,

@@ -1,13 +1,34 @@
-.form {
-    color: white;
-    display: flex;
-    flex-direction: column;
-    width: 400px;
-    margin:   auto ;
-    border-radius: 10px;
-    padding: 40px 20px;
-    margin-top: 20px;
-    background-color: #333333;
+.form {/* form with blur background */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  padding: 40px 30px;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 0 10px 10px rgba(13, 60, 160, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 300ms;
+  animation: fadeIn 0.5s ease-in-out;
+  animation-fill-mode: forwards;
+  }
+  .title {
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+
+
   }
   
   .form-label {

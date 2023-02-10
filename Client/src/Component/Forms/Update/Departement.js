@@ -21,6 +21,7 @@ const DepartementForm = () => {
   const [ProfModalIsOpen, setProfModalIsOpen] = useState(false);
 
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
+
   /* Chef Modal handling */
   const handleChefSelection = (chef) => {
     setDepartementIdChef(chef[0]);
@@ -34,6 +35,7 @@ const DepartementForm = () => {
   /* Professeur Modal handling */
 
   const handleProfSelection = (profIds) => {
+    console.log(profIds);
     setDepartementProfesseurs(profIds);
     setSelectedProfs([]);
     professeurs.forEach((prof) => {
@@ -43,25 +45,28 @@ const DepartementForm = () => {
     });
 
     setProfModalIsOpen(false);
+
   };
+
   const toggleProfModal = () => {
     setProfModalIsOpen(!ProfModalIsOpen);
   };
 
-  const handleInsertDepartement = (button) => {
+  const handleModifyDepartement = () => {
     if (
       departementNom === "" ||
       departementDescription === "" ||
       departementDateCreation === ""
     ) {
-      alert("Veuillez remplir tous les champs");
+      alert("Veuillez remplir tous les champs Correctememnt");
       return;
     }
 
     axios
       .post(
-        API_DATABASE + "/insert/departement",
+        API_DATABASE + "/update/departement",
         {
+          _id: window.location.pathname.split("/")[3],
           Nom: departementNom,
           description: departementDescription,
           Date_Creation: departementDateCreation,
@@ -73,7 +78,7 @@ const DepartementForm = () => {
         }
       )
       .then((response) => {
-        alert("Departement inserted successfully");
+        alert("Departement modified successfully");
       })
       .catch((error) => {
         console.error(error);
@@ -81,6 +86,21 @@ const DepartementForm = () => {
   };
 
   useEffect(() => {
+    // Get Departement
+    axios
+      .post(
+        API_DATABASE + "/get/departement/id",
+        {
+          _id: window.location.pathname.split("/")[3],
+        },
+        { headers: { Authorization: "Bearer" + localStorage.getItem("token") } }
+      )
+      .then((response) => {
+        FillForm(response.data);
+      }).catch((error) => {
+        console.error(error);
+      });
+    // Get Professeurs
     axios
       .post(
         API_DATABASE + "/get/professeur/all",
@@ -93,17 +113,55 @@ const DepartementForm = () => {
       )
       .then((response) => {
         setProfesseurs([]);
+        
         response.data.forEach((prof) => {
-          if ((prof.id_departement === undefined) | (prof.id_departement === "")) {
+          if (
+            !(prof.id_departement === undefined) &&
+            !(prof.id_departement === "")
+          ) {
             setProfesseurs((prev) => [...prev, prof]);
           }
         });
       });
+    const FillForm = (Departement) => {
+      setDepartementNom(Departement.Nom);
+      setDepartementDescription(Departement.description);
+      let date = Departement.Date_Creation.split("T")[0];
+      setDepartementDateCreation(date);
+      setDepartementIdChef(Departement.id_Chef);
+      setDepartementProfesseurs(Departement.professeurs);
+      // Get Chef and
+      axios
+        .post(
+          API_DATABASE + "/get/professeur/all",
+          {
+            _id: Departement.id_Chef,
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
+        .then((response) => {
+          response.data.forEach((prof) => {
+            if(prof._id===Departement.id_Chef){
+              setSelectedChef(prof.FullName);
+            }
+          setSelectedProfs([]);
+            if(Departement.professeurs.includes(prof._id)){
+              setSelectedProfs((prev) => [...prev, prof]);
+            }
+          });
+        });
+    };
+    
   }, [API_DATABASE]);
 
   return (
     <div>
       <div className="form">
+        <h1 className="title">Modifier Departement</h1>
         <label htmlFor="departement-nom" className="form-label">
           Departement Nom:
         </label>
@@ -174,15 +232,13 @@ const DepartementForm = () => {
           handleChefSelection={handleChefSelection}
         ></ChefModal>
 
-        {/* <button onClick={toggleFiliereModal} id="departement-filieres" className="Modal-button"> Select Filiere </button>
-        <FiliereModal IsOpen={FiliereModalIsOpen} toggleModal={toggleFiliereModal} filieres={filieres} handleFiliereSelection={handleFiliereSelection} AlreadySelectedFilieres={departementFilieres}></FiliereModal> */}
         <br />
         <button
           type="button"
-          onClick={(button) => handleInsertDepartement(button)}
+          onClick={ handleModifyDepartement}
           className="form-button"
         >
-          Insert Departement
+          Modifier
         </button>
       </div>
     </div>

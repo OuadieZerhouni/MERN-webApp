@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 const Departement = require("./Departement");
-mongoose.set("strictQuery", false);
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 const professeurSchema = new mongoose.Schema({
   CIN: {

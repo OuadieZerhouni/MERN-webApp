@@ -17,7 +17,28 @@ const ProfesseurForm = () => {
 
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
+  const verifyinputs = () => {
+    let Error= document.getElementsByClassName('Error')[0]
+    if (
+      professeurCIN === "" ||
+      professeurPhoneNumber === "" ||
+      professeurFullName === "" ||
+      professeurEmail === "" ||
+      professeurPassword === "" ||
+      professeurRole === "" ||
+    
+      Error.innerHTML!==""
+    ) {
+      alert("Veuillez remplir tous les champs Correctement");
+      return false;
+    }
+    return true;
+  };
+
+
+
   const handleInsertProfesseur = () => {
+    if (!verifyinputs()) return;
     axios
       .post(API_DATABASE + "/insert/professeur", {
         CIN: professeurCIN,
@@ -26,8 +47,9 @@ const ProfesseurForm = () => {
         email: professeurEmail,
         password: professeurPassword,
         grade: professeurRole,
-        id_departement: professeurDepartement,
-      },{headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}})
+        id_departement: (professeurDepartement===""?null:professeurDepartement),
+      },{headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}}
+      )
       .then((response) => {
         console.log(response.data);
       })
