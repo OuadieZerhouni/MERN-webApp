@@ -105,6 +105,7 @@ const DepartementForm = () => {
   return (
     <div>
       <div className="form">
+        <h1 className="form-title">Insérer Departement</h1>
         <label htmlFor="departement-nom" className="form-label">
           Departement Nom:
         </label>

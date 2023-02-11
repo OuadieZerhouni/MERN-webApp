@@ -94,6 +94,7 @@ const ProfesseurForm = () => {
 
   return (
     <div className="form">
+      <h1 className="form-title">Insérer Professeur</h1>
       <label htmlFor="professeur-cin" className="form-label">
         {" "}
         CIN:{" "}

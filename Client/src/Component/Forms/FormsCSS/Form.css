@@ -1,10 +1,8 @@
 .form {/* form with blur background */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+ 
+  margin: 20px auto;
   width: 400px;
-  padding: 40px 30px;
+  padding: 20px 30px;
   box-sizing: border-box;
   background: rgba(0, 0, 0, 0.8);
   border-radius: 10px;
@@ -22,7 +20,7 @@
   animation: fadeIn 0.5s ease-in-out;
   animation-fill-mode: forwards;
   }
-  .title {
+  .form-title {
     font-size: 30px;
     font-weight: 600;
     margin-bottom: 20px;

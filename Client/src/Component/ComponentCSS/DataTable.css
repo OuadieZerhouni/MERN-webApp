@@ -1,7 +1,7 @@
-.sidebar {
+.DataTable  {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 90%;
   border-right: 1px solid #ccc;
   border-radius: 10px;
   margin: 20px auto;
@@ -9,7 +9,9 @@
 
 .tabs {
   display: flex;
-  margin-bottom: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
 }
 
 .tab {
@@ -19,16 +21,18 @@
   padding: 10px;
   border-radius: 10px;
   border: 1px solid #ccc;
+  background-color: #a2acca;
   text-align: center;
-  transition: all 0.3s;
+  transition: all 0.5s;
 }
 
 .tab:hover {
-  background-color: #ddd;
+  background-color: #5574a0;
 }
 
 .tab.active {
-  background-color: #fff;
+  color: white;
+  background-color: #0A2E5F;
   border-bottom: none;
 }
 
@@ -37,14 +41,24 @@ table {
   border-collapse: collapse;
 }
 
-th,
 td {
   padding: 10px;
   border: 1px solid #ccc;
   text-align: left;
+  border-radius: 10px;
+  background-color: #525892;
+  color: white;
+
 }
 
 th {
-  background-color: #ddd;
+  color: white;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  text-align: left;
+  background-color: #363841;
   font-weight: bold;
+  
+
 }

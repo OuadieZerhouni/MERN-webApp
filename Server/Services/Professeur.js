@@ -1,4 +1,5 @@
 const Professeur = require("../Models/Professeur");
+const Departement = require("../Services/Departement");
 
 exports.getByEmail = async function (email) {
   return await Professeur.findOne({ email: email });

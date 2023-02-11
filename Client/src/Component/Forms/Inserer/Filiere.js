@@ -107,6 +107,7 @@ const FiliereForm = () => {
 
   return (
     <div className="form">
+      <h1 className="form-title">Insérer Filiere</h1>
       <label htmlFor="filiere-nom" className="form-label">
         Filiere Nom:
       </label>

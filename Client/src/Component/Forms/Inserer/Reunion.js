@@ -145,6 +145,7 @@ const ReunionForm = () => {
 
   return (
     <div className="form">
+      <h1 className="form-title">Insérer Reunion</h1>
       <label htmlFor="reunion-date" className="form-label">
         Date de Reunion :
       </label>
