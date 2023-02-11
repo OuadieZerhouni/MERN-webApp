@@ -152,7 +152,7 @@ app.post('/get/professeur/email',async (req,res)=>{
     res.send(professeur);
 })
 app.post('/get/professeur/departement',async (req,res)=>{
-    const professeur=await Professeur.getByDepartement(req.body.id_Departement);
+    const professeur=await Professeur.getByDepartement(req.body._id);
     res.send(professeur);
 })
 

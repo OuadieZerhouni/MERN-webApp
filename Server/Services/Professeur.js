@@ -80,6 +80,7 @@ exports.getByFullName = async function (FullName) {
 
 exports.getByDepartement = async function (departementId) {
   let Depart = await Departement.getById(departementId);
+  if(!Depart) return [];
   return await Professeur.find(
     { _id: { $in: Depart.professeurs } },
     {

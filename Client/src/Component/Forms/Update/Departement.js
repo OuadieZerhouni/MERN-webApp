@@ -101,28 +101,7 @@ const DepartementForm = () => {
         console.error(error);
       });
     // Get Professeurs
-    axios
-      .post(
-        API_DATABASE + "/get/professeur/all",
-        {},
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-      .then((response) => {
-        setProfesseurs([]);
-        
-        response.data.forEach((prof) => {
-          if (
-            !(prof.id_departement === undefined) &&
-            !(prof.id_departement === "")
-          ) {
-            setProfesseurs((prev) => [...prev, prof]);
-          }
-        });
-      });
+ 
     const FillForm = (Departement) => {
       setDepartementNom(Departement.Nom);
       setDepartementDescription(Departement.description);
@@ -144,6 +123,17 @@ const DepartementForm = () => {
           }
         )
         .then((response) => {
+          setProfesseurs([]);
+        
+        response.data.forEach((prof) => {
+          if (
+            !(prof.id_departement === undefined) &&
+            !(prof.id_departement === "")
+          ) {
+            setProfesseurs((prev) => [...prev, prof]);
+          }
+        });
+
           response.data.forEach((prof) => {
             if(prof._id===Departement.id_Chef){
               setSelectedChef(prof.FullName);

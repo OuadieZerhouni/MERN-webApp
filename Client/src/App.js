@@ -2,15 +2,24 @@ import './CSS/App.css';
 import { Route, Routes,BrowserRouter as Router,useNavigate } from "react-router-dom";
 
 
-import DepartementForm from './Component/Forms/Inserer/Departement';
-import FiliereForm from './Component/Forms/Inserer/Filiere';
-import ReunionForm from './Component/Forms/Inserer/Reunion';
-import ProfesseurForm from './Component/Forms/Inserer/Professeur';
 import Header from './Component/Header';
 import Home from './Component/Home';
 import Login from './Component/Forms/Login';
 import Dashboard from './Component/Dashboard';
-import ModifyDepartment from './Component/Forms/Update/Departement';
+
+
+import InsérerDepartementForm from './Component/Forms/Inserer/Departement';
+import InsérerFiliereForm from './Component/Forms/Inserer/Filiere';
+import InsérerReunionForm from './Component/Forms/Inserer/Reunion';
+import InsérerProfesseurForm from './Component/Forms/Inserer/Professeur';
+
+
+import ModifyDepartmentForm from './Component/Forms/Update/Departement';
+import ModifyFiliereForm from './Component/Forms/Update/Filiere';
+import ModifyReunionForm from './Component/Forms/Update/Reunion';
+import ModifyProfesseurForm from './Component/Forms/Update/Professeur';
+
+
 import {  useEffect } from 'react';
 
 
@@ -32,12 +41,17 @@ const withAuth = (Component) => {
 };
 
 
-const WithAuthDepartementForm = withAuth(DepartementForm);
-const WithAuthFiliereForm = withAuth(FiliereForm);
-const WithAuthReunionForm = withAuth(ReunionForm);
-const WithAuthProfesseur = withAuth(ProfesseurForm);
+const WithAuthDepartementForm = withAuth(InsérerDepartementForm);
+const WithAuthFiliereForm = withAuth(InsérerFiliereForm);
+const WithAuthReunionForm = withAuth(InsérerReunionForm);
+const WithAuthProfesseur = withAuth(InsérerProfesseurForm);
 const WithAuthDashboard = withAuth(Dashboard);
-const WithAuthModifyDepartment = withAuth(ModifyDepartment);
+
+const WithAuthModifyDepartment = withAuth(ModifyDepartmentForm);
+const WithAuthModifyFiliere = withAuth(ModifyFiliereForm);
+const WithAuthModifyReunion = withAuth(ModifyReunionForm);
+const WithAuthModifyProfesseur = withAuth(ModifyProfesseurForm);
+
 
 function App() {
   return (
@@ -52,7 +66,11 @@ function App() {
           <Route path="/Add/Filiere" element={<WithAuthFiliereForm />} />
           <Route path="/Add/Reunion" element={<WithAuthReunionForm />} />
           <Route path="/Add/Professeur" element={<WithAuthProfesseur />} />
+
           <Route path='/modify/departement/:id' element={<WithAuthModifyDepartment/>} />
+          <Route path='/modify/filiere/:id' element={<WithAuthModifyFiliere/>} />
+          <Route path='/modify/reunion/:id' element={<WithAuthModifyReunion/>} />
+          <Route path='/modify/professeur/:id' element={<WithAuthModifyProfesseur/>} />
 
           <Route path="/Dashboard" element={<WithAuthDashboard />} />
           <Route path="/Login" element={<Login />} />

@@ -7,7 +7,7 @@ const FiliereForm = () => {
   const [filiereNom, setFiliereNom] = useState("");
   const [filiereDescription, setFiliereDescription] = useState("");
   const [filiereDateCreation, setFiliereDateCreation] = useState("");
-  const [filiereIdDepartement, setFiliereIdDepartement] = useState("");
+  const [filiereDepartement, setFiliereDepartement] = useState("");
   const [filiereEffectif, setFiliereEffectif] = useState("");
   const [filiereCoordinateur, setFiliereCoordinateur] = useState("");
 
@@ -35,17 +35,18 @@ const FiliereForm = () => {
     || filiereDescription === "" 
     || filiereDateCreation === ""
     || filiereEffectif === ""){
-      alert("Please Fill All Fields");
+      alert("Veuillez remplir tous les champs Correctememnt");
       return;
     }
     axios
-      .post(API_DATABASE + "/insert/filiere", {
+      .post(API_DATABASE + "/update/filiere", {
+        _id: window.location.pathname.split("/")[3],
         Nom: filiereNom,
         Description: filiereDescription,
         Date_Creation: filiereDateCreation,
         Effectif: filiereEffectif,
         id_coordinateur: filiereCoordinateur,
-        id_departement: filiereIdDepartement,
+        id_departement: filiereDepartement,
       },
       { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       )
@@ -64,7 +65,7 @@ const FiliereForm = () => {
 
   const handleDepartementSelection = (Depart) => {
     setSelectedDepart(Depart.Nom);
-    setFiliereIdDepartement(Depart._id);
+    setFiliereDepartement(Depart._id);
     setSelectedCoordinateur("Not Selected");
     setFiliereCoordinateur("");
     setDepartModalIsOpen(false);
@@ -78,7 +79,7 @@ const FiliereForm = () => {
     } else {
       axios
         .post(API_DATABASE + "/get/professeur/departement", {
-          _id: filiereIdDepartement,
+          _id: filiereDepartement,
         },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } })
         .then((response) => {
@@ -90,24 +91,65 @@ const FiliereForm = () => {
     }
   };
 
-  const handleCoordinateurSelection = (_coordinateur) => {
+  const handleCoordinateurSelection = async(_coordinateur) => {
     setSelectedCoordinateur(_coordinateur[1]);
     setFiliereCoordinateur(_coordinateur[0]);
     setCoordinateurModalIsOpen(false);
   };
 
   useEffect(() => {
-    axios.post(API_DATABASE + "/get/departement/all",{},
-    { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }}
-    ).then((response) => {
-      setDepartements(response.data);
-    })
+    //departements
+   
+    //get filiere 
+    axios.post(API_DATABASE + "/get/filiere/id", {
+        _id: window.location.pathname.split("/")[3],
+        },
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+        ).then((response) => {
+           FillForm(response.data);
+        })
+          
+
+    const FillForm =(_filiere) => {
+        axios.post(API_DATABASE + "/get/departement/all",{},
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }}
+        ).then((response) => {
+        setDepartements(response.data);
+        response.data.forEach((depart) => {
+            if (depart._id === _filiere.id_departement) {
+                setSelectedDepart(depart.Nom);
+                setFiliereDepartement(depart._id);
+            }
+        });
+
+        })
+        setFiliereNom(_filiere.Nom);
+        setFiliereDescription(_filiere.Description);
+        setFiliereDateCreation(_filiere.Date_Creation.split("T")[0]);
+        setFiliereEffectif(_filiere.Effectif);
+        axios
+        .post(API_DATABASE + "/get/professeur/departement", {
+          _id: _filiere.id_departement,
+        },
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } })
+        .then((response) => {
+          if(response.data.length === 0){alert("No Professeur in this Departement");return;}
+          setProfesseurs(response.data);
+            response.data.forEach((prof) => {
+                if (prof._id === _filiere.id_coordinateur) {
+                    setSelectedCoordinateur(prof.FullName);
+                    setFiliereCoordinateur(prof._id);
+                }
+            });
+        });
+    };
+
 
   }, [API_DATABASE]);
 
   return (
     <div className="form">
-      <h1 className="form-title">Insérer Filiere</h1>
+      <h1 className="form-title">Modifier Filiere</h1>
       <label htmlFor="filiere-nom" className="form-label">
         Filiere Nom:
       </label>

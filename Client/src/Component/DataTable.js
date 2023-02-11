@@ -268,6 +268,7 @@ const DataTable = () => {
                 <th>Cordinateur</th>
                 <th>departement</th>
                 <th>Options</th>
+                <th>modify</th>
               </tr>
             </thead>
             <tbody>
@@ -295,6 +296,11 @@ const DataTable = () => {
                       </div>
                     ))}
                   </td>
+                  <td>
+                    <Link className="btn btn-primary"  to={"/modify/filiere/" + filiere._id}>
+                      modify
+                    </Link>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -309,6 +315,7 @@ const DataTable = () => {
                 <th>CIN</th>
                 <th>Telephone</th>
                 <th>grade</th>
+                <th>modify</th>
               </tr>
             </thead>
             <tbody>
@@ -319,6 +326,11 @@ const DataTable = () => {
                   <td>{professeur.CIN}</td>
                   <td>{professeur.PhoneNumber}</td>
                   <td>{professeur.grade}</td>
+                  <td>
+                    <Link className="btn btn-primary"  to={"/modify/professeur/" + professeur._id}>
+                      modify
+                    </Link>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -334,6 +346,7 @@ const DataTable = () => {
                 <th>Liste Ordres de Jour</th>
                 <th>prof. presents</th>
                 <th>PV</th>
+                <th>modify</th>
               </tr>
             </thead>
             <tbody>
@@ -361,6 +374,11 @@ const DataTable = () => {
                     ))}
                   </td>
                   <td>{reunion.PV.link}</td>
+                  <td>
+                    <Link className="btn btn-primary"  to={"/modify/reunion/" + reunion._id}>
+                      modify
+                    </Link>
+                  </td>
                 </tr>
               ))}
             </tbody>

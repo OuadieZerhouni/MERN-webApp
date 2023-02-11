@@ -56,7 +56,7 @@ const ReunionForm = () => {
         .post(
           API_DATABASE + "/get/professeur/departement",
           {
-            id_Departement: reunionIdDepartement,
+            _id: reunionIdDepartement,
           },
           {
             headers: {
