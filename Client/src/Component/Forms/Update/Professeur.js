@@ -97,12 +97,10 @@ const ProfesseurForm = () => {
         setProfesseurDepartement(response.data.id_departement)
         axios.post(API_DATABASE + "/get/departement/all",{},
     { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }}
-    ).then((response) => {
-      setDepartements(response.data);
-      console.log(response.data)
-      response.data.map((depart)=>{
+    ).then((DepartResponse) => {
+      setDepartements(DepartResponse.data);
+      DepartResponse.data.forEach((depart)=>{
         if (depart._id === response.data.id_departement) {
-            console.log(depart.Nom)
           setSelectedDepart(depart.Nom);
         }
       });
