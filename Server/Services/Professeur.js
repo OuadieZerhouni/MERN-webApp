@@ -49,6 +49,7 @@ exports.getById = async function (id) {
         FullName: 1,
         CIN: 1,
         PhoneNumber: 1,
+        password:1,
         email: 1,
         grade: 1,
         id_departement: 1,
