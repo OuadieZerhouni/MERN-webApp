@@ -39,7 +39,10 @@ const ReunionForm = () => {
         }
       )
       .then((response) => {
-        window.location.href = "/";
+        alert("Reunion Inserted");
+        window.location.href = "/Dashboard";
+
+
       })
       .catch((error) => {
         console.error(error);
