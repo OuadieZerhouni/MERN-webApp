@@ -204,7 +204,7 @@ router.post('/update/pv',async (req,res)=>{
     res.send(pv);
 })
 
-/*----commentaire-----*/
+/*----commentaire----*/
 router.post('/insert/comment',async (req,res)=>{
     const comment=await Reunion.AddComment(req.body.reunion_id,req.body.comment);
     res.send(comment);
@@ -221,7 +221,6 @@ router.post('/update/comment',async (req,res)=>{
     const comment=await Reunion.updateComment(req.body.reunion_id,req.body.pv_id,req.body.comment_id,req.body.comment);
     res.send(comment);
 })
-
 module.exports=router;
 
 
