@@ -1,5 +1,7 @@
 const Departement=require("../Models/Departement");
 
+
+
 exports.insert = async function (departement) {
     return await Departement.create(departement);
   }

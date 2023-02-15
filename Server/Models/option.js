@@ -1,8 +1,6 @@
 // const mongoose = require("mongoose");
 // require("dotenv").config();
 
-// mongoose.set("strictQuery", false);
-// mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 // const OptionSchema =new mongoose.Schema({ {
 //     Nom: {

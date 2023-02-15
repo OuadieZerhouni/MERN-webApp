@@ -2,14 +2,6 @@ const mongoose = require("mongoose");
 
 require("dotenv").config();
 
-var conn = mongoose.connection;
-conn.on("connected", function () {
-  console.log("database is connected successfully");
-});
-conn.on("disconnected", function () {
-  console.log("database is disconnected successfully");
-});
-
 const DepartementSchema = new mongoose.Schema({
   Nom: {
     type: String,

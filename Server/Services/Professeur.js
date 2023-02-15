@@ -1,5 +1,7 @@
 const Professeur = require("../Models/Professeur");
 const Departement = require("../Services/Departement");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 exports.getByEmail = async function (email) {
   return await Professeur.findOne({ email: email });
