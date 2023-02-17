@@ -23,7 +23,7 @@ const ReunionForm = () => {
   const handleInsertReunion = () => {
     axios
       .post(
-        API_DATABASE + "/insert/reunion",
+        API_DATABASE + "/reunion/insert",
         {
           Date: reunionDate,
           lieu: reunionLieu,
@@ -57,7 +57,7 @@ const ReunionForm = () => {
     } else {
       axios
         .post(
-          API_DATABASE + "/get/professeur/departement",
+          API_DATABASE + "/professeur/get/departement",
           {
             _id: reunionIdDepartement,
           },
@@ -84,7 +84,7 @@ const ReunionForm = () => {
     } else {
       axios
         .post(
-          API_DATABASE + "/get/professeur/departement",
+          API_DATABASE + "/professeur/get/departement",
           {
             id_Departement: reunionIdDepartement,
           },
@@ -132,7 +132,7 @@ const ReunionForm = () => {
   useEffect(() => {
     axios
       .post(
-        API_DATABASE + "/get/departement/all",
+        API_DATABASE + "/departement/get/all",
         {},
         {
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },

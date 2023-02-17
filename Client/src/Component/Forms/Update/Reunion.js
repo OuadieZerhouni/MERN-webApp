@@ -24,7 +24,7 @@ const ReunionForm = () => {
   const handleInsertReunion = () => {
     axios
       .post(
-        API_DATABASE + "/update/reunion",
+        API_DATABASE + "/reunion/update",
         {
           _id: window.location.pathname.split("/")[3],
           Date: reunionDate,
@@ -56,7 +56,7 @@ const ReunionForm = () => {
     } else {
       axios
         .post(
-          API_DATABASE + "/get/professeur/departement",
+          API_DATABASE + "/professeur/get/departement",
           {
             _id: reunionIdDepartement,
           },
@@ -83,7 +83,7 @@ const ReunionForm = () => {
     } else {
       axios
         .post(
-          API_DATABASE + "/get/professeur/departement",
+          API_DATABASE + "/professeur/get/departement",
           {
             id_Departement: reunionIdDepartement,
           },
@@ -131,7 +131,7 @@ const ReunionForm = () => {
   useEffect(() => {
     axios
       .post(
-        API_DATABASE + "/get/reunion/id",
+        API_DATABASE + "/reunion/get/id",
         { _id: window.location.pathname.split("/")[3] },
         {
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
@@ -147,7 +147,7 @@ const ReunionForm = () => {
         setReunionProfAbsent(data.prof_absent);
         axios
           .post(
-            API_DATABASE + "/get/departement/all",
+            API_DATABASE + "/departement/get/all",
             {},
             {
               headers: {

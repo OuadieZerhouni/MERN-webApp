@@ -64,7 +64,7 @@ const DepartementForm = () => {
 
     axios
       .post(
-        API_DATABASE + "/update/departement",
+        API_DATABASE + "/departement/update",
         {
           _id: window.location.pathname.split("/")[3],
           Nom: departementNom,
@@ -89,7 +89,7 @@ const DepartementForm = () => {
     // Get Departement
     axios
       .post(
-        API_DATABASE + "/get/departement/id",
+        API_DATABASE + "/departement/get/id",
         {
           _id: window.location.pathname.split("/")[3],
         },
@@ -112,7 +112,7 @@ const DepartementForm = () => {
       // Get Chef and
       axios
         .post(
-          API_DATABASE + "/get/professeur/all",
+          API_DATABASE + "/professeur/get/all",
           {
             _id: Departement.id_Chef,
           },

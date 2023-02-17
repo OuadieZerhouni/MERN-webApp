@@ -40,7 +40,7 @@ const ProfesseurForm = () => {
   const handleInsertProfesseur = () => {
     if (!verifyinputs()) return;
     axios
-      .post(API_DATABASE + "/insert/professeur", {
+      .post(API_DATABASE + "/professeur/insert", {
         CIN: professeurCIN,
         PhoneNumber: professeurPhoneNumber,
         FullName: professeurFullName,
@@ -83,7 +83,7 @@ const ProfesseurForm = () => {
   };
 
  useEffect(() => {
-    axios.post(API_DATABASE + "/get/departement/all",{},
+    axios.post(API_DATABASE + "/departement/get/all",{},
     { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }}
     ).then((response) => {
       setDepartements(response.data);

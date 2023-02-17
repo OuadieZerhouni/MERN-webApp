@@ -39,7 +39,7 @@ const FiliereForm = () => {
       return;
     }
     axios
-      .post(API_DATABASE + "/insert/filiere", {
+      .post(API_DATABASE + "/filiere/insert", {
         Nom: filiereNom,
         Description: filiereDescription,
         Date_Creation: filiereDateCreation,
@@ -77,7 +77,7 @@ const FiliereForm = () => {
       return;
     } else {
       axios
-        .post(API_DATABASE + "/get/professeur/departement", {
+        .post(API_DATABASE + "/professeur/get/departement", {
           _id: filiereIdDepartement,
         },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } })
@@ -97,7 +97,7 @@ const FiliereForm = () => {
   };
 
   useEffect(() => {
-    axios.post(API_DATABASE + "/get/departement/all",{},
+    axios.post(API_DATABASE + "/departement/get/all",{},
     { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }}
     ).then((response) => {
       setDepartements(response.data);

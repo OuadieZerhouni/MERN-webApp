@@ -60,7 +60,7 @@ const DepartementForm = () => {
 
     axios
       .post(
-        API_DATABASE + "/insert/departement",
+        API_DATABASE + "/departement/insert",
         {
           Nom: departementNom,
           description: departementDescription,
@@ -83,7 +83,7 @@ const DepartementForm = () => {
   useEffect(() => {
     axios
       .post(
-        API_DATABASE + "/get/professeur/all",
+        API_DATABASE + "/professeur/get/all",
         {},
         {
           headers: {

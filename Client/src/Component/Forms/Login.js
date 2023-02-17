@@ -6,10 +6,10 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  let proxy = process.env.REACT_APP_proxy;
+  let URL = process.env.REACT_APP_proxy;
   const HandleLogin = () => {
     axios
-      .post(`${proxy}/login`, {
+      .post(URL+"/login", {
         email: email,
         password: password,
       })
