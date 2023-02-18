@@ -1,6 +1,6 @@
 const express=require('express');
 const router = express.Router();
-const Filiere=require("../Services/Filiere")
+const Filiere=require("../Services/Option")
 
 
 router.post('/get',async (req,res)=>{
@@ -8,7 +8,7 @@ router.post('/get',async (req,res)=>{
     res.send(options);
 })
 router.post('/insert',async (req,res)=>{
-    const options=await Filiere.insertOptions(req.body);
+    const options=await Filiere.insertOption(req.body);
     res.send(options);
 })
 router.post('/get/Filiere',async (req,res)=>{

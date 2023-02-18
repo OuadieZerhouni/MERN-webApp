@@ -12,7 +12,7 @@ import InsérerDepartementForm from './Component/Forms/Inserer/Departement';
 import InsérerFiliereForm from './Component/Forms/Inserer/Filiere';
 import InsérerReunionForm from './Component/Forms/Inserer/Reunion';
 import InsérerProfesseurForm from './Component/Forms/Inserer/Professeur';
-
+import InsérerOptionForm from './Component/Forms/Inserer/Option';
 
 import ModifyDepartmentForm from './Component/Forms/Update/Departement';
 import ModifyFiliereForm from './Component/Forms/Update/Filiere';
@@ -46,6 +46,7 @@ const WithAuthFiliereForm = withAuth(InsérerFiliereForm);
 const WithAuthReunionForm = withAuth(InsérerReunionForm);
 const WithAuthProfesseur = withAuth(InsérerProfesseurForm);
 const WithAuthDashboard = withAuth(Dashboard);
+const WithAuthOption = withAuth(InsérerOptionForm);
 
 const WithAuthModifyDepartment = withAuth(ModifyDepartmentForm);
 const WithAuthModifyFiliere = withAuth(ModifyFiliereForm);
@@ -66,6 +67,7 @@ function App() {
           <Route path="/Add/Filiere" element={<WithAuthFiliereForm />} />
           <Route path="/Add/Reunion" element={<WithAuthReunionForm />} />
           <Route path="/Add/Professeur" element={<WithAuthProfesseur />} />
+          <Route path="/Add/Option/:id" element={<WithAuthOption />} />
 
           <Route path='/modify/departement/:id' element={<WithAuthModifyDepartment/>} />
           <Route path='/modify/filiere/:id' element={<WithAuthModifyFiliere/>} />

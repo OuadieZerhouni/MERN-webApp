@@ -173,6 +173,7 @@ const DataTable = () => {
         }
       )
       .then((response) => {
+        console.log(response.data)
         setReunion(response.data);
         response.data.forEach(async (reunion) => {
           const departementName = await getDepartFiliere(reunion.id_departement)
@@ -289,16 +290,13 @@ const DataTable = () => {
                       : ""}
                   </td>
                   <td>
-                    {filiere.Options.map((option) => (
-                      <div key={option._id}>
-                        <p>{option.Nom}</p>
-                        <p>{option.Description}</p>
-                      </div>
-                    ))}
+                    <Link className="btn btn-primary"  to={"/Add/Option/" + filiere._id}>
+                      Add Option
+                    </Link>
                   </td>
                   <td>
                     <Link className="btn btn-primary"  to={"/modify/filiere/" + filiere._id}>
-                      modify
+                      Modify
                     </Link>
                   </td>
                 </tr>

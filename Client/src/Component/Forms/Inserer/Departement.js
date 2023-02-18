@@ -3,7 +3,6 @@ import axios from "axios";
 
 import ChefModal from "../Modals/ChefModal";
 import ProfModal from "../Modals/ProfModal";
-// import FiliereModal from "./Modals/FileireModal";
 import "../FormsCSS/Form.css";
 
 const DepartementForm = () => {

@@ -39,7 +39,7 @@ const FiliereForm = () => {
       return;
     }
     axios
-      .post(API_DATABASE + "/update/filiere", {
+      .post(API_DATABASE + "/filiere/update", {
         _id: window.location.pathname.split("/")[3],
         Nom: filiereNom,
         Description: filiereDescription,
@@ -78,7 +78,7 @@ const FiliereForm = () => {
       return;
     } else {
       axios
-        .post(API_DATABASE + "/get/professeur/departement", {
+        .post(API_DATABASE + "/professeur/get/departement", {
           _id: filiereDepartement,
         },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } })
@@ -101,7 +101,7 @@ const FiliereForm = () => {
     //departements
    
     //get filiere 
-    axios.post(API_DATABASE + "/get/filiere/id", {
+    axios.post(API_DATABASE + "/filiere/get/id", {
         _id: window.location.pathname.split("/")[3],
         },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
@@ -111,7 +111,7 @@ const FiliereForm = () => {
           
 
     const FillForm =(_filiere) => {
-        axios.post(API_DATABASE + "/get/departement/all",{},
+        axios.post(API_DATABASE + "/departement/get/all",{},
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }}
         ).then((response) => {
         setDepartements(response.data);
@@ -128,7 +128,7 @@ const FiliereForm = () => {
         setFiliereDateCreation(_filiere.Date_Creation.split("T")[0]);
         setFiliereEffectif(_filiere.Effectif);
         axios
-        .post(API_DATABASE + "/get/professeur/departement", {
+        .post(API_DATABASE + "/professeur/get/departement", {
           _id: _filiere.id_departement,
         },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } })

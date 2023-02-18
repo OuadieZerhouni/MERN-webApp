@@ -19,7 +19,7 @@ export default function DepartModal({
           {Departements.map((Departement) => (
             <li className="modal-list"
               key={Departement._id}
-              onClick={(e) => handleDepartementSelection(Departement)}
+              onClick={() => handleDepartementSelection(Departement)}
             >
               {Departement.Nom}
             </li>

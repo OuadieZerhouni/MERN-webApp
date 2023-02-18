@@ -40,7 +40,7 @@ const ProfesseurForm = () => {
   const handleInsertProfesseur = () => { 
     if (!verifyinputs()) return;
     axios
-      .post(API_DATABASE + "/update/professeur", {
+      .post(API_DATABASE + "/professeur/update", {
         _id: window.location.pathname.split("/")[3],
         CIN: professeurCIN,
         PhoneNumber: professeurPhoneNumber,
@@ -85,7 +85,7 @@ const ProfesseurForm = () => {
 
  useEffect(() => {
     
-    axios.post(API_DATABASE + "/get/professeur/id",{_id:window.location.pathname.split('/')[3]},
+    axios.post(API_DATABASE + "/professeur/get/id",{_id:window.location.pathname.split('/')[3]},
     {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}})
     .then((response)=>{
         setProfesseurCIN(response.data.CIN)
@@ -95,7 +95,7 @@ const ProfesseurForm = () => {
         setProfesseurPassword(response.data.password)
         setProfesseurRole(response.data.grade)
         setProfesseurDepartement(response.data.id_departement)
-        axios.post(API_DATABASE + "/get/departement/all",{},
+        axios.post(API_DATABASE + "/departement/get/all",{},
     { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }}
     ).then((DepartResponse) => {
       setDepartements(DepartResponse.data);
