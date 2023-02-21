@@ -2,17 +2,16 @@ const express = require("express");
 const router = express.Router();
 const Filiere = require("../Services/Option");
 const uuid = require("uuid").v4;
-const ExcelJS = require("exceljs");
 const fs = require("fs");
-
 const multer = require("multer");
 const path = require("path");
-var aspose = aspose || {};
-aspose.cells = require("aspose.cells");
+const pdf = require('html-pdf');
+const ToPDF = require('../util/ToPDF').ToPDF
+
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "./uploads/");
+    cb(null, "./uploads/Emplois/");
   },
   filename: function (req, file, cb) {
     const Id = uuid();
@@ -20,17 +19,10 @@ const storage = multer.diskStorage({
     cb(null, fileName);
   },
 });
-
 const upload = multer({ storage: storage });
 
 router.post("/insert", upload.single("file"), async (req, res) => {
-  console.log(req.file.path);
-
-  var workbook = new aspose.cells.Workbook(req.file.path);
-  var saveOptions = aspose.cells.PdfSaveOptions();
-  saveOptions.setOnePagePerSheet(true);
-  workbook.save(req.file.path + ".pdf", saveOptions);
-
+  const pdfPath = await ToPDF(req.file,req.body.Nom)
   const optionData = {
     Nom: req.body.Nom,
     Description: req.body.Description,
