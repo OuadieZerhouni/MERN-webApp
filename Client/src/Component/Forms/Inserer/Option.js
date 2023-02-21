@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import FilierModal from "../Modals/FileireModal";
 
-const FiliereForm = () => {
+const OptionForm = () => {
   const [OptionNom, setOptionNom] = useState("");
   const [OptionDescription, setOptionDescription] = useState("");
   const [OptionDateCreation, setOptionDateCreation] = useState("");
@@ -10,6 +10,7 @@ const FiliereForm = () => {
   const [OptionFiliere, setOptionFiliere] = useState("");
   const [OptionFiliereNom , setOptionFiliereNom] = useState("NotSelected");
   const [OptionEffectif, setOptionEffectif] = useState("");
+  const [file, setFile] = useState(null);
 
   const[filieres , setfilieres] = useState([]);
   const[FiliereModalIsopen , setFiliereModalIsopen] = useState(false);
@@ -29,30 +30,35 @@ const FiliereForm = () => {
       alert("Please Fill All Fields");
       return;
     }
+  
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('_id', OptionFiliere);
+    formData.append('Nom', OptionNom);
+    formData.append('Description', OptionDescription);
+    formData.append('Date_Creation', OptionDateCreation);
+    formData.append('effectif', OptionEffectif);
+  
     axios
-      .post(
-        API_DATABASE + "/Option/insert",
-        {
-          _id: OptionFiliere,
-          option: {
-            Nom: OptionNom,
-            Description: OptionDescription,
-            Date_Creation: OptionDateCreation,
-            Effectif: OptionEffectif,
-          },
+      .post(API_DATABASE + "/Option/insert", formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          'Content-Type': 'multipart/form-data'
         },
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
-      )
+      })
       .then((response) => {
         console.log(response);
-        window.location.href = "/Dashboard";
       })
       .catch((error) => {
         console.error(error);
       });
   };
+  
+  const handleFileChange = (event) => {
+    
+    setFile(event.target.files[0]);
+  };
+
 
   //handle Modal Filiere
     const ToggleModalFiliere = () => {  
@@ -74,7 +80,7 @@ const FiliereForm = () => {
       )
       .then((response) => {
         setfilieres(response.data);
-        response.data.map((filiere) => {
+        response.data.forEach(filiere => {
           if (filiere._id === window.location.pathname.split("/")[3]) {
             setOptionFiliere(filiere._id);
             setOptionFiliereNom(filiere.Nom);
@@ -136,6 +142,16 @@ const FiliereForm = () => {
         <button className="form-button" onClick={ToggleModalFiliere}>{OptionFiliereNom}</button>
         <FilierModal filieres={filieres} IsOpen={FiliereModalIsopen} toggleModal={ToggleModalFiliere} handleFiliereSelection={handleFiliereSelection}/>
      <br/>
+      <label htmlFor="Option-file" className="form-label">
+        Emploi du temps:
+        </label>
+      <input
+        className="form-input"
+        type="file"
+        id="Option-file"
+        onChange={handleFileChange}
+      />
+
       <button
         className="form-button"
         type="button"
@@ -146,4 +162,4 @@ const FiliereForm = () => {
     </div>
   );
 };
-export default FiliereForm;
+export default OptionForm;

@@ -23,6 +23,7 @@ const DataTable = () => {
 
   useEffect(() => {
     document.title = "Dashboard";
+    
     const getChefDepartement = async (id) => {
       return axios
         .post(
@@ -121,6 +122,8 @@ const DataTable = () => {
       .then((response) => {
         setFilieres(response.data);
         response.data.forEach(async (filiere) => {
+          console.log(filiere)
+
           const coordName = await getCoordFiliere(filiere.id_coordinateur)
             .then((fullName) => {
               return fullName;

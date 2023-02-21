@@ -7,9 +7,15 @@ exports.getOptionById = async (id) => {
   return await Filiere.find({ "Options._id": id });
 };
 exports.insertOption = async (id, option) => {
-  return await Filiere.findByIdAndUpdate(id, {
+  
+    Filiere.findByIdAndUpdate(id, {
     $addToSet: { Options: option },
+  }).then((result) => {
+    return option;
   });
+  
+
+  
 };
 exports.updateOption = async (option_id, option) => {
   return await Filiere.findOneAndUpdate(
