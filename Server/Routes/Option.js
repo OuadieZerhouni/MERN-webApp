@@ -3,25 +3,12 @@ const router = express.Router();
 const Filiere = require("../Services/Option");
 const uuid = require("uuid").v4;
 const fs = require("fs");
-const multer = require("multer");
-const path = require("path");
-const pdf = require('html-pdf');
 const ToPDF = require('../util/ToPDF').ToPDF
+const Emploi_Upload=require('../util/Fileupload').Emploi_Upload
 
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./uploads/Emplois/");
-  },
-  filename: function (req, file, cb) {
-    const Id = uuid();
-    const fileName = Id + path.extname(file.originalname);
-    cb(null, fileName);
-  },
-});
-const upload = multer({ storage: storage });
 
-router.post("/insert", upload.single("file"), async (req, res) => {
+router.post("/insert", Emploi_Upload.single("file"), async (req, res) => {
   const pdfPath = await ToPDF(req.file,req.body.Nom)
   const optionData = {
     Nom: req.body.Nom,

@@ -1,14 +1,26 @@
 const express=require('express');
 const router = express.Router();
 const Reunion=require("../Services/Reunion")
-
+const PV_Upload=require('../util/Fileupload').PV_Upload;
 
 
 
 
 /*---reunion---*/ 
-router.post('/insert',async (req,res)=>{
-    const reunion=await Reunion.insert(req.body);
+router.post('/insert',PV_Upload.single('file'),async (req,res)=>{
+    console.log(req.body.prof_present)
+    const reunionData={
+        Date:req.body.Date,
+        Lieu:req.body.Lieu,
+        id_Departement:req.body.id_departement,
+        LOJ:req.body.LOJ,
+        prof_present:req.body.prof_present.split(','),
+        PV:{
+            link:req.file.path,
+            date_creation:Date.now(),
+            comments:[]
+        }  }
+    const reunion=await Reunion.insert(reunionData);
     res.send(reunion);
 })
 router.post('/get/all',async (req,res)=>{

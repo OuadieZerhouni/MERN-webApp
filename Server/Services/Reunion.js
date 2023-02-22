@@ -33,17 +33,6 @@ const Reunion=require("../Models/Reunion")
         $pull: { prof_present: value },
     });
 }
-   exports.AddProfAbsent = async function (id, value) {
-    return await Reunion.findByIdAndUpdate(id, {
-        $addToSet: { prof_absent: value },
-    });
-}
-   exports.RemoveProfAbsent  = async function (id, value) {
-    return await Reunion.findByIdAndUpdate(id, {
-        $pull: { prof_absent: value },
-    });
-} 
-
    exports.getByDepartement = async function (id_departement) {
     return await Reunion.find({
         id_departement: id_departement,
@@ -78,7 +67,6 @@ const Reunion=require("../Models/Reunion")
         { $set: { "PVs.$": value } }
     );
 }
-//get comments by pv id
    exports.getCommentsByPV = async function (id_reunion, id_pv) {
     return await Reunion.find(
         { _id: id_reunion, "PVs._id": id_pv },
