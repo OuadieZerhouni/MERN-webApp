@@ -28,7 +28,7 @@ const ReunionForm = () => {
         {
           _id: window.location.pathname.split("/")[3],
           Date: reunionDate,
-          lieu: reunionLieu,
+          Lieu: reunionLieu,
           id_departement: reunionIdDepartement,
           LOJ: reunionLoj,
           prof_present: reunionProfPresent,
@@ -140,7 +140,7 @@ const ReunionForm = () => {
       .then((response) => {
         const data = response.data;
         setReunionDate(data.Date);
-        setReunionLieu(data.lieu);
+        setReunionLieu(data.Lieu);
         setReunionIdDepartement(data.id_departement);
         setReunionLoj(data.LOJ);
         setReunionProfPresent(data.prof_present);
@@ -180,13 +180,13 @@ const ReunionForm = () => {
         onChange={(e) => setReunionDate(e.target.value)}
       />
       <br />
-      <label htmlFor="reunion-lieu" className="form-label">
+      <label htmlFor="reunion-Lieu" className="form-label">
         Lieu de Reunion :
       </label>
       <input
         className="form-input"
         type="text"
-        id="reunion-lieu"
+        id="reunion-Lieu"
         value={reunionLieu}
         onChange={(e) => setReunionLieu(e.target.value)}
       />

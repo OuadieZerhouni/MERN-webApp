@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ProfModalPresent from "../Modals/ProfModal";
 import DepartModal from "../Modals/DepartModal";
+import LOJModal from "../Modals/LOJModal";
 
 const ReunionForm = () => {
   const [reunionDate, setReunionDate] = useState("");
@@ -11,13 +12,13 @@ const ReunionForm = () => {
   const [reunionProfPresent, setReunionProfPresent] = useState([]);
   const [PV_file, setPV_file] = useState(null);
 
-
   const [Professeurs, setProfesseurs] = useState([]);
   const [SelectedDepart, setSelectedDepart] = useState("Not Selected");
 
-  const [ProfModalPresentIsOpen, setProfModalPresentIsOpen] = useState(false);
   const [Departements, setDepartements] = useState([]);
   const [DepartModatIsOpen, setDepartModalIsOpen] = useState(false);
+  const [ProfModalPresentIsOpen, setProfModalPresentIsOpen] = useState(false);
+  const [LOJModalIsOpen, setLOJModalIsOpen] = useState(false);
 
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
   const handleInsertReunion = () => {
@@ -35,25 +36,18 @@ const ReunionForm = () => {
     const formData = new FormData();
     formData.append("file", PV_file);
     formData.append("Date", reunionDate);
-    formData.append("lieu", reunionLieu);
+    formData.append("Lieu", reunionLieu);
     formData.append("id_departement", reunionIdDepartement);
     formData.append("LOJ", reunionLoj);
     formData.append("prof_present", reunionProfPresent);
     axios
-      .post(
-        API_DATABASE + "/reunion/insert",
-        formData,
-        {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        }
-      )
+      .post(API_DATABASE + "/reunion/insert", formData, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
       .then((response) => {
         alert("Reunion Inserted");
-        window.location.href = "/Dashboard";
-
-
       })
       .catch((error) => {
         console.error(error);
@@ -62,6 +56,16 @@ const ReunionForm = () => {
 
   const handleFileChange = (event) => {
     setPV_file(event.target.files[0]);
+  };
+
+  /* handle LOJ Modal*/
+  const toggleModalLOJ = () => {
+    setLOJModalIsOpen(!LOJModalIsOpen);
+  };
+  const handleLOJ = (LOJ) => {
+    setReunionLoj([]);
+    setReunionLoj(LOJ);
+    setLOJModalIsOpen(false);
   };
   /*handle ProfModal*/
   const toggleModalPresent = () => {
@@ -95,9 +99,7 @@ const ReunionForm = () => {
   const handlePresentSelection = (Presents) => {
     setReunionProfPresent(Presents);
     setProfModalPresentIsOpen(false);
-    console.log(ProfModalPresentIsOpen);
   };
-
 
   /*hanle departModal*/
   const handleDepartModal = () => {
@@ -153,6 +155,21 @@ const ReunionForm = () => {
         onChange={(e) => setReunionLieu(e.target.value)}
       />
       <br />
+      <button
+        onClick={toggleModalLOJ}
+        className="Modal-button"
+        id="reunion-loj"
+      >
+        Entrer Liste Ordre de jour
+      </button>
+      <LOJModal
+        IsOpen={LOJModalIsOpen}
+        toggleModal={toggleModalLOJ}
+        handleLOJ={handleLOJ}
+        PrevLOJ={reunionLoj}
+      ></LOJModal>
+
+      <br />
       <label htmlFor="reunion-id-departement" className="form-label">
         Selectionez le Departement:
       </label>
@@ -165,18 +182,6 @@ const ReunionForm = () => {
         Departements={Departements}
         handleDepartementSelection={handleDepartementSelection}
       ></DepartModal>
-      <br />
-      <label htmlFor="reunion-loj" className="form-label">
-        Reunion LOJ:
-      </label>
-      <input
-        className="form-input"
-        type="text"
-        id="reunion-loj"
-        value={reunionLoj}
-        onChange={(e) => setReunionLoj(e.target.value)}
-      />
-      <br />
       <label htmlFor="reunion-prof-present" className="form-label">
         les Professeurs Presents:
       </label>
@@ -197,7 +202,7 @@ const ReunionForm = () => {
       <br />
       <label htmlFor="Option-file" className="form-label">
         Emploi du temps:
-        </label>
+      </label>
       <input
         className="form-input"
         type="file"

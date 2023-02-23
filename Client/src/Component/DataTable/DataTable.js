@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "./ComponentCSS/DataTable.css";
+import "../ComponentCSS/DataTable.css";
+
+// import DepartTable from "./Tables/DepartTable";
+// import FiliereTable from "./Tables/FiliereTable";
+// import ProfTable from "./Tables/ProfTable";
+// import ReunionTable from "./Tables/ReunionTable";
 
 const DataTable = () => {
-  const [activeTab, setActiveTab] = useState("departments");
-  const [departments, setDepartments] = useState([]);
+  const [activeTab, setActiveTab] = useState("departements");
+  const [departements, setDepartements] = useState([]);
   const [filieres, setFilieres] = useState([]);
   const [professeurs, setProfesseurs] = useState([]);
   const [reunion, setReunion] = useState([]);
@@ -13,6 +18,10 @@ const DataTable = () => {
   const [coords, setCoords] = useState({});
   const [FiliereDepartement, setFiliereDepartement] = useState({});
   const [ReunionDepartement, setReunionDepartement] = useState({});
+  const [ReunionProfs, setReunionProfs] = useState({});
+
+  const [showOptions, setShowOptions] = useState({});
+
 
   const API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
@@ -20,10 +29,9 @@ const DataTable = () => {
     setActiveTab(tab);
   };
 
-
   useEffect(() => {
     document.title = "Dashboard";
-    
+
     const getChefDepartement = async (id) => {
       return axios
         .post(
@@ -62,6 +70,26 @@ const DataTable = () => {
           throw error;
         });
     };
+    const getProfName = async (id) => {
+      return axios
+        .post(
+          API_DATABASE + "/professeur/get/id",
+          { _id: id },
+          {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          }
+        )
+        .then((response) => {
+          return response.data.FullName;
+        })
+        .catch((error) => {
+          console.error(error);
+          throw error;
+        });
+    };
+
     const getDepartFiliere = async (id) => {
       return axios
         .post(
@@ -82,7 +110,7 @@ const DataTable = () => {
         });
     };
 
-    //departments
+    //departements
     axios
       .post(
         API_DATABASE + "/departement/get/all",
@@ -92,7 +120,7 @@ const DataTable = () => {
         }
       )
       .then((response) => {
-        setDepartments(response.data);
+        setDepartements(response.data);
         response.data.forEach(async (department) => {
           const chefName = await getChefDepartement(department.id_Chef)
             .then((fullName) => {
@@ -120,10 +148,9 @@ const DataTable = () => {
         }
       )
       .then((response) => {
+
         setFilieres(response.data);
         response.data.forEach(async (filiere) => {
-          console.log(filiere)
-
           const coordName = await getCoordFiliere(filiere.id_coordinateur)
             .then((fullName) => {
               return fullName;
@@ -135,13 +162,10 @@ const DataTable = () => {
             ...prevState,
             [filiere._id]: coordName,
           }));
-          const departementName = await getDepartFiliere(filiere.id_departement)
-            .then((departementName) => {
-              return departementName;
-            })
-            .catch((error) => {
-              console.error(error);
-            });
+          const departementName = await getDepartFiliere(
+            filiere.id_departement
+          );
+
           setFiliereDepartement((prevState) => ({
             ...prevState,
             [filiere._id]: departementName,
@@ -166,7 +190,7 @@ const DataTable = () => {
       .catch((error) => {
         console.error(error);
       });
-    //reunion
+    //----reunion
     axios
       .post(
         API_DATABASE + "/reunion/get/all",
@@ -176,20 +200,28 @@ const DataTable = () => {
         }
       )
       .then((response) => {
-        console.log(response.data)
         setReunion(response.data);
-        response.data.forEach(async (reunion) => {
-          const departementName = await getDepartFiliere(reunion.id_departement)
-            .then((departementName) => {
-              return departementName;
-            })
-            .catch((error) => {
-              console.error(error);
+        response.data.map(async (reunion) => {
+          getDepartFiliere(reunion.id_departement).then((departementName) => {
+            setReunionDepartement((prevState) => ({
+              ...prevState,
+              [reunion._id]: departementName,
+            }));
+          });
+        });
+        response.data.map(async (reunion) => {
+          //get profs names from id array and put them in array in front of the reunion id
+          const profsNames = [];
+          reunion.prof_present.forEach(async (profId) => {
+            getProfName(profId).then((profName) => {
+              profsNames.push(profName);
+             
             });
-          setReunionDepartement((prevState) => ({
-            ...prevState,
-            [reunion._id]: departementName,
-          }));
+            setReunionProfs((prevState) => ({
+              ...prevState,
+              [reunion._id]: profsNames,
+            }));
+          });
         });
       })
       .catch((error) => {
@@ -201,10 +233,10 @@ const DataTable = () => {
     <div className="DataTable">
       <div className="tabs">
         <div
-          className={`tab ${activeTab === "departments" ? "active" : ""}`}
-          onClick={() => handleTabClick("departments")}
+          className={`tab ${activeTab === "departements" ? "active" : ""}`}
+          onClick={() => handleTabClick("departements")}
         >
-          Departments
+          Departements
         </div>
         <div
           className={`tab ${activeTab === "filiere" ? "active" : ""}`}
@@ -226,7 +258,7 @@ const DataTable = () => {
         </div>
       </div>
       <div className="tab-content">
-        {activeTab === "departments" && (
+        {activeTab === "departements" && (
           <table>
             <thead>
               <tr>
@@ -238,7 +270,7 @@ const DataTable = () => {
               </tr>
             </thead>
             <tbody>
-              {departments.map((departement) => (
+              {departements.map((departement) => (
                 <tr key={departement._id}>
                   <td>{departement.Nom}</td>
                   <td>
@@ -247,12 +279,15 @@ const DataTable = () => {
                       : departement.description}
                   </td>
 
-                  <td>{departement.Date_Creation}</td>
+                  <td>{departement.Date_Creation.substring(0, 10)}</td>
                   <td>
                     {chefs[departement._id] ? chefs[departement._id] : ""}
                   </td>
                   <td>
-                    <Link className="btn btn-primary"  to={"/modify/departement/" + departement._id}>
+                    <Link
+                      className="btn-modify"
+                      to={"/modify/departement/" + departement._id}
+                    >
                       modify
                     </Link>
                   </td>
@@ -276,34 +311,76 @@ const DataTable = () => {
               </tr>
             </thead>
             <tbody>
-              {filieres.map((filiere) => (
-                <tr key={filiere._id}>
-                  <td>{filiere.Nom}</td>
-                  <td>
-                    {filiere.Description.length > 50
-                      ? filiere.Description.substring(0, 50) + "..."
-                      : filiere.Description}
-                  </td>
-                  <td>{filiere.Date_Creation}</td>
-                  <td>{filiere.Effectif}</td>
-                  <td>{coords[filiere._id] ? coords[filiere._id] : ""}</td>
-                  <td>
-                    {FiliereDepartement[filiere._id]
-                      ? FiliereDepartement[filiere._id]
-                      : ""}
-                  </td>
-                  <td>
-                    <Link className="btn btn-primary"  to={"/Add/Option/" + filiere._id}>
-                      Add Option
-                    </Link>
-                  </td>
-                  <td>
-                    <Link className="btn btn-primary"  to={"/modify/filiere/" + filiere._id}>
-                      Modify
-                    </Link>
-                  </td>
+            {filieres.map((filiere) => (
+  <React.Fragment key={filiere._id}>
+    <tr>
+      <td>{filiere.Nom}</td>
+      <td>
+        {filiere.Description.length > 50
+          ? filiere.Description.substring(0, 50) + "..."
+          : filiere.Description}
+      </td>
+      <td>{filiere.Date_Creation.split("T")[0]}</td>
+      <td>{filiere.Effectif}</td>
+      <td>{coords[filiere._id] ? coords[filiere._id] : ""}</td>
+      <td>
+        {FiliereDepartement[filiere._id]
+          ? FiliereDepartement[filiere._id]
+          : ""}
+      </td>
+      <td>
+        <Link className="btn-modify" to={"/Add/Option/" + filiere._id}>
+          Add Option
+        </Link>
+      </td>
+      <td>
+        <Link
+          className="btn-modify"
+          to={"/modify/filiere/" + filiere._id}
+        >
+          Modify
+        </Link>
+      </td>
+      <td>
+        <button
+          className="btn-show-options"
+          onClick={() =>
+            setShowOptions({
+              ...showOptions,
+              [filiere._id]: !showOptions[filiere._id],
+            })
+          }
+        >
+          {showOptions[filiere._id] ? "Hide Options" : "Show Options"}
+        </button>
+      </td>
+    </tr>
+    {showOptions[filiere._id] && filiere.Options && (
+      <tr>
+        <td colSpan="9">
+          <table className="options-table">
+            <thead>
+              <tr>
+                <th>Option Name</th>
+                <th>Description</th>
+                <th>Date Created</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filiere.Options.map((option) => (
+                <tr key={option._id}>
+                  <td>{option.Nom}</td>
+                  <td>{option.Description}</td>
+                  <td>{option.Date_Creation.split("T")[0]}</td>
                 </tr>
               ))}
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    )}
+  </React.Fragment>
+))}
             </tbody>
           </table>
         )}
@@ -328,7 +405,10 @@ const DataTable = () => {
                   <td>{professeur.PhoneNumber}</td>
                   <td>{professeur.grade}</td>
                   <td>
-                    <Link className="btn btn-primary"  to={"/modify/professeur/" + professeur._id}>
+                    <Link
+                      className="btn-modify"
+                      to={"/modify/professeur/" + professeur._id}
+                    >
                       modify
                     </Link>
                   </td>
@@ -354,7 +434,7 @@ const DataTable = () => {
               {reunion.map((reunion) => (
                 <tr key={reunion._id}>
                   <td>{reunion.Date}</td>
-                  <td>{reunion.lieu}</td>
+                  <td>{reunion.Lieu}</td>
                   <td>
                     {ReunionDepartement[reunion._id]
                       ? ReunionDepartement[reunion._id]
@@ -363,12 +443,13 @@ const DataTable = () => {
                   <td>
                     {reunion.LOJ.map((loj) => (
                       <p key={loj} className="loj">
-                        {loj.Sujet}
+                        {"-"} {loj}
+                        {"\n"}
                       </p>
                     ))}
                   </td>
                   <td>
-                    {reunion.prof_present.map((prof) => (
+                    {ReunionProfs[reunion._id].map((prof) => (
                       <p key={prof} className="prof">
                         {prof}
                       </p>
@@ -376,8 +457,11 @@ const DataTable = () => {
                   </td>
                   <td>{reunion.PV.link}</td>
                   <td>
-                    <Link className="btn btn-primary"  to={"/modify/reunion/" + reunion._id}>
-                      modify
+                    <Link
+                      className="btn-modify"
+                      to={"/modify/reunion/" + reunion._id}
+                    >
+                      modify 
                     </Link>
                   </td>
                 </tr>

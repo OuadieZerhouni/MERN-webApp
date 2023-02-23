@@ -1,85 +1,122 @@
 body.active-modal {
-    overflow-y: hidden;
+  overflow-y: hidden;
 }
 
-
-.modal, .overlay {
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    position: fixed;
+.modal,
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
 }
 
 .overlay {
-    background: rgba(49,49,49,0.8);
+  background: rgba(49, 49, 49, 0.8);
 }
 .modal-content {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    line-height: 1.4;
-    background: #f1f1f1;
-    padding: 14px 28px;
-    border-radius: 3px;
-    max-height: 600px;
-    max-width: 600px;
-    min-width: 400px;
-   
-    
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  background: #f1f1f1;
+  padding: 14px 28px;
+  border-radius: 3px;
+  max-height: 600px;
+  max-width: 600px;
+  min-width: 400px;
 }
-.modal-ul{
-    max-height: 400px;
+.modal-ul {
+  max-height: 400px;
 
-    overflow-y: auto;
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    z-index: 100;
-
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 100;
 }
 
 .close-modal {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 5px 7px;
-    cursor: pointer;
-    background: #0084ff;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    border: none;
-    border-radius: 4px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 7px;
+  cursor: pointer;
+  background: #8c0b0b;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
 }
-.Confirm-button{
-    top: 10px;
-    right: 10px;
-    padding: 5px 7px;
-    cursor: pointer;
-    background: #0084ff;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    border: none;
-    border-radius: 4px;
+.Confirm-button {
+  top: 10px;
+  right: 10px;
+  padding: 5px 7px;
+  cursor: pointer;
+  background: #13497c;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
 }
-.modal-list{
-    cursor: pointer;
-    list-style: none;
-    padding: 10px 0;
-    border-bottom: 1px solid #ccc;
-    text-align: center;
+.modal-list {
+  cursor: pointer;
+  list-style: none;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
 }
-.modal-list:hover{
-    background-color: #acc2eb;
+.modal-list:hover {
+  background-color: #acc2eb;
 }
 
 .selected {
-    background-color: #9ae76d;
-    text-align: center;
+  background-color: #9ae76d;
+  text-align: center;
 }
+
+.New-button {
+    padding: 5px 10px;
+
+    cursor: pointer;
+    background: #0d8f2d;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+#remove-loj-btn:before {
+  display: inline;
+}
+.AddDiv button {
+    width: 20px;
+    height: 30px;
+    cursor: pointer;
+    margin: auto;
+    background: #780d0d;
+    color: #ffffff;
+    font-size: 15px;
+    border: none;
+}
+.AddDiv{
+    display: block;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.Modal-input{
+    width: 80%;
+    height: 30px;
+    margin: 10px 0;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    padding: 0 10px;
+}   

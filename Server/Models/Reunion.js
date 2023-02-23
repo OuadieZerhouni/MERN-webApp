@@ -4,7 +4,7 @@ require("dotenv").config();
 const reunionSchema = new mongoose.Schema({
   Date: String,
   Lieu: String,
-  id_departement: mongoose.Types.ObjectId,
+  id_departement: String,
   LOJ: [ String ],
   prof_present: [ {type:mongoose.Types.ObjectId ,ref:"professeurs"}],
   // prof_absent: [ {type:mongoose.Types.ObjectId ,ref:"professeurs"} ],

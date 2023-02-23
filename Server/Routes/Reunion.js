@@ -8,13 +8,21 @@ const PV_Upload=require('../util/Fileupload').PV_Upload;
 
 /*---reunion---*/ 
 router.post('/insert',PV_Upload.single('file'),async (req,res)=>{
-    console.log(req.body.prof_present)
+
+    let present_prof=[]
+    if(req.body.prof_present!=''){
+    present_prof=req.body.prof_present.split(',') }
+    let loj=[]
+    if(req.body.LOJ!=''){
+    loj=req.body.LOJ.split(',') }
+    console.log(req.body.id_departement)
+
     const reunionData={
         Date:req.body.Date,
         Lieu:req.body.Lieu,
-        id_Departement:req.body.id_departement,
-        LOJ:req.body.LOJ,
-        prof_present:req.body.prof_present.split(','),
+        id_departement:req.body.id_departement,
+        LOJ:loj,
+        prof_present:present_prof,
         PV:{
             link:req.file.path,
             date_creation:Date.now(),
