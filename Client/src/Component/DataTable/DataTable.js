@@ -306,7 +306,7 @@ const DataTable = () => {
                 <th>Effectif</th>
                 <th>Cordinateur</th>
                 <th>departement</th>
-                <th>Options</th>
+                <th>Actions</th>
                 <th>modify</th>
               </tr>
             </thead>
@@ -330,8 +330,8 @@ const DataTable = () => {
       </td>
       <td>
         <Link className="btn-modify" to={"/Add/Option/" + filiere._id}>
-          Add Option
-        </Link>
+         addOption
+       </Link>
       </td>
       <td>
         <Link
@@ -343,7 +343,7 @@ const DataTable = () => {
       </td>
       <td>
         <button
-          className="btn-show-options"
+          className="btn-modify"
           onClick={() =>
             setShowOptions({
               ...showOptions,
@@ -364,6 +364,8 @@ const DataTable = () => {
                 <th>Option Name</th>
                 <th>Description</th>
                 <th>Date Created</th>
+                <th>Effectif</th>
+                <th>Emploi_temps</th>
               </tr>
             </thead>
             <tbody>
@@ -372,6 +374,21 @@ const DataTable = () => {
                   <td>{option.Nom}</td>
                   <td>{option.Description}</td>
                   <td>{option.Date_Creation.split("T")[0]}</td>
+                  <td>{option.effectif}</td>
+                  <td>
+                    <Link
+                      className="btn-modify"
+                      to={"/Edit/Emploi_temps/" + option._id}
+                    >
+                      edit
+                    </Link>
+                  <Link
+                      className="btn-modify"
+                      to={"/Emploi_temps/" + option._id}
+                    >
+                      view
+                    </Link>
+                  </td> 
                 </tr>
               ))}
             </tbody>
@@ -455,7 +472,8 @@ const DataTable = () => {
                       </p>
                     ))}
                   </td>
-                  <td>{reunion.PV.link}</td>
+                  <td><Link className="btn-modify" to={"/PV/" + reunion._id}>view</Link>
+                   </td>
                   <td>
                     <Link
                       className="btn-modify"

@@ -71,7 +71,7 @@ th {
   cursor: pointer;
   transition: all 0.5s;
   text-decoration: none;
+  font-size: 15px;
 }
 .btn-modify:hover {
-  background-color: #0A2E5F;
-}
+  background-color: #0A2E5F;}

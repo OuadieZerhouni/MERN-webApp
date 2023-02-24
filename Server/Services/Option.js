@@ -31,9 +31,13 @@ exports.deleteOption = async (option_id) => {
 };
 //CRUD for Emploi_temps
 exports.getEmploiTempsByOptionId = async (option_id) => {
-  return await Filiere.find({ "Options._id": option_id }).select(
-    "Options.Emploi_temps"
+  const filiere = await Filiere.findOne(
+    { "Options._id": option_id },
+    { "Options.$": 1 }
   );
+  if (!filiere) return null;
+  const option = filiere.Options.find((opt) => opt._id.equals(option_id));
+  return option ? option.Emploi_temps : null;
 };
 exports.insertEmploiTemps = async (option_id, emploi_temps) => {
   return await Filiere.findOneAndUpdate(

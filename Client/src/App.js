@@ -19,6 +19,9 @@ import ModifyFiliereForm from './Component/Forms/Update/Filiere';
 import ModifyReunionForm from './Component/Forms/Update/Reunion';
 import ModifyProfesseurForm from './Component/Forms/Update/Professeur';
 
+import PVviewer from './Component/FileReaders/PVPage';
+import EmploiTempsViewer from './Component/FileReaders/EmploiPage';
+
 
 import {  useEffect } from 'react';
 
@@ -76,6 +79,9 @@ function App() {
 
           <Route path="/Dashboard" element={<WithAuthDashboard />} />
           <Route path="/Login" element={<Login />} />
+
+          <Route path="/PV/:id" element={<PVviewer />} />
+          <Route path="/Emploi_temps/:id" element={<EmploiTempsViewer />} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </Router>
