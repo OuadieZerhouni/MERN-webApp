@@ -1,4 +1,4 @@
 
 #big file node modules
-Server/node_modules
-Server/uploads
+Server/node_modules/
+Server/uploads/

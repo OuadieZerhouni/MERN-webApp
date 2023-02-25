@@ -10,6 +10,10 @@ const Reunion=require("../Models/Reunion")
    exports.getById  = async function (id) {
     return await Reunion.findById(id);
 }
+exports.getPV=async(id_reunion)=>{
+    const reunion= await this.getById(id_reunion);
+    return reunion.PV;
+}
    exports.getByDate = async function (date) {
     return await Reunion.find({ Date: date });
 }

@@ -12,8 +12,7 @@ router.post("/insert", Emploi_Upload.single("file"), async (req, res) => {
   let imageDirPath = "";
 
   ToPDF(req.file, req.body.Nom).then(async(_pdfPath) => {
-    imageDirPath = pdfToImages(_pdfPath);
-    pdfPath = _pdfPath;
+    imageDirPath = await pdfToImages(_pdfPath);
 
     const optionData = {
       Nom: req.body.Nom,
@@ -22,7 +21,7 @@ router.post("/insert", Emploi_Upload.single("file"), async (req, res) => {
       effectif: req.body.effectif,
       Emploi_temps: {
         Lien_modification: req.file.path,
-        Lien_consultation: pdfPath,
+        Lien_consultation: _pdfPath,
       },
     };
     const option = await OptionService.insertOption(req.body._id, optionData);
@@ -39,10 +38,8 @@ router.post("/Emploi_temps", async (req, res) => {
   );
 
   const filePath = emploiTemps.Lien_consultation;
-  const pdfPath = path.resolve(filePath);
   const imageDirPath = path.resolve(filePath.replace(".pdf", ""));
   
-  // Get the number of images in the directory
  
   let Path=`${ imageDirPath}\\images`
   const files = fs.readdirSync(Path);
@@ -58,7 +55,7 @@ router.post("/Emploi_temps", async (req, res) => {
 
 }
 catch(err){
-  console.log(err);
+  console.log("Error: "+err);
   res.status(500).send(err);
 }
 });

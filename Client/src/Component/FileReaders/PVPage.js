@@ -1,41 +1,57 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Document, Page } from 'react-pdf';
-import { useEffect, useState } from 'react';
+import "../ComponentCSS/PDFReader.css";
 
+function EmploiReader() {
+  const [numPages, setNumPages] = useState(null);
+  const [images, setImages] = useState([]);
+  const API_DATABASE = process.env.REACT_APP_API_DATABASE;
+  const [Download, setDownload] = useState("");
 
-
-function PDFViewer() {
-    const [pdfUrl, setPdfUrl] = useState(null);
-    const [numPages, setNumPages] = useState(null);
-    const API_DATABASE = process.env.REACT_APP_API_DATABASE;
-    useEffect(() => {
-      axios.post(API_DATABASE+'/option/Emploi_temps', { _id: window.location.pathname.split("/")[2]},
-      {headers: {Authorization: "Bearer " + localStorage.getItem("token")}})
-        .then(response => {
-          setPdfUrl(URL.createObjectURL(response.data));
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }, []);
-  
-    function onDocumentLoadSuccess({ numPages }) {
-      setNumPages(numPages);
-    }
-  
-    return (
-      <div>
-        {pdfUrl &&
-          <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
-            {Array.from(new Array(numPages), (el, index) => (
-              <Page key={`page_${index + 1}`} pageNumber={index + 1} />
-            ))}
-          </Document>
+  useEffect(() => {
+    axios
+      .post(
+        API_DATABASE + "/reunion/PV",
+        { _id: window.location.pathname.split("/")[2] },
+        {
+          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         }
+      )
+      .then((response) => {
+        setDownload(response.data.path.replace("/images", ".pdf"));
+        let imageDirPath = response.data.path;
+        setNumPages(response.data.numPages);
+        for (let i = 1; i <= numPages; i++) {
+          setImages((images) => [
+            ...images,
+            `${imageDirPath}${"/page-" + i}.png`,
+          ]);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [API_DATABASE, numPages]);
+  return (
+    <div className="Container">
+      <a href={Download} className="Download-Link">
+        Download
+      </a>
+    <div className="PDF-container">
+      
+      <div className="PDF-pages">
+        {images.map((image, index) => (
+          <img
+            className="Page-pdf"
+            key={index}
+            src={image}
+            alt="Emploi du temps"
+          />
+        ))}
       </div>
-    );
-  }
+    </div>
+    </div>
+  );
+}
 
-export default PDFViewer;
-
+export default EmploiReader;

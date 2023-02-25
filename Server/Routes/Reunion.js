@@ -1,7 +1,11 @@
 const express=require('express');
 const router = express.Router();
+const path=require('path');
+const fs=require('fs');
 const Reunion=require("../Services/Reunion")
 const PV_Upload=require('../util/Fileupload').PV_Upload;
+const pdfToImages = require("../util/ToPDF").pdfToImages;
+
 
 
 
@@ -17,6 +21,7 @@ router.post('/insert',PV_Upload.single('file'),async (req,res)=>{
     loj=req.body.LOJ.split(',') }
     console.log(req.body.id_departement)
 
+    pdfToImages(req.file.path).then(async(_pdfPath) => {
     const reunionData={
         Date:req.body.Date,
         Lieu:req.body.Lieu,
@@ -24,13 +29,41 @@ router.post('/insert',PV_Upload.single('file'),async (req,res)=>{
         LOJ:loj,
         prof_present:present_prof,
         PV:{
-            link:req.file.path,
+            link:_pdfPath,
             date_creation:Date.now(),
             comments:[]
         }  }
     const reunion=await Reunion.insert(reunionData);
     res.send(reunion);
+    })
 })
+router.post('/PV',async (req,res)=>{
+    try{
+        const PV= await Reunion.getPV(req.body._id);
+    
+      const filePath = PV.link;
+      const imageDirPath = path.resolve(filePath.replace(".pdf", ""));
+      
+     
+      let Path=`${ imageDirPath}\\images`
+      const files = fs.readdirSync(Path);
+    
+      const numPages = files.filter(file => file.endsWith(".png")).length;
+      let _path="http://localhost:3001/"+path.relative(__dirname, imageDirPath).replace(/\\/g, "/")+"/images";
+    
+      // Send the image directory path and the number of images
+      res.send({ 
+        path: _path,
+        numPages: numPages
+      });
+    
+    }
+    catch(err){
+      console.log("Error: "+err);
+      res.status(500).send(err);
+    }
+    });
+
 router.post('/get/all',async (req,res)=>{
     const reunion=await Reunion.getAll();
     res.send(reunion);

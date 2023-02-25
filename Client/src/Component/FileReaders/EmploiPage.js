@@ -31,11 +31,17 @@ function EmploiReader() {
 
   }, [API_DATABASE, numPages]);
 return (
+  <div className="Container">
+        <a href={Download}  className="Download-Link">Download</a>
+
   <div className="PDF-container">
-    <a href={Download}  className="Download-Link">Download</a>
+    <div className="PDF-pages">
+
     {images.map((image, index) => (
       <img className="Page-pdf" key={index} src={image} alt="Emploi du temps" />
     ))}
+  </div>
+  </div>
   </div>
 );
 
