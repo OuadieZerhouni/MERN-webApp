@@ -1,10 +1,39 @@
 const pdf = require("html-pdf");
 const ExcelJS = require("exceljs");
+const fs = require('fs');
+const path = require('path');
+const pdfPoppler = require('pdf-poppler');
+
+
+exports.pdfToImages = async (pdfPath) => {
+  const pdfParentDir = path.dirname(pdfPath);
+  const pdfName = path.basename(pdfPath, path.extname(pdfPath));
+  const outputDir = path.join(pdfParentDir, pdfName, "images");
+
+  // Create the output directory if it doesn't exist
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true });
+  }
+  const opts = {
+    format: "png",
+    out_dir: outputDir,
+    out_prefix: `page`,
+  };
+
+  try {
+    await pdfPoppler.convert(pdfPath, opts);
+    console.log(`Successfully converted PDF to images: ${pdfPath}`);
+    return outputDir;
+  } catch (error) {
+    console.error(`Failed to convert PDF to images: ${pdfPath}`, error);
+    throw error;
+  }
+};
 
 exports.ToPDF = async (file, optionName) => {
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.readFile(file.path);
-  const worksheet = workbook.getWorksheet(1);
+  const worksheet =  workbook.getWorksheet(1);
   const table = worksheet;
   const tableRows = table._rows;
   const tableData = [];
@@ -15,16 +44,24 @@ exports.ToPDF = async (file, optionName) => {
     });
     tableData.push(rowData);
   });
-  const pdfPath = file.path.replace(".xlsx", ".pdf");
+  let pdfPath = file.path.replace(".xlsx", ".pdf");
+  pdfPath= pdfPath.replace("xlsx","pdf");
 
-  CreataHTML(tableData, optionName).then((html) => {
-    const options = { format: "Letter" };
-    pdf.create(html, options).toFile(pdfPath, function (err, res) {
-      if (err) return console.log(err);
+  return new Promise((resolve, reject) => {
+    CreataHTML(tableData, optionName).then((html) => {
+      const options = { format: "Letter" };
+      pdf.create(html, options).toFile(pdfPath, function (err, res) {
+        if (err) {
+          reject(err);
+        } else {
+          console.log(pdfPath);
+          resolve(pdfPath);
+        }
+      });
     });
   });
-  return pdfPath;
 };
+
 
 const CreataHTML = async (table, optionName) => {
   let tableHTMLf = () => {

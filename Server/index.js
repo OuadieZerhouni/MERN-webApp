@@ -5,6 +5,7 @@ const cors=require('cors');
 const login=require('./Routes/login');
 const mongoose=require('mongoose');
 const dotenv=require('dotenv');
+const path=require('path');
 
 dotenv.config();
 
@@ -14,6 +15,9 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 app.use(cors());
 app.use(cors({origin:'http://localhost:3030'}));
+const dir = path.join(__dirname, 'uploads', 'Emplois','pdf');
+app.use('/uploads/Emplois/pdf', express.static(dir));
+
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -21,9 +25,12 @@ app.use(express.urlencoded({extended:true}));
 try{
 app.use('/api/database',Database);
 app.use('/login',login);
+
+
 }catch(err){
     console.log(err);
 }
+
 
 
 

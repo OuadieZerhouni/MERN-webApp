@@ -1,39 +1,67 @@
 const express = require("express");
 const router = express.Router();
 const OptionService = require("../Services/Option");
-const uuid = require("uuid").v4;
 const ToPDF = require("../util/ToPDF").ToPDF;
 const Emploi_Upload = require("../util/Fileupload").Emploi_Upload;
-const path = require("path");
 const fs = require("fs");
-
+const path = require("path");
+const pdfToImages = require("../util/ToPDF").pdfToImages;
 
 router.post("/insert", Emploi_Upload.single("file"), async (req, res) => {
-  const pdfPath = await ToPDF(req.file, req.body.Nom);
-  const optionData = {
-    Nom: req.body.Nom,
-    Description: req.body.Description,
-    Date_Creation: req.body.Date_Creation,
-    effectif: req.body.effectif,
-    Emploi_temps: {
-      Lien_modification: req.file.path,
-      Lien_consultation: pdfPath,
-    },
-  };
-  const option = await OptionService.insertOption(req.body._id, optionData);
+  let pdfPath = "";
+  let imageDirPath = "";
 
-  res.send(option);
+  ToPDF(req.file, req.body.Nom).then(async(_pdfPath) => {
+    imageDirPath = pdfToImages(_pdfPath);
+    pdfPath = _pdfPath;
+
+    const optionData = {
+      Nom: req.body.Nom,
+      Description: req.body.Description,
+      Date_Creation: req.body.Date_Creation,
+      effectif: req.body.effectif,
+      Emploi_temps: {
+        Lien_modification: req.file.path,
+        Lien_consultation: pdfPath,
+      },
+    };
+    const option = await OptionService.insertOption(req.body._id, optionData);
+  
+    res.send(option);
+  });
+
+  
 });
-
-
 router.post("/Emploi_temps", async (req, res) => {
-  const emploiTemps = await OptionService.getEmploiTempsByOptionId(req.body._id);
-  const filePath = emploiTemps.Lien_consultation;
-  const fileContent = fs.readFileSync(filePath);
-  res.contentType('application/pdf');
-  res.send(fileContent);
-});
+  try{
+    const emploiTemps = await OptionService.getEmploiTempsByOptionId(
+    req.body._id
+  );
 
+  const filePath = emploiTemps.Lien_consultation;
+  const pdfPath = path.resolve(filePath);
+  const imageDirPath = path.resolve(filePath.replace(".pdf", ""));
+  
+  // Get the number of images in the directory
+ 
+  let Path=`${ imageDirPath}\\images`
+  const files = fs.readdirSync(Path);
+
+  const numPages = files.filter(file => file.endsWith(".png")).length;
+  let _path="http://localhost:3001/"+path.relative(__dirname, imageDirPath).replace(/\\/g, "/")+"/images";
+
+  // Send the image directory path and the number of images
+  res.send({ 
+    path: _path,
+    numPages: numPages
+  });
+
+}
+catch(err){
+  console.log(err);
+  res.status(500).send(err);
+}
+});
 
 
 router.post("/get", async (req, res) => {
