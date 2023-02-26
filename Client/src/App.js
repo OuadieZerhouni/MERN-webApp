@@ -8,16 +8,19 @@ import Login from './Component/Forms/Login';
 import Dashboard from './Component/Dashboard';
 
 
-import InsérerDepartementForm from './Component/Forms/Inserer/Departement';
-import InsérerFiliereForm from './Component/Forms/Inserer/Filiere';
-import InsérerReunionForm from './Component/Forms/Inserer/Reunion';
-import InsérerProfesseurForm from './Component/Forms/Inserer/Professeur';
-import InsérerOptionForm from './Component/Forms/Inserer/Option';
+import InsérerDepartementForm from './Component/Forms/Insert/Departement';
+import InsérerFiliereForm from './Component/Forms/Insert/Filiere';
+import InsérerReunionForm from './Component/Forms/Insert/Reunion';
+import InsérerProfesseurForm from './Component/Forms/Insert/Professeur';
+import InsérerOptionForm from './Component/Forms/Insert/Option';
 
 import ModifyDepartmentForm from './Component/Forms/Update/Departement';
 import ModifyFiliereForm from './Component/Forms/Update/Filiere';
 import ModifyReunionForm from './Component/Forms/Update/Reunion';
 import ModifyProfesseurForm from './Component/Forms/Update/Professeur';
+import ModifyOptionForm from './Component/Forms/Update/Option';
+
+
 
 import PVviewer from './Component/FileReaders/PVPage';
 import EmploiTempsViewer from './Component/FileReaders/EmploiPage';
@@ -55,6 +58,7 @@ const WithAuthModifyDepartment = withAuth(ModifyDepartmentForm);
 const WithAuthModifyFiliere = withAuth(ModifyFiliereForm);
 const WithAuthModifyReunion = withAuth(ModifyReunionForm);
 const WithAuthModifyProfesseur = withAuth(ModifyProfesseurForm);
+const WithAuthModifyOption = withAuth(ModifyOptionForm);
 
 
 function App() {
@@ -76,6 +80,9 @@ function App() {
           <Route path='/modify/filiere/:id' element={<WithAuthModifyFiliere/>} />
           <Route path='/modify/reunion/:id' element={<WithAuthModifyReunion/>} />
           <Route path='/modify/professeur/:id' element={<WithAuthModifyProfesseur/>} />
+          <Route path='/modify/option/:id' element={<WithAuthModifyOption/>} />
+          
+
 
           <Route path="/Dashboard" element={<WithAuthDashboard />} />
           <Route path="/Login" element={<Login />} />

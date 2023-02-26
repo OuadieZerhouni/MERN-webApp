@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import FilierModal from "../Modals/FileireModal";
+import FilierModal from "../Portal/FileireModal";
 
 const OptionForm = () => {
   const [OptionNom, setOptionNom] = useState("");

@@ -3,6 +3,9 @@ const Filiere = require("../Models/Filiere")
        exports.getAll = async function () {
       return await Filiere.find({});
     }
+    exports.getByOptionId = async function (id) {
+      return await Filiere.find({ "Options._id": id });
+    }
   
        exports.getById = async function (id) {
       return await Filiere.findById(id);
@@ -25,5 +28,10 @@ const Filiere = require("../Models/Filiere")
   
        exports.remove = async function (id) {
       return await Filiere.findByIdAndDelete(id);
+    }
+    exports.removeOption = async function (id, option_id) {
+      return await Filiere.findByIdAndUpdate(id, {
+        $pull: { Options: { _id: option_id } },
+      });
     }
   

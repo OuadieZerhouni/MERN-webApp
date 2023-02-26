@@ -4,7 +4,10 @@ exports.getOptionsByFiliereId = async (id) => {
   return await Filiere.findById(id).select("Options");
 };
 exports.getOptionById = async (id) => {
-  return await Filiere.find({ "Options._id": id });
+
+  const option=await Filiere.find({ "Options._id": id }).select("Options.$");
+  console.log(option[0].Options[0])
+  return option[0].Options[0];
 };
 exports.insertOption = async (id, option) => {
   
@@ -13,9 +16,6 @@ exports.insertOption = async (id, option) => {
   }).then((result) => {
     return option;
   });
-  
-
-  
 };
 exports.updateOption = async (option_id, option) => {
   return await Filiere.findOneAndUpdate(

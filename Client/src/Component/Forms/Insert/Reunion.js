@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import ProfModalPresent from "../Modals/ProfModal";
-import DepartModal from "../Modals/DepartModal";
-import LOJModal from "../Modals/LOJModal";
+import ProfModalPresent from "../Portal/ProfModal";
+import DepartModal from "../Portal/DepartModal";
+import LOJModal from "../Portal/LOJModal";
 
 const ReunionForm = () => {
   const [reunionDate, setReunionDate] = useState("");

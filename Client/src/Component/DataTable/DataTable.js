@@ -378,7 +378,7 @@ const DataTable = () => {
                   <td>
                     <Link
                       className="btn-modify"
-                      to={"/Edit/Emploi_temps/" + option._id}
+                      to={"/modify/Option/" + option._id}
                     >
                       edit
                     </Link>

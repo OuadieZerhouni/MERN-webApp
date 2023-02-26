@@ -1,6 +1,6 @@
 import React, { useState ,useEffect} from "react";
-import axios, { Axios } from "axios";
-import DepartModal from "../Modals/DepartModal";
+import axios from "axios";
+import DepartModal from "../Portal/DepartModal";
 
 
 const ProfesseurForm = () => {

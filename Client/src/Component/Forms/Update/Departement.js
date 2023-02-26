@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import ChefModal from "../Modals/ChefModal";
-import ProfModal from "../Modals/ProfModal";
-// import FiliereModal from "./Modals/FileireModal";
+import ChefModal from "../Portal/ChefModal";
+import ProfModal from "../Portal/ProfModal";
+// import FiliereModal from "./Portal/FileireModal";
 import "../FormsCSS/Form.css";
 
 const DepartementForm = () => {
