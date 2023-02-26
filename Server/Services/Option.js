@@ -16,6 +16,9 @@ exports.insertOption = async (id, option) => {
   }).then((result) => {
     return option;
   });
+  
+
+  
 };
 exports.updateOption = async (option_id, option) => {
   return await Filiere.findOneAndUpdate(

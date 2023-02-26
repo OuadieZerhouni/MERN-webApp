@@ -46,6 +46,7 @@ const OptionForm = () => {
         },
       })
       .then((response) => {
+        console.log(formData);
         console.log(response);
       })
       .catch((error) => {
