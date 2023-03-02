@@ -5,7 +5,9 @@ import { Route, Routes,BrowserRouter as Router,useNavigate } from "react-router-
 import Header from './Component/Header';
 import Home from './Component/Home';
 import Login from './Component/Forms/Login';
-import Dashboard from './Component/Dashboard';
+import AdminDashboard from './Component/Dashboard/AdminDashboard';
+import ChefDashboard from './Component/Dashboard/ChefDashboard';
+import ProfDashboard from './Component/Dashboard/ProfDashboard';
 
 
 import InsérerDepartementForm from './Component/Forms/Insert/Departement';
@@ -20,10 +22,11 @@ import ModifyReunionForm from './Component/Forms/Update/Reunion';
 import ModifyProfesseurForm from './Component/Forms/Update/Professeur';
 import ModifyOptionForm from './Component/Forms/Update/Option';
 
-
+  
 
 import PVviewer from './Component/FileReaders/PVPage';
 import EmploiTempsViewer from './Component/FileReaders/EmploiPage';
+import UserAuth from './Auth/Auth';
 
 
 import {  useEffect } from 'react';
@@ -46,12 +49,13 @@ const withAuth = (Component) => {
   };
 };
 
+const WithAuthDashboard = UserAuth(AdminDashboard, ChefDashboard, ProfDashboard);
+
 
 const WithAuthDepartementForm = withAuth(InsérerDepartementForm);
 const WithAuthFiliereForm = withAuth(InsérerFiliereForm);
 const WithAuthReunionForm = withAuth(InsérerReunionForm);
 const WithAuthProfesseur = withAuth(InsérerProfesseurForm);
-const WithAuthDashboard = withAuth(Dashboard);
 const WithAuthOption = withAuth(InsérerOptionForm);
 
 const WithAuthModifyDepartment = withAuth(ModifyDepartmentForm);

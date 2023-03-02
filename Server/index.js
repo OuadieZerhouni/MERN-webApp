@@ -2,10 +2,13 @@ const express=require('express');
 const app=express();
 const Database=require('./API/Database');
 const cors=require('cors');
-const login=require('./Routes/login');
+const login=require('./Auth/login');
 const mongoose=require('mongoose');
 const dotenv=require('dotenv');
 const path=require('path');
+
+const UserAuth=require('./Auth/Authorization');
+
 
 dotenv.config();
 
@@ -25,6 +28,7 @@ app.use(express.urlencoded({extended:true}));
 try{
 app.use('/api/database',Database);
 app.use('/login',login);
+app.use('/auth',UserAuth);
 
 
 }catch(err){

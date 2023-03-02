@@ -29,3 +29,6 @@ exports.insert = async function (departement) {
       $addToSet: { professeurs: id_professeur },
     });
   }
+  exports.IsChef = async function ( id_professeur) {
+    return await Departement.find({ Chef: id_professeur });
+  }

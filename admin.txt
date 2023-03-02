@@ -1,0 +1,2 @@
+pwd ="azerty@2003"
+email="admin-Super@gmail.usmab"

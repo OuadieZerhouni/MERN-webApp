@@ -7,9 +7,14 @@ const Professeur=require('../Services/Professeur');
 
 /*-------professeur-------*/
 router.post('/insert',async (req,res)=>{
-    const professeur=await Professeur.insert(req.body);
-    Departement.addProfesseur(req.body.id_departement,professeur._id);
+    if(professeur=await Professeur.getByEmail(req.body.email))
+        return res.status(400).send({massage:"Email already exists"});
 
+    req.body.password=await bcrypt.hash(req.body.password,10);
+    const professeur=await Professeur.insert(req.body);
+    
+    if(req.body.id_departement!="")
+        Departement.addProfesseur(req.body.id_departement,professeur._id);
     res.send(professeur);
 });
 router.post('/get/all',async (req,res)=>{
