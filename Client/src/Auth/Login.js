@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import "./FormsCSS/Form.css";
+import "../Component/Forms/FormsCSS/Form.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -18,6 +18,9 @@ export default function Login() {
           document.getElementById("error").innerHTML = res.data["error"];
         } else {
           localStorage.setItem("token", res.data["token"]);
+          const depart=(JSON.stringify(res.data.depart));
+          if(res.data.depart)
+            localStorage.setItem("departement", depart);
           window.location.href = "/Dashboard";
           
         }

@@ -1,13 +1,16 @@
 const express=require('express');
 const router = express.Router();
 const Professeur=require('../Services/Professeur');
+const bcrypt=require('bcrypt');
+const Departement=require('../Services/Departement');
 
 
 
 
 /*-------professeur-------*/
 router.post('/insert',async (req,res)=>{
-    if(professeur=await Professeur.getByEmail(req.body.email))
+    let _professeur=await Professeur.getByEmail(req.body.email)
+    if(_professeur)
         return res.status(400).send({massage:"Email already exists"});
 
     req.body.password=await bcrypt.hash(req.body.password,10);

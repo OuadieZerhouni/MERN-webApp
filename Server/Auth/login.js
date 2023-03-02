@@ -22,17 +22,16 @@ app.post("/", async (req, res) => {
       res.send({ error: "password is wrong" });
     }
   } else if (user) {
-
     if (await bcrypt.compare(password, user.password)) {
-      const depart = Departement.IsChef(user._id);
-      if (depart) {
+      const depart =await Departement.IsChef(user._id);
+      if (depart ) {
         const token = jwt.sign(
-          { role: "admin", departement: depart._id },
+          { role: "chef",user:user._id, departement: depart._id },
           process.env.SECRET_KEY
         );
-        res.send({ "token":token});
+        res.send({ "token":token,depart:depart});
       } else {
-        const token = jwt.sign({ user: user._id }, process.env.SECRET_KEY);
+        const token = jwt.sign({ role:'prof',user:user._id}, process.env.SECRET_KEY);
         res.send({ "token":token});
       }
     } else {

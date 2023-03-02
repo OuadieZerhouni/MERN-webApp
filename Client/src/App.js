@@ -4,7 +4,7 @@ import { Route, Routes,BrowserRouter as Router,useNavigate } from "react-router-
 
 import Header from './Component/Header';
 import Home from './Component/Home';
-import Login from './Component/Forms/Login';
+import Login from './Auth/Login';
 import AdminDashboard from './Component/Dashboard/AdminDashboard';
 import ChefDashboard from './Component/Dashboard/ChefDashboard';
 import ProfDashboard from './Component/Dashboard/ProfDashboard';

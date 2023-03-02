@@ -1,6 +1,8 @@
 const express=require('express');
 const router = express.Router();
 const Departement=require('../Services/Departement');
+const Professeur=require('../Services/Professeur');
+
 
 router.post('/insert',async (req,res)=>{
     const departement=await Departement.insert(req.body);

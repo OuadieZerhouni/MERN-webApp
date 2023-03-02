@@ -30,5 +30,5 @@ exports.insert = async function (departement) {
     });
   }
   exports.IsChef = async function ( id_professeur) {
-    return await Departement.find({ Chef: id_professeur });
+    return await Departement.findOne({ id_Chef: id_professeur });
   }

@@ -6,6 +6,8 @@ const login=require('./Auth/login');
 const mongoose=require('mongoose');
 const dotenv=require('dotenv');
 const path=require('path');
+const bcrypt=require('bcrypt');
+
 
 const UserAuth=require('./Auth/Authorization');
 

@@ -1,16 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect ,useState} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const withRoleCheck = (AdminComponent, ChefComponent, ProfComponent) => {
+const roleCheck = (AdminComponent, ChefComponent, ProfComponent) => {
   return (props) => {
     const Navigate = useNavigate();
     const proxy = process.env.REACT_APP_proxy;
+    const [role, setRole] =useState("");
+    const [prof, setProf] = useState();
 
     useEffect(() => {
       const checkRole = async () => {
         const token = localStorage.getItem("token");
-        console.log(token);
         axios
           .post(
             proxy + "/auth",
@@ -20,23 +21,8 @@ const withRoleCheck = (AdminComponent, ChefComponent, ProfComponent) => {
             }
           )
           .then((response) => {
-            const role = response.data.role;
-            console.log(role);
-
-            try {
-              if (role === "admin") {
-                return (<AdminComponent {...props} />);
-              } else if (role === "user") {
-                return <ChefComponent {...props} />;
-              } else if (role === "prof") {
-                return <ProfComponent {...props} />;
-              } else {
-                Navigate("/Login");
-              }
-            } catch (error) {
-              console.log("error checking user role", error);
-              Navigate("/Login");
-            }
+            setRole(response.data.role);
+            setProf(response.data.prof);
           })
           .catch((error) => {
             Navigate("/Login");
@@ -44,7 +30,24 @@ const withRoleCheck = (AdminComponent, ChefComponent, ProfComponent) => {
       };
       checkRole();
     }, [Navigate, proxy, props]);
+    
+    try {
+      if (role === "admin") {
+        return (<AdminComponent {...props} />);
+
+      } else if (role === "chef") {
+        return <ChefComponent {...props} Prof={prof} />;
+      } else if (role === "prof") {
+        return <ProfComponent {...props} Prof={prof} />;
+      } else {
+        return <h1>Not Authorized</h1>;
+      }
+      
+    } catch (error) {
+      console.log("error checking user role", error);
+      window.location = "/Login";
+    }
   };
 };
 
-export default withRoleCheck;
+export default roleCheck;
