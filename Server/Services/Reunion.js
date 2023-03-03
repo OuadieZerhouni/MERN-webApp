@@ -53,6 +53,9 @@ exports.getPV=async(id_reunion)=>{
    exports.remove = async function (id) {
     return await Reunion.findByIdAndDelete(id);
 }
+    exports.removeByDepartement = async function (id_departement) {
+    return await Reunion.deleteMany({ id_departement: id_departement });
+}
 
 /* PVs */
    exports.AddPV = async function (id, value) {

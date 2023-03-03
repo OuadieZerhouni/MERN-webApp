@@ -69,7 +69,7 @@ router.post('/get/all',async (req,res)=>{
     res.send(reunion);
 })
 router.post('/delete',async (req,res)=>{
-    const reunion=await Reunion.delete(req.body._id);
+    const reunion=await Reunion.remove(req.body._id);
     res.send(reunion);
 })
 router.post('/update',async (req,res)=>{

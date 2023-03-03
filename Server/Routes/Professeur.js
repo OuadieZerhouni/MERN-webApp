@@ -25,7 +25,7 @@ router.post('/get/all',async (req,res)=>{
     res.send(professeur);
 })
 router.post('/delete',async (req,res)=>{
-    const professeur=await Professeur.delete(req.body._id);
+    const professeur=await Professeur.remove(req.body._id);
     res.send(professeur);
 })
 router.post('/update',async (req,res)=>{

@@ -34,4 +34,8 @@ const Filiere = require("../Models/Filiere")
         $pull: { Options: { _id: option_id } },
       });
     }
+    exports.removeByDepartement = async function (id_departement) {
+      return await Filiere.deleteMany({ id_departement: id_departement });
+    }
+    
   

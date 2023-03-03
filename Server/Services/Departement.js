@@ -1,4 +1,6 @@
 const Departement=require("../Models/Departement");
+const FiliereService=require("../Services/Filiere");
+const ReunionService=require("../Services/Reunion");
 
 
 
@@ -22,6 +24,8 @@ exports.insert = async function (departement) {
   }
 
     exports.remove = async function (id) {
+      await FiliereService.removeByDepartement(id);
+      await ReunionService.removeByDepartement(id);
     return await Departement.findByIdAndDelete(id);
   }
     exports.addProfesseur = async function (id_Dep, id_professeur) {

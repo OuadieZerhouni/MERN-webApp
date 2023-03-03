@@ -22,12 +22,97 @@ const DataTable = () => {
 
   const [showOptions, setShowOptions] = useState({});
 
-
   const API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+
+  const handleDeleteDepartement = (id) => {
+    axios
+      .post(API_DATABASE+"/departement/delete", { _id: id }, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        setDepartements(departements.filter((departement) => departement._id !== id));
+        refreshFiliere();
+        refreshReunion ();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const handleDeleteFiliere = (id) => {
+    axios
+      .post(API_DATABASE+"/filiere/delete", { _id: id }, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        setFilieres(filieres.filter((filiere) => filiere._id !== id));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const handleDeleteProfesseur = (id) => {
+    axios
+      .post(API_DATABASE+"/professeur/delete", { _id: id }, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        setProfesseurs(professeurs.filter((professeur) => professeur._id !== id));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const handleDeleteReunion = (id) => {
+    axios
+      .post(API_DATABASE+"/reunion/delete", { _id: id }, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        setReunion(reunion.filter((reunion) => reunion._id !== id));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const refreshFiliere = async() => {
+    axios
+      .post(API_DATABASE+"/filiere/get/all",{}, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        setFilieres(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const refreshReunion = async () => {
+    axios.post(API_DATABASE+"/reunion/get/all", {}, {headers: { Authorization: "Bearer " + localStorage.getItem("token"), },})
+      .then((response) => {
+        setReunion(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+
+
 
   useEffect(() => {
     document.title = "Dashboard";
@@ -148,7 +233,6 @@ const DataTable = () => {
         }
       )
       .then((response) => {
-
         setFilieres(response.data);
         response.data.forEach(async (filiere) => {
           const coordName = await getCoordFiliere(filiere.id_coordinateur)
@@ -215,7 +299,6 @@ const DataTable = () => {
           reunion.prof_present.forEach(async (profId) => {
             getProfName(profId).then((profName) => {
               profsNames.push(profName);
-             
             });
             setReunionProfs((prevState) => ({
               ...prevState,
@@ -284,6 +367,12 @@ const DataTable = () => {
                     {chefs[departement._id] ? chefs[departement._id] : ""}
                   </td>
                   <td>
+                    <button
+                      className="btn-delete" 
+                      onClick={()=>handleDeleteDepartement(departement._id)}
+                    >
+                      delete
+                    </button>
                     <Link
                       className="btn-modify"
                       to={"/modify/departement/" + departement._id}
@@ -307,97 +396,106 @@ const DataTable = () => {
                 <th>Cordinateur</th>
                 <th>departement</th>
                 <th>Actions</th>
-                <th>modify</th>
+                
               </tr>
             </thead>
             <tbody>
-            {filieres.map((filiere) => (
-  <React.Fragment key={filiere._id}>
-    <tr>
-      <td>{filiere.Nom}</td>
-      <td>
-        {filiere.Description.length > 50
-          ? filiere.Description.substring(0, 50) + "..."
-          : filiere.Description}
-      </td>
-      <td>{filiere.Date_Creation.split("T")[0]}</td>
-      <td>{filiere.Effectif}</td>
-      <td>{coords[filiere._id] ? coords[filiere._id] : ""}</td>
-      <td>
-        {FiliereDepartement[filiere._id]
-          ? FiliereDepartement[filiere._id]
-          : ""}
-      </td>
-      <td>
-        <Link className="btn-modify" to={"/Add/Option/" + filiere._id}>
-         addOption
-       </Link>
-      </td>
-      <td>
-        <Link
-          className="btn-modify"
-          to={"/modify/filiere/" + filiere._id}
-        >
-          Modify
-        </Link>
-      </td>
-      <td>
-        <button
-          className="btn-modify"
-          onClick={() =>
-            setShowOptions({
-              ...showOptions,
-              [filiere._id]: !showOptions[filiere._id],
-            })
-          }
-        >
-          {showOptions[filiere._id] ? "Hide Options" : "Show Options"}
-        </button>
-      </td>
-    </tr>
-    {showOptions[filiere._id] && filiere.Options && (
-      <tr>
-        <td colSpan="9">
-          <table className="options-table">
-            <thead>
-              <tr>
-                <th>Option Name</th>
-                <th>Description</th>
-                <th>Date Created</th>
-                <th>Effectif</th>
-                <th>Emploi_temps</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filiere.Options.map((option) => (
-                <tr key={option._id}>
-                  <td>{option.Nom}</td>
-                  <td>{option.Description}</td>
-                  <td>{option.Date_Creation.split("T")[0]}</td>
-                  <td>{option.effectif}</td>
-                  <td>
-                    <Link
-                      className="btn-modify"
-                      to={"/modify/Option/" + option._id}
-                    >
-                      edit
-                    </Link>
-                  <Link
-                      className="btn-modify"
-                      to={"/Emploi_temps/" + option._id}
-                    >
-                      view
-                    </Link>
-                  </td> 
-                </tr>
+              {filieres.map((filiere) => (
+                <React.Fragment key={filiere._id}>
+                  <tr>
+                    <td>{filiere.Nom}</td>
+                    <td>
+                      {filiere.Description.length > 50
+                        ? filiere.Description.substring(0, 50) + "..."
+                        : filiere.Description}
+                    </td>
+                    <td>{filiere.Date_Creation.split("T")[0]}</td>
+                    <td>{filiere.Effectif}</td>
+                    <td>{coords[filiere._id] ? coords[filiere._id] : ""}</td>
+                    <td>
+                      {FiliereDepartement[filiere._id]
+                        ? FiliereDepartement[filiere._id]
+                        : ""}
+                    </td>
+                    <td>
+                      <Link
+                        className="btn-modify"
+                        to={"/Add/Option/" + filiere._id}
+                      >
+                       +Option
+                      </Link>
+                      <Link
+                        className="btn-modify"
+                        to={"/modify/filiere/" + filiere._id}
+                      >
+                        Modify
+                      </Link>
+                      <button
+                        className="btn-delete"
+                        onClick={() => handleDeleteFiliere(filiere._id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        className="btn-modify"
+                        onClick={() =>
+                          setShowOptions({
+                            ...showOptions,
+                            [filiere._id]: !showOptions[filiere._id],
+                          })
+                        }
+                      >
+                        {showOptions[filiere._id]
+                          ? "Hide Options"
+                          : "Show Options"}
+                      </button>
+                    </td>
+                  </tr>
+                  {showOptions[filiere._id] && filiere.Options && (
+                    <tr>
+                      <td colSpan="9">
+                        <table className="options-table">
+                          <thead>
+                            <tr>
+                              <th>Option Name</th>
+                              <th>Description</th>
+                              <th>Date Created</th>
+                              <th>Effectif</th>
+                              <th>Emploi_temps</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {filiere.Options.map((option) => (
+                              <tr key={option._id}>
+                                <td>{option.Nom}</td>
+                                <td>{option.Description}</td>
+                                <td>{option.Date_Creation.split("T")[0]}</td>
+                                <td>{option.effectif}</td>
+                                <td>
+                                  <Link
+                                    className="btn-modify"
+                                    to={"/modify/Option/" + option._id}
+                                  >
+                                    edit
+                                  </Link>
+                                  <Link
+                                    className="btn-modify"
+                                    to={"/Emploi_temps/" + option._id}
+                                  >
+                                    view
+                                  </Link>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  )}
+                </React.Fragment>
               ))}
-            </tbody>
-          </table>
-        </td>
-      </tr>
-    )}
-  </React.Fragment>
-))}
             </tbody>
           </table>
         )}
@@ -410,7 +508,7 @@ const DataTable = () => {
                 <th>CIN</th>
                 <th>Telephone</th>
                 <th>grade</th>
-                <th>modify</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -428,6 +526,13 @@ const DataTable = () => {
                     >
                       modify
                     </Link>
+                    <button 
+                      className="btn-delete"
+                      onClick={()=>handleDeleteProfesseur(professeur._id)}
+                    >
+                      delete
+                    </button>
+
                   </td>
                 </tr>
               ))}
@@ -444,7 +549,7 @@ const DataTable = () => {
                 <th>Liste Ordres de Jour</th>
                 <th>prof. presents</th>
                 <th>PV</th>
-                <th>modify</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -472,15 +577,24 @@ const DataTable = () => {
                       </p>
                     ))}
                   </td>
-                  <td><Link className="btn-modify" to={"/PV/" + reunion._id}>view</Link>
-                   </td>
+                  <td>
+                    <Link className="btn-modify" to={"/PV/" + reunion._id}>
+                      view
+                    </Link>
+                  </td>
                   <td>
                     <Link
                       className="btn-modify"
                       to={"/modify/reunion/" + reunion._id}
                     >
-                      modify 
+                      modify
                     </Link>
+                    <button
+                      className="btn-delete"
+                      onClick={() => handleDeleteReunion(reunion._id)}
+                    >
+                      delete
+                    </button>
                   </td>
                 </tr>
               ))}

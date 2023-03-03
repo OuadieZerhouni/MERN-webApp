@@ -11,7 +11,7 @@ router.post('/get/all',async (req,res)=>{
     res.send(filiere);
 })
 router.post('/delete',async (req,res)=>{
-    const filiere=await Filiere.delete(req.body._id);
+    const filiere=await Filiere.remove(req.body._id);
     res.send(filiere);
 })
 router.post('/update',async (req,res)=>{
