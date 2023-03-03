@@ -49,7 +49,7 @@ const ProfesseurForm = () => {
         password:professeurPassword,
         grade: professeurRole,
         id_departement: (professeurDepartement===""?null:professeurDepartement),
-      },{headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}}
+      },{headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}}
       )
       .then((response) => {
         alert("Professeur Updated!")

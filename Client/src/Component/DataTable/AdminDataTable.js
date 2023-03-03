@@ -571,11 +571,11 @@ const DataTable = () => {
                     ))}
                   </td>
                   <td>
-                    {ReunionProfs[reunion._id].map((prof) => (
+                  {ReunionProfs[reunion._id]?ReunionProfs[reunion._id].map((prof) => (
                       <p key={prof} className="prof">
-                        {prof}
+                        {"-"+prof}
                       </p>
-                    ))}
+                    )):"none"}
                   </td>
                   <td>
                     <Link className="btn-modify" to={"/PV/" + reunion._id}>

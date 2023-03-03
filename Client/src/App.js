@@ -79,12 +79,14 @@ function App() {
           <Route path="/Add/Reunion" element={<WithAuthReunionForm />} />
           <Route path="/Add/Professeur" element={<WithAuthProfesseur />} />
           <Route path="/Add/Option/:id" element={<WithAuthOption />} />
+          <Route path="/Add/Option" element={<WithAuthOption />} />
 
           <Route path='/modify/departement/:id' element={<WithAuthModifyDepartment/>} />
           <Route path='/modify/filiere/:id' element={<WithAuthModifyFiliere/>} />
           <Route path='/modify/reunion/:id' element={<WithAuthModifyReunion/>} />
           <Route path='/modify/professeur/:id' element={<WithAuthModifyProfesseur/>} />
           <Route path='/modify/option/:id' element={<WithAuthModifyOption/>} />
+          
           
 
 

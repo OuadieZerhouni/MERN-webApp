@@ -36,7 +36,7 @@ const ReunionForm = () => {
         },
         {
           headers: {
-            Authorization: localStorage.getItem("token"),
+            Authorization: `Bearer ${localStorage.getItem("token")}`
           },
         }
       )
@@ -62,7 +62,7 @@ const ReunionForm = () => {
           },
           {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
+              Authorization: `Bearer ${localStorage.getItem("token")}`
             },
           }
         )
@@ -89,7 +89,7 @@ const ReunionForm = () => {
           },
           {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
+              Authorization: `Bearer ${localStorage.getItem("token")}`
             },
           }
         )
@@ -134,7 +134,7 @@ const ReunionForm = () => {
         API_DATABASE + "/reunion/get/id",
         { _id: window.location.pathname.split("/")[3] },
         {
-          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+          headers: { Authorization:`Bearer ${localStorage.getItem("token")}` }
         }
       )
       .then((response) => {

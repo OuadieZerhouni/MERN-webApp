@@ -43,7 +43,8 @@ const ReunionForm = () => {
     axios
       .post(API_DATABASE + "/reunion/insert", formData, {
         headers: {
-          Authorization: localStorage.getItem("token"),
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
         },
       })
       .then((response) => {
@@ -81,7 +82,7 @@ const ReunionForm = () => {
           },
           {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         )
@@ -119,7 +120,7 @@ const ReunionForm = () => {
         API_DATABASE + "/departement/get/all",
         {},
         {
-          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       )
       .then((response) => {

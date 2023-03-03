@@ -1,6 +1,8 @@
 const express=require('express');
 const router = express.Router();
 
+const verifyToken=require('../util/verification').verifyToken;
+
 const FiliereRouter=require('../Routes/Filiere');
 const OptionRouter=require('../Routes/Option');
 const ProfesseurRouter=require('../Routes/Professeur');
@@ -10,17 +12,8 @@ const EmploiTempsRouter=require('../Routes/EmploiTemps');
 
 
 
-const verifyToken=(req,res,next)=>{
-    const bearerHeader=req.headers['authorization'];
-    if(typeof bearerHeader !== 'undefined'){
-        const bearer=bearerHeader.split(' ');
-        const bearerToken=bearer[1];
-        req.token=bearerToken;
-        next();
-    }else{
-        res.sendStatus(403);
-    }
-}
+
+
 router.use(verifyToken);
 
 router.use('/filiere',FiliereRouter);

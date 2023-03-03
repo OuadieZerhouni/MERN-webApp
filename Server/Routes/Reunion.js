@@ -5,13 +5,13 @@ const fs=require('fs');
 const Reunion=require("../Services/Reunion")
 const PV_Upload=require('../util/Fileupload').PV_Upload;
 const pdfToImages = require("../util/ToPDF").pdfToImages;
-
-
-
+const AdminChefVerifyProfInsert=require('../util/verification').AdminChefVerifyProfInsert;
+const AdminChefVerifyReunionDelete =require('../util/verification').AdminChefVerifyReunionDelete;
+const jwt=require('jsonwebtoken');
 
 
 /*---reunion---*/ 
-router.post('/insert',PV_Upload.single('file'),async (req,res)=>{
+router.post('/insert',PV_Upload.single('file'),AdminChefVerifyProfInsert,async (req,res)=>{
 
     let present_prof=[]
     if(req.body.prof_present!=''){
@@ -19,7 +19,6 @@ router.post('/insert',PV_Upload.single('file'),async (req,res)=>{
     let loj=[]
     if(req.body.LOJ!=''){
     loj=req.body.LOJ.split(',') }
-    console.log(req.body.id_departement)
 
     pdfToImages(req.file.path).then(async(_pdfPath) => {
     const reunionData={
@@ -59,7 +58,7 @@ router.post('/PV',async (req,res)=>{
     
     }
     catch(err){
-      console.log("Error: "+err);
+      console.log(err);
       res.status(500).send(err);
     }
     });
@@ -68,11 +67,11 @@ router.post('/get/all',async (req,res)=>{
     const reunion=await Reunion.getAll();
     res.send(reunion);
 })
-router.post('/delete',async (req,res)=>{
+router.post('/delete',AdminChefVerifyReunionDelete,async (req,res)=>{
     const reunion=await Reunion.remove(req.body._id);
     res.send(reunion);
 })
-router.post('/update',async (req,res)=>{
+router.post('/update',AdminChefVerifyProfInsert,async (req,res)=>{
     const reunion=await Reunion.update(req.body._id,req.body);
     res.send(reunion);
 })
@@ -88,24 +87,6 @@ router.post('/get/departement',async (req,res)=>{
     const reunion=await Reunion.getByDepartement(req.body.id_Departement);
     res.send(reunion);
 })
-/*----PV-----*/
-router.post('/insert/pv',async (req,res)=>{
-    const pv=await Reunion.insertPV(req.body.reunion_id,req.body.pv);
-    res.send(pv);
-})
-router.post('/get/pv',async (req,res)=>{
-    const pv=await Reunion.getPV(req.body.reunion_id);
-    res.send(pv);
-})
-router.post('/delete/pv',async (req,res)=>{
-    const pv=await Reunion.deletePV(req.body.reunion_id);
-    res.send(pv);
-})
-router.post('/update/pv',async (req,res)=>{
-    const pv=await Reunion.updatePV(req.body.reunion_id,req.body.pv);
-    res.send(pv);
-})
-
 /*----commentaire----*/
 router.post('/insert/comment',async (req,res)=>{
     const comment=await Reunion.AddComment(req.body.reunion_id,req.body.comment);

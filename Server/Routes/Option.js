@@ -82,7 +82,7 @@ router.post("/update", Emploi_Upload.single("file"), async (req, res) => {
       const filePathpdf = emploiTemps.Lien_consultation;
       const filePathxl = emploiTemps.Lien_modification;
       const imageDirPath = filePathpdf.replace(".pdf", "");
-      console.log(filePathpdf);
+
       
       const oldDirPath = 'uploads/old';
       if (!fs.existsSync(oldDirPath)) {
@@ -92,7 +92,6 @@ router.post("/update", Emploi_Upload.single("file"), async (req, res) => {
       const oldPathpdf = path.resolve(oldDirPath, path.basename(filePathpdf));
       const oldPathxl = path.resolve(oldDirPath, path.basename(filePathxl));
       const oldPathimages = path.resolve(oldDirPath, path.basename(imageDirPath));
-      console.log("old oath"+oldPathpdf)
       fs.renameSync(filePathpdf, oldPathpdf);
       fs.renameSync(filePathxl, oldPathxl);
       fs.renameSync(imageDirPath, oldPathimages);
@@ -129,7 +128,6 @@ router.post("/update", Emploi_Upload.single("file"), async (req, res) => {
     };
     console.log(req.body);
     const oldFiliere = await FiliereService.getByOptionId(req.body._id);
-    console.log(oldFiliere);
     if (oldFiliere._id != req.body._id_filiere) {
       //delete the option from the old filiere
       await FiliereService.removeOption(oldFiliere._id, req.body._id);

@@ -30,24 +30,31 @@ const DataTable = () => {
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
-  const handleDeleteDepartement = (id) => {
-    axios
-      .post(
-        API_DATABASE + "/departement/delete",
-        { _id: id },
-        {
-          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-        }
-      )
-      .then((response) => {
-        setDepartements((prevState) => {
-          return prevState.filter((departement) => departement._id !== id);
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const handleDeleteProfesseur = async (id) => {
+    return axios.post(API_DATABASE + "/professeur/delete", { _id: id }, {
+      headers: {Authorization: `Bearer ${localStorage.getItem("token")}`},
+    }).then((response) => {
+      setProfesseurs(professeurs.filter((item) => item._id !== id));
+    }).catch((error) => {
+      console.error(error);
+    });
   };
+  
+  const handleDeleteReunion=async (id)=>{
+    return axios
+    .post(API_DATABASE + "/reunion/delete", { _id: id }, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+    .then((response) => {
+        setReunion(reunion.filter((item) => item._id !== id));
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
+
 
   useEffect(() => {
     document.title = "Dashboard";
@@ -307,15 +314,15 @@ const DataTable = () => {
                   </td>
                   {departement._id === _departement['_id'] ? (
                     <td>
-                      <button
+                      {/* <button
                         className="btn btn-danger"
                         onClick={() => {
                           handleDeleteDepartement(departement._id);
                         }}
                       >
                         Delete
-                      </button>
-                    <Link to={`/update/departement/${departement._id}`}>
+                      </button> */}
+                    <Link to={`/modify/departement/${departement._id}`}>
                       <button className="btn btn-primary">Edit</button>
                     </Link>
                     </td>
@@ -425,6 +432,7 @@ const DataTable = () => {
                 <th>CIN</th>
                 <th>Telephone</th>
                 <th>grade</th>
+                <th>Actions</th>
                 
               </tr>
             </thead>
@@ -436,6 +444,22 @@ const DataTable = () => {
                   <td>{professeur.CIN}</td>
                   <td>{professeur.PhoneNumber}</td>
                   <td>{professeur.grade}</td>
+                  {professeur.id_departement === _departement['_id'] ? (
+                    <td>
+                      <Link
+                        to={`/modify/professeur/${professeur._id}`}
+                      >
+                        <button className="btn btn-primary">Edit</button>
+                      </Link>
+                    <button className="btn btn-danger" onClick={() => {
+                          handleDeleteProfesseur(professeur._id);
+                        }}>Delete</button>
+                    </td>
+                  ) : (
+                    <td>
+                    </td>
+                  )}
+
                  
                 </tr>
               ))}
@@ -452,6 +476,7 @@ const DataTable = () => {
                 <th>Liste Ordres de Jour</th>
                 <th>prof. presents</th>
                 <th>PV</th>
+                <th>Actions</th>
                 
               </tr>
             </thead>
@@ -474,14 +499,34 @@ const DataTable = () => {
                     ))}
                   </td>
                   <td>
-                    {ReunionProfs[reunion._id].map((prof) => (
+                    {ReunionProfs[reunion._id]?ReunionProfs[reunion._id].map((prof) => (
                       <p key={prof} className="prof">
-                        {prof}
+                        {"-"+prof}
                       </p>
-                    ))}
+                    )):"none"}
                   </td>
                   <td><Link className="btn-modify" to={"/PV/" + reunion._id}>view</Link>
                    </td>
+                  
+                    {reunion.id_departement === _departement['_id'] ? (
+                      <td>
+                      <Link to={`/modify/reunion/${reunion._id}`}>
+
+                        <button className="btn btn-primary">Edit</button>
+                      </Link>
+  
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => {
+                          handleDeleteReunion(reunion._id);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                    ) : null
+                    }
+
                  
                 </tr>
               ))}

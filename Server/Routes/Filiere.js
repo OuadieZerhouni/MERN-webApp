@@ -1,8 +1,9 @@
 const express=require('express');
 const router = express.Router();
 const Filiere=require('../Services/Filiere');
+const AdminChefVerifyProfInsert=require('../util/verification').AdminChefVerifyProfInsert;
 
-router.post('/insert',async (req,res)=>{
+router.post('/insert',AdminChefVerifyProfInsert,async (req,res)=>{
     const filiere=await Filiere.insert(req.body);
     res.send(filiere);
 })

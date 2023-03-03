@@ -4,11 +4,13 @@ const jwt = require("jsonwebtoken");
 const profService = require("../Services/Professeur");
 
 router.post("/", async (req, res) => {
-    const token = req.headers["authentication"].split(" ")[1];
+    const bearer = req.headers["authentication"].split(" ")
+    const token = bearer[1] || bearer[0];
+
 
     if (!token) return res.status(401).send("Access Denied");
     try {
-        const tokenData = jwt.verify(token, process.env.SECRET_KEY);
+        const tokenData = jwt.decode(token, process.env.SECRET_KEY);
         const role = tokenData.role;
 
         if(role === "admin") res.send({role: "admin"});
@@ -20,9 +22,12 @@ router.post("/", async (req, res) => {
         const prof = await profService.getById(tokenData.user);
          res.send({role: "prof",prof: prof});
         }
-        else res.status(400).send("Invalid Token");
+        else{ 
+            res.status(400).send("Invalid Token");
+        }
     } catch (err) {
         console.log(err);
+
         res.status(400).send("Invalid Token");
     }
 });

@@ -2,9 +2,10 @@ const express=require('express');
 const router = express.Router();
 const Departement=require('../Services/Departement');
 const Professeur=require('../Services/Professeur');
+const AdminVerify=require('../util/verification').AdminVerify;
+const AdminChefVerify=require('../util/verification').AdminChefVerifyDepart;
 
-
-router.post('/insert',async (req,res)=>{
+router.post('/insert',AdminVerify,async (req,res)=>{
     const departement=await Departement.insert(req.body);
     req.body.professeurs.forEach(async (prof)=>{
         await Professeur.setIdDepartement(prof,departement._id);
@@ -17,13 +18,12 @@ router.post('/get/all',async (req,res)=>{
     res.send(departement);
 })
 
-router.post('/delete',async (req,res)=>{
+router.post('/delete',AdminVerify,async (req,res)=>{
     const departement=await Departement.remove(req.body._id);
     res.send(departement);
 })
-router.post('/update',async (req,res)=>{
+router.post('/update',AdminChefVerify,async (req,res)=>{
     const departement=await Departement.update(req.body._id,req.body);
-    console.log(req.body);
     res.send(departement);
 })
 router.post('/get/id',async (req,res)=>{

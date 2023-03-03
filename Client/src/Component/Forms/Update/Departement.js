@@ -74,7 +74,7 @@ const DepartementForm = () => {
           professeurs: departementProfesseurs,
         },
         {
-          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       )
       .then((response) => {
@@ -93,7 +93,7 @@ const DepartementForm = () => {
         {
           _id: window.location.pathname.split("/")[3],
         },
-        { headers: { Authorization: "Bearer" + localStorage.getItem("token") } }
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       )
       .then((response) => {
         FillForm(response.data);
@@ -118,7 +118,7 @@ const DepartementForm = () => {
           },
           {
             headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
+              Authorization: `Bearer ${localStorage.getItem("token")}`
             },
           }
         )
