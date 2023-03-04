@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import "../ComponentCSS/DataTable.css";
 
-// import DepartTable from "./Tables/DepartTable";
-// import FiliereTable from "./Tables/FiliereTable";
-// import ProfTable from "./Tables/ProfTable";
-// import ReunionTable from "./Tables/ReunionTable";
+import DepartTable from "./ProfTables/departement";
+import FiliereTable from "./ProfTables/filiere";
+import ReunionTable from "./ProfTables/reunion";
+import ProfTable from "./ProfTables/professeur";
 
 const DataTable = () => {
   const [activeTab, setActiveTab] = useState("departements");
@@ -19,8 +18,6 @@ const DataTable = () => {
   const [FiliereDepartement, setFiliereDepartement] = useState({});
   const [ReunionDepartement, setReunionDepartement] = useState({});
   const [ReunionProfs, setReunionProfs] = useState({});
-
-  const [showOptions, setShowOptions] = useState({});
 
 
   const API_DATABASE = process.env.REACT_APP_API_DATABASE;
@@ -148,7 +145,6 @@ const DataTable = () => {
         }
       )
       .then((response) => {
-
         setFilieres(response.data);
         response.data.forEach(async (filiere) => {
           const coordName = await getCoordFiliere(filiere.id_coordinateur)
@@ -215,7 +211,6 @@ const DataTable = () => {
           reunion.prof_present.forEach(async (profId) => {
             getProfName(profId).then((profName) => {
               profsNames.push(profName);
-             
             });
             setReunionProfs((prevState) => ({
               ...prevState,
@@ -258,195 +253,19 @@ const DataTable = () => {
         </div>
       </div>
       <div className="tab-content">
-        {activeTab === "departements" && (
-          <table>
-            <thead>
-              <tr>
-                <th>Nom</th>
-                <th>description</th>
-                <th>Date de Creation</th>
-                <th>Chef de departement</th>
-                
-              </tr>
-            </thead>
-            <tbody>
-              {departements.map((departement) => (
-                <tr key={departement._id}>
-                  <td>{departement.Nom}</td>
-                  <td>
-                    {departement.description.length > 50
-                      ? departement.description.substring(0, 50) + "..."
-                      : departement.description}
-                  </td>
-
-                  <td>{departement.Date_Creation.substring(0, 10)}</td>
-                  <td>
-                    {chefs[departement._id] ? chefs[departement._id] : ""}
-                  </td>
-                 
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-        {activeTab === "filiere" && (
-          <table>
-            <thead>
-              <tr>
-                <th>Filiere Name</th>
-                <th>Description</th>
-                <th>Date de Creation</th>
-                <th>Effectif</th>
-                <th>Cordinateur</th>
-                <th>departement</th>
-                <th>Actions</th>
-                
-              </tr>
-            </thead>
-            <tbody>
-            {filieres.map((filiere) => (
-  <React.Fragment key={filiere._id}>
-    <tr>
-      <td>{filiere.Nom}</td>
-      <td>
-        {filiere.Description.length > 50
-          ? filiere.Description.substring(0, 50) + "..."
-          : filiere.Description}
-      </td>
-      <td>{filiere.Date_Creation.split("T")[0]}</td>
-      <td>{filiere.Effectif}</td>
-      <td>{coords[filiere._id] ? coords[filiere._id] : ""}</td>
-      <td>
-        {FiliereDepartement[filiere._id]
-          ? FiliereDepartement[filiere._id]
-          : ""}
-      </td>
-      <td>
-        <button
-          className="btn-modify"
-          onClick={() =>
-            setShowOptions({
-              ...showOptions,
-              [filiere._id]: !showOptions[filiere._id],
-            })
-          }
-        >
-          {showOptions[filiere._id] ? "Hide Options" : "Show Options"}
-        </button>
-      </td>
-    </tr>
-    {showOptions[filiere._id] && filiere.Options && (
-      <tr>
-        <td colSpan="9">
-          <table className="options-table">
-            <thead>
-              <tr>
-                <th>Option Name</th>
-                <th>Description</th>
-                <th>Date Created</th>
-                <th>Effectif</th>
-                <th>Emploi_temps</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filiere.Options.map((option) => (
-                <tr key={option._id}>
-                  <td>{option.Nom}</td>
-                  <td>{option.Description}</td>
-                  <td>{option.Date_Creation.split("T")[0]}</td>
-                  <td>{option.effectif}</td>
-                  <td>
-                  <Link
-                      className="btn-modify"
-                      to={"/Emploi_temps/" + option._id}
-                    >
-                      view
-                    </Link>
-                  </td> 
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </td>
-      </tr>
-    )}
-  </React.Fragment>
-))}
-            </tbody>
-          </table>
-        )}
-        {activeTab === "professeurs" && (
-          <table>
-            <thead>
-              <tr>
-                <th>Nom & Prénom</th>
-                <th>Email</th>
-                <th>CIN</th>
-                <th>Telephone</th>
-                <th>grade</th>
-                
-              </tr>
-            </thead>
-            <tbody>
-              {professeurs.map((professeur) => (
-                <tr key={professeur._id}>
-                  <td>{professeur.FullName} </td>
-                  <td>{professeur.email}</td>
-                  <td>{professeur.CIN}</td>
-                  <td>{professeur.PhoneNumber}</td>
-                  <td>{professeur.grade}</td>
-                 
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-        {activeTab === "reunions" && (
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>lieu</th>
-                <th>Departement</th>
-                <th>Liste Ordres de Jour</th>
-                <th>prof. presents</th>
-                <th>PV</th>
-                
-              </tr>
-            </thead>
-            <tbody>
-              {reunion.map((reunion) => (
-                <tr key={reunion._id}>
-                  <td>{reunion.Date}</td>
-                  <td>{reunion.Lieu}</td>
-                  <td>
-                    {ReunionDepartement[reunion._id]
-                      ? ReunionDepartement[reunion._id]
-                      : ""}
-                  </td>
-                  <td>
-                    {reunion.LOJ.map((loj) => (
-                      <p key={loj} className="loj">
-                        {"-"} {loj}
-                        {"\n"}
-                      </p>
-                    ))}
-                  </td>
-                  <td>
-                    {ReunionProfs[reunion._id].map((prof) => (
-                      <p key={prof} className="prof">
-                        {prof}
-                      </p>
-                    ))}
-                  </td>
-                  <td><Link className="btn-modify" to={"/PV/" + reunion._id}>view</Link>
-                   </td>
-                 
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+        <DepartTable
+          activeTab={activeTab}
+          departements={departements}
+          chefs={chefs}
+        />
+        <FiliereTable
+          activeTab={activeTab}
+          filieres={filieres}
+          coords={coords}
+          FiliereDepartement={FiliereDepartement}
+        />
+       <ProfTable activeTab={activeTab} professeurs={professeurs} />
+      <ReunionTable activeTab={activeTab} reunions={reunion} ReunionDepartement={ReunionDepartement} ReunionProfs={ReunionProfs} />
       </div>
     </div>
   );

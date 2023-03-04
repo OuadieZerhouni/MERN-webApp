@@ -1,5 +1,7 @@
 const Filiere = require("../Models/Filiere");
 
+
+
 exports.getOptionsByFiliereId = async (id) => {
   return await Filiere.findById(id).select("Options");
 };
@@ -9,9 +11,9 @@ exports.getOptionById = async (id) => {
   console.log(option[0].Options[0])
   return option[0].Options[0];
 };
-exports.insertOption = async (id, option) => {
+exports.insertOption = async (id_filiere, option) => {
   
-    Filiere.findByIdAndUpdate(id, {
+    Filiere.findByIdAndUpdate(id_filiere, {
     $addToSet: { Options: option },
   }).then((result) => {
     return option;
@@ -54,9 +56,9 @@ exports.updateEmploiTemps = async (option_id, emploi_temps) => {
     { $set: { "Options.$.Emploi_temps": emploi_temps } }
   );
 };
-exports.deleteEmploiTemps = async (option_id) => {
-  return await Filiere.findOneAndUpdate(
-    { "Options._id": option_id },
-    { $set: { "Options.$.Emploi_temps": {} } }
-  );
-};
+// exports.deleteEmploiTemps = async (option_id) => {
+//   return await Filiere.findOneAndUpdate(
+//     { "Options._id": option_id },
+//     { $set: { "Options.$.Emploi_temps": {} } }
+//   );
+// };

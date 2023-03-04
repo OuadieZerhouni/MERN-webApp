@@ -48,6 +48,8 @@ const OptionForm = () => {
       })
       .then((response) => {
         console.log(response);
+        alert("Option Inserted");
+        
       })
       .catch((error) => {
         console.error(error);

@@ -20,8 +20,10 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 app.use(cors());
 app.use(cors({origin:'http://localhost:3030'}));
+
 app.use('/uploads/Emplois/pdf', express.static(path.join(__dirname, 'uploads', 'Emplois','pdf')));
 app.use('/uploads/PVs', express.static(path.join(__dirname, 'uploads', 'PVs',)));
+app.use('/uploads/posts', express.static(path.join(__dirname, 'uploads', 'posts',)));
 
 
 app.use(express.json());

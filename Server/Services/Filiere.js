@@ -4,7 +4,8 @@ const Filiere = require("../Models/Filiere")
       return await Filiere.find({});
     }
     exports.getByOptionId = async function (id) {
-      return await Filiere.find({ "Options._id": id });
+      const filieres= await Filiere.find({ "Options._id": id });
+      return filieres[0];
     }
   
        exports.getById = async function (id) {

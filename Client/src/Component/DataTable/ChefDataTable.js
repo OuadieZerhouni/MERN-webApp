@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import "../ComponentCSS/DataTable.css";
 
-// import DepartTable from "./Tables/DepartTable";
-// import FiliereTable from "./Tables/FiliereTable";
-// import ProfTable from "./Tables/ProfTable";
-// import ReunionTable from "./Tables/ReunionTable";
+import DepartTable from "./ChefTables/departement";
+import FiliereTable from "./ChefTables/filiere";
+import ProfTable from "./ChefTables/professeur";
+import ReunionTable from "./ChefTables/reunion";
 
 const DataTable = () => {
   const [activeTab, setActiveTab] = useState("departements");
@@ -20,10 +19,8 @@ const DataTable = () => {
   const [ReunionDepartement, setReunionDepartement] = useState({});
   const [ReunionProfs, setReunionProfs] = useState({});
 
-  const [showOptions, setShowOptions] = useState({});
 
-  const _departement= JSON.parse(localStorage.getItem("departement"));
-
+  const _departement = JSON.parse(localStorage.getItem("departement"));
 
   const API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
@@ -31,34 +28,93 @@ const DataTable = () => {
     setActiveTab(tab);
   };
   const handleDeleteProfesseur = async (id) => {
-    return axios.post(API_DATABASE + "/professeur/delete", { _id: id }, {
-      headers: {Authorization: `Bearer ${localStorage.getItem("token")}`},
-    }).then((response) => {
-      setProfesseurs(professeurs.filter((item) => item._id !== id));
-    }).catch((error) => {
-      console.error(error);
-    });
-  };
-  
-  const handleDeleteReunion=async (id)=>{
     return axios
-    .post(API_DATABASE + "/reunion/delete", { _id: id }, {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    })
-    .then((response) => {
+      .post(
+        API_DATABASE + "/professeur/delete",
+        { _id: id },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      )
+      .then((response) => {
+        setProfesseurs(professeurs.filter((item) => item._id !== id));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const handleDeleteFiliere = async (id) => {
+    return axios
+      .post(
+        API_DATABASE + "/filiere/delete",
+        { _id: id },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      )
+      .then((response) => {
+        setFilieres(filieres.filter((item) => item._id !== id));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const handleDeleteOption = async (id) => {
+    return axios
+      .post(
+        API_DATABASE + "/Option/delete",
+        { _id: id },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      )
+      .then((response) => {
+        refreshFiliere();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const handleDeleteReunion = async (id) => {
+    return axios
+      .post(
+        API_DATABASE + "/reunion/delete",
+        { _id: id },
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((response) => {
         setReunion(reunion.filter((item) => item._id !== id));
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
-
+  const refreshFiliere = async () => {
+    axios
+      .post(
+        API_DATABASE + "/filiere/get/all",
+        {},
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((response) => {
+        setFilieres(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   useEffect(() => {
     document.title = "Dashboard";
-    
 
     const getChefDepartement = async (id) => {
       return axios
@@ -176,7 +232,6 @@ const DataTable = () => {
         }
       )
       .then((response) => {
-
         setFilieres(response.data);
         response.data.forEach(async (filiere) => {
           const coordName = await getCoordFiliere(filiere.id_coordinateur)
@@ -243,7 +298,6 @@ const DataTable = () => {
           reunion.prof_present.forEach(async (profId) => {
             getProfName(profId).then((profName) => {
               profsNames.push(profName);
-             
             });
             setReunionProfs((prevState) => ({
               ...prevState,
@@ -286,253 +340,37 @@ const DataTable = () => {
         </div>
       </div>
       <div className="tab-content">
-        {activeTab === "departements" && (
-          <table>
-            <thead>
-              <tr>
-                <th>Nom</th>
-                <th>description</th>
-                <th>Date de Creation</th>
-                <th>Chef de departement</th>
-                <th>Actions</th>
-                
-              </tr>
-            </thead>
-            <tbody>
-              {departements.map((departement) => (
-                <tr key={departement._id}>
-                  <td>{departement.Nom}</td>
-                  <td>
-                    {departement.description.length > 50
-                      ? departement.description.substring(0, 50) + "..."
-                      : departement.description}
-                  </td>
+        <DepartTable
+          activeTab={activeTab}
+          departements={departements}
+          chefs={chefs}
+          _departement={_departement}
+        />
+        <FiliereTable
+          activeTab={activeTab}
+          filieres={filieres}
+          coords={coords}
+          FiliereDepartement={FiliereDepartement}
+          handleDeleteFiliere={handleDeleteFiliere}
+          handleDeleteOption={handleDeleteOption}
+          _departement={_departement}
+        />
+        <ProfTable
+          activeTab={activeTab}
+          professeurs={professeurs}
+          handleDeleteProfesseur={handleDeleteProfesseur}
+          _departement={_departement}
+        />
+        <ReunionTable
+          activeTab={activeTab}
+          reunions={reunion}
+          ReunionDepartement={ReunionDepartement}
+          ReunionProfs={ReunionProfs}
+          handleDeleteReunion={handleDeleteReunion}
+          _departement={_departement}
+        />
 
-                  <td>{departement.Date_Creation.substring(0, 10)}</td>
-                  <td>
-                    {chefs[departement._id] ? chefs[departement._id] : ""}
-                  </td>
-                  {departement._id === _departement['_id'] ? (
-                    <td>
-                      {/* <button
-                        className="btn btn-danger"
-                        onClick={() => {
-                          handleDeleteDepartement(departement._id);
-                        }}
-                      >
-                        Delete
-                      </button> */}
-                    <Link to={`/modify/departement/${departement._id}`}>
-                      <button className="btn btn-primary">Edit</button>
-                    </Link>
-                    </td>
-                  ) : (
-                    <td>
-                    </td>
-                  )}
-
-                 
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-        {activeTab === "filiere" && (
-          <table>
-            <thead>
-              <tr>
-                <th>Filiere Name</th>
-                <th>Description</th>
-                <th>Date de Creation</th>
-                <th>Effectif</th>
-                <th>Cordinateur</th>
-                <th>departement</th>
-                <th>Actions</th>
-                
-              </tr>
-            </thead>
-            <tbody>
-            {filieres.map((filiere) => (
-  <React.Fragment key={filiere._id}>
-    <tr>
-      <td>{filiere.Nom}</td>
-      <td>
-        {filiere.Description.length > 50
-          ? filiere.Description.substring(0, 50) + "..."
-          : filiere.Description}
-      </td>
-      <td>{filiere.Date_Creation.split("T")[0]}</td>
-      <td>{filiere.Effectif}</td>
-      <td>{coords[filiere._id] ? coords[filiere._id] : ""}</td>
-      <td>
-        {FiliereDepartement[filiere._id]
-          ? FiliereDepartement[filiere._id]
-          : ""}
-      </td>
-      <td>
-        <button
-          className="btn-modify"
-          onClick={() =>
-            setShowOptions({
-              ...showOptions,
-              [filiere._id]: !showOptions[filiere._id],
-            })
-          }
-        >
-          {showOptions[filiere._id] ? "Hide Options" : "Show Options"}
-        </button>
-      </td>
-    </tr>
-    {showOptions[filiere._id] && filiere.Options && (
-      <tr>
-        <td colSpan="9">
-          <table className="options-table">
-            <thead>
-              <tr>
-                <th>Option Name</th>
-                <th>Description</th>
-                <th>Date Created</th>
-                <th>Effectif</th>
-                <th>Emploi_temps</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filiere.Options.map((option) => (
-                <tr key={option._id}>
-                  <td>{option.Nom}</td>
-                  <td>{option.Description}</td>
-                  <td>{option.Date_Creation.split("T")[0]}</td>
-                  <td>{option.effectif}</td>
-                  <td>
-                  <Link
-                      className="btn-modify"
-                      to={"/Emploi_temps/" + option._id}
-                    >
-                      view
-                    </Link>
-                  </td> 
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </td>
-      </tr>
-    )}
-  </React.Fragment>
-))}
-            </tbody>
-          </table>
-        )}
-        {activeTab === "professeurs" && (
-          <table>
-            <thead>
-              <tr>
-                <th>Nom & Prénom</th>
-                <th>Email</th>
-                <th>CIN</th>
-                <th>Telephone</th>
-                <th>grade</th>
-                <th>Actions</th>
-                
-              </tr>
-            </thead>
-            <tbody>
-              {professeurs.map((professeur) => (
-                <tr key={professeur._id}>
-                  <td>{professeur.FullName} </td>
-                  <td>{professeur.email}</td>
-                  <td>{professeur.CIN}</td>
-                  <td>{professeur.PhoneNumber}</td>
-                  <td>{professeur.grade}</td>
-                  {professeur.id_departement === _departement['_id'] ? (
-                    <td>
-                      <Link
-                        to={`/modify/professeur/${professeur._id}`}
-                      >
-                        <button className="btn btn-primary">Edit</button>
-                      </Link>
-                    <button className="btn btn-danger" onClick={() => {
-                          handleDeleteProfesseur(professeur._id);
-                        }}>Delete</button>
-                    </td>
-                  ) : (
-                    <td>
-                    </td>
-                  )}
-
-                 
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-        {activeTab === "reunions" && (
-          <table>
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>lieu</th>
-                <th>Departement</th>
-                <th>Liste Ordres de Jour</th>
-                <th>prof. presents</th>
-                <th>PV</th>
-                <th>Actions</th>
-                
-              </tr>
-            </thead>
-            <tbody>
-              {reunion.map((reunion) => (
-                <tr key={reunion._id}>
-                  <td>{reunion.Date}</td>
-                  <td>{reunion.Lieu}</td>
-                  <td>
-                    {ReunionDepartement[reunion._id]
-                      ? ReunionDepartement[reunion._id]
-                      : ""}
-                  </td>
-                  <td>
-                    {reunion.LOJ.map((loj) => (
-                      <p key={loj} className="loj">
-                        {"-"} {loj}
-                        {"\n"}
-                      </p>
-                    ))}
-                  </td>
-                  <td>
-                    {ReunionProfs[reunion._id]?ReunionProfs[reunion._id].map((prof) => (
-                      <p key={prof} className="prof">
-                        {"-"+prof}
-                      </p>
-                    )):"none"}
-                  </td>
-                  <td><Link className="btn-modify" to={"/PV/" + reunion._id}>view</Link>
-                   </td>
-                  
-                    {reunion.id_departement === _departement['_id'] ? (
-                      <td>
-                      <Link to={`/modify/reunion/${reunion._id}`}>
-
-                        <button className="btn btn-primary">Edit</button>
-                      </Link>
-  
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => {
-                          handleDeleteReunion(reunion._id);
-                        }}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                    ) : null
-                    }
-
-                 
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+       
       </div>
     </div>
   );

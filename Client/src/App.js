@@ -1,6 +1,9 @@
 import './CSS/App.css';
 import { Route, Routes,BrowserRouter as Router,useNavigate } from "react-router-dom";
 
+import {withAuth, userAuth,adminChefAuth} from './Auth/Auth';
+
+
 
 import Header from './Component/Header';
 import Home from './Component/Home';
@@ -15,6 +18,7 @@ import InsérerFiliereForm from './Component/Forms/Insert/Filiere';
 import InsérerReunionForm from './Component/Forms/Insert/Reunion';
 import InsérerProfesseurForm from './Component/Forms/Insert/Professeur';
 import InsérerOptionForm from './Component/Forms/Insert/Option';
+import IndérerPostForm from './Component/Forms/Insert/Post';
 
 import ModifyDepartmentForm from './Component/Forms/Update/Departement';
 import ModifyFiliereForm from './Component/Forms/Update/Filiere';
@@ -26,43 +30,27 @@ import ModifyOptionForm from './Component/Forms/Update/Option';
 
 import PVviewer from './Component/FileReaders/PVPage';
 import EmploiTempsViewer from './Component/FileReaders/EmploiPage';
-import UserAuth from './Auth/Auth';
-
-
-import {  useEffect } from 'react';
 
 
 
-const withAuth = (Component) => {
-  return (props) => {
-    const Navigate = useNavigate();
-
-    useEffect(() => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        Navigate('/Login');
-        console.log('not logged in');
-      }
-    }, [Navigate]);
-
-    return <Component {...props} />;
-  };
-};
-
-const WithAuthDashboard = UserAuth(AdminDashboard, ChefDashboard, ProfDashboard);
 
 
-const WithAuthDepartementForm = withAuth(InsérerDepartementForm);
-const WithAuthFiliereForm = withAuth(InsérerFiliereForm);
-const WithAuthReunionForm = withAuth(InsérerReunionForm);
-const WithAuthProfesseur = withAuth(InsérerProfesseurForm);
-const WithAuthOption = withAuth(InsérerOptionForm);
 
-const WithAuthModifyDepartment = withAuth(ModifyDepartmentForm);
-const WithAuthModifyFiliere = withAuth(ModifyFiliereForm);
-const WithAuthModifyReunion = withAuth(ModifyReunionForm);
-const WithAuthModifyProfesseur = withAuth(ModifyProfesseurForm);
-const WithAuthModifyOption = withAuth(ModifyOptionForm);
+const WithAuthDashboard = userAuth(AdminDashboard, ChefDashboard, ProfDashboard);
+
+
+const WithAuthDepartementForm = adminChefAuth(InsérerDepartementForm);
+const WithAuthFiliereForm = adminChefAuth(InsérerFiliereForm);
+const WithAuthReunionForm = adminChefAuth(InsérerReunionForm);
+const WithAuthProfesseur = adminChefAuth(InsérerProfesseurForm);
+const WithAuthOption = adminChefAuth(InsérerOptionForm);
+const WithAuthPost = adminChefAuth(IndérerPostForm);
+
+const WithAuthModifyDepartment = adminChefAuth(ModifyDepartmentForm);
+const WithAuthModifyFiliere = adminChefAuth(ModifyFiliereForm);
+const WithAuthModifyReunion = adminChefAuth(ModifyReunionForm);
+const WithAuthModifyProfesseur = adminChefAuth(ModifyProfesseurForm);
+const WithAuthModifyOption = adminChefAuth(ModifyOptionForm);
 
 
 function App() {
@@ -70,7 +58,8 @@ function App() {
     <div className="App">
       
       <Router> 
-      <Header/>
+      {window.location.pathname !== '/' && <Header />}
+      
      
         <Routes>
         <Route path="/" element={<Home />} />
@@ -80,6 +69,7 @@ function App() {
           <Route path="/Add/Professeur" element={<WithAuthProfesseur />} />
           <Route path="/Add/Option/:id" element={<WithAuthOption />} />
           <Route path="/Add/Option" element={<WithAuthOption />} />
+          <Route path="/Add/Post" element={<WithAuthPost />} />
 
           <Route path='/modify/departement/:id' element={<WithAuthModifyDepartment/>} />
           <Route path='/modify/filiere/:id' element={<WithAuthModifyFiliere/>} />

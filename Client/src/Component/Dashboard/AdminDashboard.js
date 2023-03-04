@@ -22,6 +22,9 @@ export default function Home() {
       <Link to="/Add/Professeur">
         <button className="Insert-Btn">Insert Professeur</button>
       </Link>
+      <Link to="/Add/Post">
+        <button className="Insert-Btn">Insert Post</button>
+      </Link>
       <DataTable />
 
 

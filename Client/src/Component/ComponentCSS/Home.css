@@ -1,22 +1,65 @@
-.Insert-Btn{
-    color:inherit;
-    display: inline-block;
-    padding: 10px 20px;
-    border-radius: 4px;
-    background-color: #0A2E5F;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 300ms;
-    margin: 0 10px;
-    padding: auto;
+.bg-cont {
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  margin-top: 50px;
+  padding: 0;
+  background-image: url("../../assets/graduate.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: scroll;
 }
-.Insert-Btn:hover{
-    background-color: #333333;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 2);
+
+.root {
+  background-color: #d1bcbc;
 }
-.Home-cont{
-    padding-left: 50px;
-    
+h1 {
+  -webkit-text-size-adjust: 100%;
+  text-align: center;
+  outline: 0;
+  margin: 0;
+  font-family: "nyt-cheltenham", Georgia, serif;
+  font-style: normal;
+  font-weight: 200;
+  font-size: 62px !important;
+  color: #000;
+  letter-spacing: 1px;
+  line-height: 64px !important;
+}
+.logo-center {
+    width: 420px;
+    height:140px;
+    background-image: url("../../assets/logo.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    position: fixed;
+    top: 18%;
+    left: 34%;
+    padding: 10px;
+    margin: 0;
+    margin-top: 50px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.982);
+    -moz-box-shadow: 0px 0px 10px 0px  rgba(255, 255, 255, 0.982);
+    box-shadow: 0px 0px 10px 0px  rgba(255, 255, 255, 0.982);
+    border-radius: 10px;
+    z-index: 0;
+    pointer-events: none; /* add this */
+  }
+  
+
+.first-div {
+  z-index: 2;
+  height: 93vh;
+}
+
+.second-div {
+    position: relative;
+  z-index: 101;
+  height: 3000px; /* just for example */
+  background: #c2c0c0de;
 }

@@ -25,3 +25,15 @@ const PV_storage = multer.diskStorage({
 
 
 exports.PV_Upload = multer({ storage: PV_storage })
+
+const Post_storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads/posts')
+    }
+    ,
+    filename: function (req, file, cb) {
+        cb(null, uuid() +path.extname(file.originalname))
+    }
+})
+
+exports.Post_Upload = multer({ storage: Post_storage })

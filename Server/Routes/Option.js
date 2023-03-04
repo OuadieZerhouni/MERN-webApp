@@ -9,25 +9,35 @@ const fs = require("fs");
 const path = require("path");
 const pdfToImages = require("../util/ToPDF").pdfToImages;
 
-router.post("/insert", Emploi_Upload.single("file"), async (req, res) => {
-  ToPDF(req.file, req.body.Nom).then(async (_pdfPath) => {
-    const imageDirPath = await pdfToImages(_pdfPath);
+const AdminChefVerifyoptionInsert =
+  require("../util/verification").AdminChefVerifyoptionInsert;
+const AdminChefVerifyoptionDelete =
+  require("../util/verification").AdminChefVerifyoptionDelete;
 
-    const optionData = {
-      Nom: req.body.Nom,
-      Description: req.body.Description,
-      Date_Creation: req.body.Date_Creation,
-      effectif: req.body.effectif,
-      Emploi_temps: {
-        Lien_modification: req.file.path,
-        Lien_consultation: _pdfPath,
-      },
-    };
-    const option = await OptionService.insertOption(req.body._id, optionData);
+router.post(
+  "/insert",
+  Emploi_Upload.single("file"),
+  AdminChefVerifyoptionInsert,
+  async (req, res) => {
+    ToPDF(req.file, req.body.Nom).then(async (_pdfPath) => {
+      const imageDirPath = await pdfToImages(_pdfPath);
 
-    res.send(option);
-  });
-});
+      const optionData = {
+        Nom: req.body.Nom,
+        Description: req.body.Description,
+        Date_Creation: req.body.Date_Creation,
+        effectif: req.body.effectif,
+        Emploi_temps: {
+          Lien_modification: req.file.path,
+          Lien_consultation: _pdfPath,
+        },
+      };
+      const option = await OptionService.insertOption(req.body._id, optionData);
+
+      res.send(option);
+    });
+  }
+);
 router.post("/Emploi_temps", async (req, res) => {
   try {
     const emploiTemps = await OptionService.getEmploiTempsByOptionId(
@@ -66,8 +76,8 @@ router.post("/get/filiere", async (req, res) => {
   const options = await OptionService.getOptionsByFiliereId(req.body._id);
   res.send(options);
 });
-router.post("/delete", async (req, res) => {
-  const options = await OptionService.deleteOptions(req.body._id);
+router.post("/delete", AdminChefVerifyoptionDelete, async (req, res) => {
+  const options = await OptionService.deleteOption(req.body._id);
   res.send(options);
 });
 
@@ -78,24 +88,27 @@ router.post("/update", Emploi_Upload.single("file"), async (req, res) => {
 
     // Move the old files to the old directory
     try {
-      const emploiTemps = await OptionService.getEmploiTempsByOptionId(req.body._id);
+      const emploiTemps = await OptionService.getEmploiTempsByOptionId(
+        req.body._id
+      );
       const filePathpdf = emploiTemps.Lien_consultation;
       const filePathxl = emploiTemps.Lien_modification;
       const imageDirPath = filePathpdf.replace(".pdf", "");
 
-      
-      const oldDirPath = 'uploads/old';
+      const oldDirPath = "uploads/old";
       if (!fs.existsSync(oldDirPath)) {
         fs.mkdirSync(oldDirPath);
       }
-      
+
       const oldPathpdf = path.resolve(oldDirPath, path.basename(filePathpdf));
       const oldPathxl = path.resolve(oldDirPath, path.basename(filePathxl));
-      const oldPathimages = path.resolve(oldDirPath, path.basename(imageDirPath));
+      const oldPathimages = path.resolve(
+        oldDirPath,
+        path.basename(imageDirPath)
+      );
       fs.renameSync(filePathpdf, oldPathpdf);
       fs.renameSync(filePathxl, oldPathxl);
       fs.renameSync(imageDirPath, oldPathimages);
-      
     } catch (err) {
       console.error(err);
       // Handle the error here

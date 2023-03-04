@@ -27,6 +27,9 @@ export default function Dashboard(Prof) {
         <Link to="/add/option">
           <button className="btn">Ajouter option</button>
         </Link>
+        <Link to="/add/post">
+          <button className="btn">Ajouter post</button>
+        </Link>
         </div>
       <DataTable />
 

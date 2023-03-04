@@ -9,6 +9,7 @@ const ProfesseurRouter=require('../Routes/Professeur');
 const DepartementRouter=require('../Routes/Departement');
 const ReunionRouter = require('../Routes/Reunion');
 const EmploiTempsRouter=require('../Routes/EmploiTemps');
+const PostRouter=require('../Routes/Post');
 
 
 
@@ -16,12 +17,14 @@ const EmploiTempsRouter=require('../Routes/EmploiTemps');
 
 router.use(verifyToken);
 
+router.use('/post',PostRouter);
 router.use('/filiere',FiliereRouter);
 router.use('/option',OptionRouter);
 router.use('/professeur',ProfesseurRouter);
 router.use('/departement',DepartementRouter);
 router.use('/reunion',ReunionRouter)
 router.use('/emploiTemps',EmploiTempsRouter);
+
 
 
 
