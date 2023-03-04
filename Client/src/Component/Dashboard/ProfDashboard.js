@@ -8,7 +8,7 @@ import DataTable from "../DataTable/ProfDataTable";
 export default function Dashboard(Prof) {
     Prof = Prof.Prof;
   return (
-    <div>
+    <div className="Dash-cont">
      <div className="prof-info">
         <p>Nom : {Prof.FullName}</p>
         <p>email : {Prof.email}</p>

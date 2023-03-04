@@ -9,7 +9,7 @@ import DataTable from "../DataTable/AdminDataTable";
 export default function Home() {
     
   return (
-    <div>
+    <div className="Dash-cont">
       <Link to="/Add/Departement">
         <button className="Insert-Btn">Insert Departement</button>
       </Link>
