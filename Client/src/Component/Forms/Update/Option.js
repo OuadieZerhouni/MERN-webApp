@@ -77,10 +77,8 @@ const OptionForm = () => {
     };
 
     axios
-      .post(
-        API_DATABASE + "/filiere/get/all",
-        {},
-        {
+      .get(
+        API_DATABASE + "/filieres", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

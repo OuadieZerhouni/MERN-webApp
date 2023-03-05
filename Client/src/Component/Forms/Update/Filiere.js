@@ -39,7 +39,7 @@ const FiliereForm = () => {
       return;
     }
     axios
-      .post(API_DATABASE + "/filiere/update", {
+      .put(API_DATABASE + "/filieres", {
         _id: window.location.pathname.split("/")[3],
         Nom: filiereNom,
         Description: filiereDescription,
@@ -101,9 +101,7 @@ const FiliereForm = () => {
     //departements
    
     //get filiere 
-    axios.post(API_DATABASE + "/filiere/get/id", {
-        _id: window.location.pathname.split("/")[3],
-        },
+    axios.get(API_DATABASE + "/filieres/" + window.location.pathname.split("/")[3],
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
         ).then((response) => {
            FillForm(response.data);

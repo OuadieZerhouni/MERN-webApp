@@ -41,15 +41,7 @@ const DataTable = () => {
   };
   const handleDeleteFiliere = (id) => {
     axios
-      .post(
-        API_DATABASE + "/filiere/delete",
-        { _id: id },
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
+      .delete(API_DATABASE + "/filieres/" + id, { headers: { Authorization: "Bearer " + localStorage.getItem("token") } })
       .then((response) => {
         setFilieres(filieres.filter((filiere) => filiere._id !== id));
       })
@@ -116,9 +108,7 @@ const DataTable = () => {
   };
   const refreshFiliere = async () => {
     axios
-      .post(
-        API_DATABASE + "/filiere/get/all",
-        {},
+      .get(API_DATABASE + "/filieres",
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -248,9 +238,7 @@ const DataTable = () => {
       });
     //filieres
     axios
-      .post(
-        API_DATABASE + "/filiere/get/all",
-        {},
+      .get(API_DATABASE + "/filieres", 
         {
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         }

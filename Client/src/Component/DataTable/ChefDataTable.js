@@ -45,9 +45,7 @@ const DataTable = () => {
   };
   const handleDeleteFiliere = async (id) => {
     return axios
-      .post(
-        API_DATABASE + "/filiere/delete",
-        { _id: id },
+      .delete(API_DATABASE + "/filieres/" + id,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
@@ -97,9 +95,7 @@ const DataTable = () => {
 
   const refreshFiliere = async () => {
     axios
-      .post(
-        API_DATABASE + "/filiere/get/all",
-        {},
+      .get(API_DATABASE + "/filieres",
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -213,9 +209,7 @@ const DataTable = () => {
       });
     //filieres
     axios
-      .post(
-        API_DATABASE + "/filiere/get/all",
-        {},
+      .get(API_DATABASE + "/filieres",
         {
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         }

@@ -42,8 +42,7 @@ const FiliereForm = () => {
       return;
     }
     axios
-      .post(
-        API_DATABASE + "/filiere/insert",
+      .post(API_DATABASE + "/filieres", 
         {
           Nom: filiereNom,
           Description: filiereDescription,
