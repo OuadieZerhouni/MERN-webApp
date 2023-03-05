@@ -34,6 +34,7 @@ exports.AdminChefVerifyDepart = (req, res, next) => {
   }
 };
 exports.verifyToken = (req, res, next) => {
+try {
   const bearerHeader = req.headers["authorization"];
   if (typeof bearerHeader) {
     const bearer = bearerHeader.split(" ");
@@ -48,6 +49,10 @@ exports.verifyToken = (req, res, next) => {
   } else {
     res.sendStatus(403);
   }
+} catch (error) {
+  res.sendStatus(403);
+  console.log(error);
+}
 };
 
 exports.AdminChefVerifyProfInsert = (req, res, next) => {

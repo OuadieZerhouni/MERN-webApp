@@ -6,7 +6,7 @@ import {withAuth, userAuth,adminChefAuth} from './Auth/Auth';
 
 
 import Header from './Component/Header';
-import Home from './Component/Home';
+import Home from './Component/HomePage/Home';
 import Login from './Auth/Login';
 import AdminDashboard from './Component/Dashboard/AdminDashboard';
 import ChefDashboard from './Component/Dashboard/ChefDashboard';
@@ -59,7 +59,7 @@ function App() {
       
       <Router> 
       {window.location.pathname !== '/' && <Header />}
-      
+
      
         <Routes>
         <Route path="/" element={<Home />} />

@@ -17,19 +17,7 @@
 .root {
   background-color: #d1bcbc;
 }
-h1 {
-  -webkit-text-size-adjust: 100%;
-  text-align: center;
-  outline: 0;
-  margin: 0;
-  font-family: "nyt-cheltenham", Georgia, serif;
-  font-style: normal;
-  font-weight: 200;
-  font-size: 62px !important;
-  color: #000;
-  letter-spacing: 1px;
-  line-height: 64px !important;
-}
+
 .logo-center {
     width: 420px;
     height:140px;
@@ -60,6 +48,54 @@ h1 {
 .second-div {
     position: relative;
   z-index: 101;
-  height: 3000px; /* just for example */
-  background: #c2c0c0de;
+  background: #ffffffef;
+  padding-bottom: 300px;
 }
+.post-cont{
+    font-family: georgia, "times new roman", times, serif;
+
+    padding: 20px;
+    padding-left: 50px;
+}
+.post-title{
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.post-text{
+    width: 100%;
+    color: #000;
+    outline: 0;
+    margin: 0 0 1em 0;
+    font-size: 15px;
+    line-height: 30px;
+    padding-right: 50px;
+    margin-right: 50px;
+}
+.post-img img{
+    width: 500px;
+    max-height: 400px;
+    margin: 0;
+    padding: 0;
+    margin-right: 50px;
+    margin-bottom: 20px;
+    float: right;
+}
+.post-inside{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+}
+.post-footer{ 
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    
+}
+    
+

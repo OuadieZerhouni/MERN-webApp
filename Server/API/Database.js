@@ -15,9 +15,9 @@ const PostRouter=require('../Routes/Post');
 
 
 
+router.use('/post',PostRouter);
 router.use(verifyToken);
 
-router.use('/post',PostRouter);
 router.use('/filiere',FiliereRouter);
 router.use('/option',OptionRouter);
 router.use('/professeur',ProfesseurRouter);

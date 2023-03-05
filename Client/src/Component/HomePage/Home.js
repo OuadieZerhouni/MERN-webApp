@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import "./ComponentCSS/Home.css";
-import Header from "./Header";
-import logo from "../assets/logo-transparent.png";
+import Post from "../HomePage/Post";
+import "../ComponentCSS/Home.css";
+import Header from "../Header";
 
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
 
         </div>
         <div className="second-div">
-        This div will be hidden until the user scrolls down.
+          <Post />
 
         </div>
         </div>

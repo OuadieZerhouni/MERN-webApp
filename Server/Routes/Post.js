@@ -2,10 +2,12 @@ const express = require("express");
 const router = express.Router();
 const PostService = require("../Services/Post");
 const { Post_Upload } = require("../util/Fileupload");
-
+const dotenv = require("dotenv").config();
 
 router.post("/insert", Post_Upload.single("image"), async (req, res) => {
-    req.body.image = req.file.filename;
+
+    req.body.image = process.env.APP_DOMAIN + "/uploads/posts/" + req.file.filename;
+    console.log(req.body);
     const post = await PostService.insertPost(req.body);
     res.send(post);
     }
