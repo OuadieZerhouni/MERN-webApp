@@ -21,7 +21,7 @@ router.use(verifyToken);
 router.use('/filiere',FiliereRouter);
 router.use('/option',OptionRouter);
 router.use('/professeur',ProfesseurRouter);
-router.use('/departement',DepartementRouter);
+router.use('/departements',DepartementRouter);
 router.use('/reunion',ReunionRouter)
 router.use('/emploiTemps',EmploiTempsRouter);
 

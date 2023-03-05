@@ -56,28 +56,29 @@ const DepartementForm = () => {
       alert("Veuillez remplir tous les champs");
       return;
     }
-
+    
     axios
-      .post(
-        API_DATABASE + "/departement/insert",
-        {
-          Nom: departementNom,
-          description: departementDescription,
-          Date_Creation: departementDateCreation,
-          id_Chef: departementIdChef,
-          professeurs: departementProfesseurs,
-        },
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
-      )
-      .then((response) => {
-        alert("Departement inserted successfully");
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    .post(
+      API_DATABASE + "/departements",
+      {
+        Nom: departementNom,
+        description: departementDescription,
+        Date_Creation: departementDateCreation,
+        id_Chef: departementIdChef,
+        professeurs: departementProfesseurs,
+      },
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      }
+    )
+    .then((response) => {
+      alert("Departement inserted successfully");
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   };
+  
 
   useEffect(() => {
     axios

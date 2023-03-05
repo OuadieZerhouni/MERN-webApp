@@ -19,7 +19,6 @@ const DataTable = () => {
   const [ReunionDepartement, setReunionDepartement] = useState({});
   const [ReunionProfs, setReunionProfs] = useState({});
 
-
   const API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
   const handleTabClick = (tab) => {
@@ -28,15 +27,7 @@ const DataTable = () => {
 
   const handleDeleteDepartement = (id) => {
     axios
-      .post(
-        API_DATABASE + "/departement/delete",
-        { _id: id },
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
+      .delete(API_DATABASE + "/departements/" + id, { headers: { Authorization: "Bearer " + localStorage.getItem("token") } })
       .then((response) => {
         setDepartements(
           departements.filter((departement) => departement._id !== id)
@@ -221,15 +212,7 @@ const DataTable = () => {
 
     const getDepartFiliere = async (id) => {
       return axios
-        .post(
-          API_DATABASE + "/departement/get/id",
-          { _id: id },
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        )
+        .get(API_DATABASE + "/departements/" + id, { headers: { Authorization: "Bearer " + localStorage.getItem("token") } })
         .then((response) => {
           return response.data.Nom;
         })
@@ -241,13 +224,9 @@ const DataTable = () => {
 
     //departements
     axios
-      .post(
-        API_DATABASE + "/departement/get/all",
-        {},
-        {
-          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-        }
-      )
+      .get(API_DATABASE + "/departements", {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      })
       .then((response) => {
         setDepartements(response.data);
         response.data.forEach(async (department) => {
@@ -383,6 +362,12 @@ const DataTable = () => {
         >
           Reunions
         </div>
+        <div
+          className={`tab ${activeTab === "reunions" ? "active" : ""}`}
+          onClick={() => handleTabClick("reunions")}
+        >
+          Posts
+        </div>
       </div>
       <div className="tab-content">
         <DepartTable
@@ -399,8 +384,8 @@ const DataTable = () => {
           handleDeleteFiliere={handleDeleteFiliere}
           handleDeleteOption={handleDeleteOption}
         />
-        <ProfTable 
-          activeTab={activeTab} 
+        <ProfTable
+          activeTab={activeTab}
           professeurs={professeurs}
           handleDeleteProf={handleDeleteProfesseur}
         />
@@ -411,7 +396,6 @@ const DataTable = () => {
           ReunionProfs={ReunionProfs}
           handleDeleteReunion={handleDeleteReunion}
         />
-
       </div>
     </div>
   );

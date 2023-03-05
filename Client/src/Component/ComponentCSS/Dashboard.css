@@ -1,8 +1,17 @@
 .Dash-cont{
     margin-top: 50px;
+    margin-left: 50px;
 }
 
-
+.DataTable  {
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+    border-right: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 20px auto;
+  }
+  
 .prof-info {
     width: fit-content;
     border: none;
@@ -15,7 +24,7 @@
     margin-left: 50px;
 }
 .prof-info p{
-    background-color: #5b709d;
+    background-color: #5b709d; 
     margin: 0;
     padding: 5px;
     padding-left: 10px;
@@ -27,3 +36,29 @@
     display: inline;
     border-right: 1px solid #ffffff;
 }
+.tabs {
+    height: 50vh ;
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start ;
+  }
+  
+  .tab {
+    cursor: pointer;
+    height: 20px;
+    font-weight: bold;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #a2baca;
+    text-align: center;
+    transition: all 0.5s;
+  }
+  .tab:hover {
+    background-color: #5574a0;
+  }
+  
+  .tab.active {
+    color: white;
+    background-color: #0A2E5F;
+  }
+  

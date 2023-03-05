@@ -146,9 +146,7 @@ const ReunionForm = () => {
         setReunionProfPresent(data.prof_present);
         setReunionProfAbsent(data.prof_absent);
         axios
-          .post(
-            API_DATABASE + "/departement/get/all",
-            {},
+          .get(API_DATABASE + "/departements",  
             {
               headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),

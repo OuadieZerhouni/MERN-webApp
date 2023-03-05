@@ -176,15 +176,8 @@ const DataTable = () => {
 
     const getDepartFiliere = async (id) => {
       return axios
-        .post(
-          API_DATABASE + "/departement/get/id",
-          { _id: id },
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        )
+               .get(API_DATABASE + "/departements/" + id, { headers: { Authorization: "Bearer " + localStorage.getItem("token") } })
+
         .then((response) => {
           return response.data.Nom;
         })
@@ -196,13 +189,9 @@ const DataTable = () => {
 
     //departements
     axios
-      .post(
-        API_DATABASE + "/departement/get/all",
-        {},
-        {
-          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-        }
-      )
+    .get(API_DATABASE + "/departements", {
+      headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+    })
       .then((response) => {
         setDepartements(response.data);
         response.data.forEach(async (department) => {

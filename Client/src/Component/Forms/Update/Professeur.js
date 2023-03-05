@@ -95,7 +95,7 @@ const ProfesseurForm = () => {
         setProfesseurPassword(response.data.password)
         setProfesseurRole(response.data.grade)
         setProfesseurDepartement(response.data.id_departement)
-        axios.post(API_DATABASE + "/departement/get/all",{},
+        axios.get(API_DATABASE + "/departements",
     { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }}
     ).then((DepartResponse) => {
       setDepartements(DepartResponse.data);

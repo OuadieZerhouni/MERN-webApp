@@ -63,8 +63,7 @@ const DepartementForm = () => {
     }
 
     axios
-      .post(
-        API_DATABASE + "/departement/update",
+      .put( API_DATABASE + "/departements/" + window.location.pathname.split("/")[3],
         {
           _id: window.location.pathname.split("/")[3],
           Nom: departementNom,
@@ -88,11 +87,7 @@ const DepartementForm = () => {
   useEffect(() => {
     // Get Departement
     axios
-      .post(
-        API_DATABASE + "/departement/get/id",
-        {
-          _id: window.location.pathname.split("/")[3],
-        },
+      .get(API_DATABASE + "/departements/" + window.location.pathname.split("/")[3],
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       )
       .then((response) => {

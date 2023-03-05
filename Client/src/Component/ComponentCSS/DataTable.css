@@ -1,39 +1,6 @@
-.DataTable  {
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  border-right: 1px solid #ccc;
-  border-radius: 10px;
-  margin: 20px auto;
-}
 
-.tabs {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  border-bottom: 1px solid #ccc;
-}
 
-.tab {
-  cursor: pointer;
-  flex: 1;
-  font-weight: bold;
-  padding: 10px;
-  border: 1px solid #ccc;
-  background-color: #a2baca;
-  text-align: center;
-  transition: all 0.5s;
-}
 
-.tab:hover {
-  background-color: #5574a0;
-}
-
-.tab.active {
-  color: white;
-  background-color: #0A2E5F;
-  border-bottom: none;
-}
 
 table {
   border-collapse: collapse;
