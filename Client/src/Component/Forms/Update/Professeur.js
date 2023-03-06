@@ -40,7 +40,7 @@ const ProfesseurForm = () => {
   const handleInsertProfesseur = () => { 
     if (!verifyinputs()) return;
     axios
-      .post(API_DATABASE + "/professeur/update", {
+      .put(API_DATABASE + "/professeurs"+window.location.pathname.split("/")[3], {
         _id: window.location.pathname.split("/")[3],
         CIN: professeurCIN,
         PhoneNumber: professeurPhoneNumber,
@@ -85,7 +85,7 @@ const ProfesseurForm = () => {
 
  useEffect(() => {
     
-    axios.post(API_DATABASE + "/professeur/get/id",{_id:window.location.pathname.split('/')[3]},
+    axios.get(API_DATABASE + "/professeurs/"+window.location.pathname.split('/')[3],
     {headers:{Authorization:`Bearer ${localStorage.getItem('token')}`}})
     .then((response)=>{
         setProfesseurCIN(response.data.CIN)

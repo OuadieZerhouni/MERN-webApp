@@ -55,11 +55,7 @@ const ReunionForm = () => {
       return;
     } else {
       axios
-        .post(
-          API_DATABASE + "/professeur/get/departement",
-          {
-            _id: reunionIdDepartement,
-          },
+        .get(API_DATABASE + "/professeurs/departement/" + reunionIdDepartement,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -82,11 +78,7 @@ const ReunionForm = () => {
       return;
     } else {
       axios
-        .post(
-          API_DATABASE + "/professeur/get/departement",
-          {
-            id_Departement: reunionIdDepartement,
-          },
+        .get(API_DATABASE + "/professeurs/departement/" + reunionIdDepartement,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`

@@ -78,9 +78,7 @@ const FiliereForm = () => {
       return;
     } else {
       axios
-        .post(API_DATABASE + "/professeur/get/departement", {
-          _id: filiereDepartement,
-        },
+        .get(API_DATABASE + "/professeurs/departement/" + filiereDepartement,
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } })
         .then((response) => {
           if(response.data.length === 0){alert("No Professeur in this Departement");return;}
@@ -126,9 +124,7 @@ const FiliereForm = () => {
         setFiliereDateCreation(_filiere.Date_Creation.split("T")[0]);
         setFiliereEffectif(_filiere.Effectif);
         axios
-        .post(API_DATABASE + "/professeur/get/departement", {
-          _id: _filiere.id_departement,
-        },
+        .get(API_DATABASE + "/professeurs/departement/" + _filiere.id_departement,
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } })
         .then((response) => {
           if(response.data.length === 0){alert("No Professeur in this Departement");return;}

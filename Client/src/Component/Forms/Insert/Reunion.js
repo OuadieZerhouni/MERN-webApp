@@ -76,10 +76,7 @@ const ReunionForm = () => {
     } else {
       axios
         .post(
-          API_DATABASE + "/professeur/get/departement",
-          {
-            _id: reunionIdDepartement,
-          },
+          API_DATABASE + "/professeurs/departement/" + reunionIdDepartement,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

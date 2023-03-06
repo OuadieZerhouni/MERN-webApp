@@ -40,7 +40,7 @@ const ProfesseurForm = () => {
   const handleInsertProfesseur = () => {
     if (!verifyinputs()) return;
     axios
-      .post(API_DATABASE + "/professeur/insert", {
+      .post(API_DATABASE + "/professeurs", {
         CIN: professeurCIN,
         PhoneNumber: professeurPhoneNumber,
         FullName: professeurFullName,

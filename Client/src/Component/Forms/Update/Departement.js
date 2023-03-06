@@ -106,8 +106,7 @@ const DepartementForm = () => {
       setDepartementProfesseurs(Departement.professeurs);
       // Get Chef and
       axios
-        .post(
-          API_DATABASE + "/professeur/get/all",
+        .get(API_DATABASE + "/professeurs",
           {
             _id: Departement.id_Chef,
           },

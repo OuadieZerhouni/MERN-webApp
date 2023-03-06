@@ -12,8 +12,7 @@ const FiliereForm = () => {
   const [filiereCoordinateur, setFiliereCoordinateur] = useState("");
 
   const [SelectedDepart, setSelectedDepart] = useState("Not Selected");
-  const [SelectedCoordinateur, setSelectedCoordinateur] =
-    useState("Not Selected");
+  const [SelectedCoordinateur, setSelectedCoordinateur] = useState("Not Selected");
 
   const [Departements, setDepartements] = useState([]);
   const [Professeurs, setProfesseurs] = useState([]);
