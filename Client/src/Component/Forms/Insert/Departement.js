@@ -82,9 +82,7 @@ const DepartementForm = () => {
 
   useEffect(() => {
     axios
-      .post(
-        API_DATABASE + "/professeur/get/all",
-        {},
+      .get(API_DATABASE + "/professeurs",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -27,7 +27,9 @@ const DataTable = () => {
 
   const handleDeleteDepartement = (id) => {
     axios
-      .delete(API_DATABASE + "/departements/" + id, { headers: { Authorization: "Bearer " + localStorage.getItem("token") } })
+      .delete(API_DATABASE + "/departements/" + id, {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      })
       .then((response) => {
         setDepartements(
           departements.filter((departement) => departement._id !== id)
@@ -41,7 +43,9 @@ const DataTable = () => {
   };
   const handleDeleteFiliere = (id) => {
     axios
-      .delete(API_DATABASE + "/filieres/" + id, { headers: { Authorization: "Bearer " + localStorage.getItem("token") } })
+      .delete(API_DATABASE + "/filieres/" + id, {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      })
       .then((response) => {
         setFilieres(filieres.filter((filiere) => filiere._id !== id));
       })
@@ -51,15 +55,9 @@ const DataTable = () => {
   };
   const handleDeleteProfesseur = (id) => {
     axios
-      .post(
-        API_DATABASE + "/professeur/delete",
-        { _id: id },
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
+      .delete(API_DATABASE + " /professeurs/" + id, {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      })
       .then((response) => {
         setProfesseurs(
           professeurs.filter((professeur) => professeur._id !== id)
@@ -108,13 +106,11 @@ const DataTable = () => {
   };
   const refreshFiliere = async () => {
     axios
-      .get(API_DATABASE + "/filieres",
-        {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
+      .get(API_DATABASE + "/filieres", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
       .then((response) => {
         setFilieres(response.data);
       })
@@ -144,9 +140,7 @@ const DataTable = () => {
 
     const getChefDepartement = async (id) => {
       return axios
-        .post(
-          API_DATABASE + "/professeur/get/id",
-          { _id: id },
+        .get(API_DATABASE + "/professeurs/" + id,
           {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("token"),
@@ -163,15 +157,7 @@ const DataTable = () => {
     };
     const getCoordFiliere = async (id) => {
       return axios
-        .post(
-          API_DATABASE + "/professeur/get/id",
-          { _id: id },
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        )
+        .get(API_DATABASE + "/professeurs/" + id,{headers: { Authorization: "Bearer " + localStorage.getItem("token") }})
         .then((response) => {
           return response.data.FullName;
         })
@@ -182,9 +168,7 @@ const DataTable = () => {
     };
     const getProfName = async (id) => {
       return axios
-        .post(
-          API_DATABASE + "/professeur/get/id",
-          { _id: id },
+        .get(API_DATABASE + "/professeurs/" + id,
           {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("token"),
@@ -202,7 +186,9 @@ const DataTable = () => {
 
     const getDepartFiliere = async (id) => {
       return axios
-        .get(API_DATABASE + "/departements/" + id, { headers: { Authorization: "Bearer " + localStorage.getItem("token") } })
+        .get(API_DATABASE + "/departements/" + id, {
+          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+        })
         .then((response) => {
           return response.data.Nom;
         })
@@ -238,11 +224,9 @@ const DataTable = () => {
       });
     //filieres
     axios
-      .get(API_DATABASE + "/filieres", 
-        {
-          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-        }
-      )
+      .get(API_DATABASE + "/filieres", {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      })
       .then((response) => {
         setFilieres(response.data);
         response.data.forEach(async (filiere) => {
@@ -272,9 +256,7 @@ const DataTable = () => {
       });
     //professeurs
     axios
-      .post(
-        API_DATABASE + "/professeur/get/all",
-        {},
+      .get(API_DATABASE + "/professeurs", 
         {
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         }

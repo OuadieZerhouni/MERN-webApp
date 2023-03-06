@@ -7,7 +7,7 @@ const FiliereForm = () => {
   const [filiereNom, setFiliereNom] = useState("");
   const [filiereDescription, setFiliereDescription] = useState("");
   const [filiereDateCreation, setFiliereDateCreation] = useState("");
-  const [filiereIdDepartement, setFiliereIdDepartement] = useState("");
+  const [filiereDepartement, setFiliereDepartement] = useState("");
   const [filiereEffectif, setFiliereEffectif] = useState("");
   const [filiereCoordinateur, setFiliereCoordinateur] = useState("");
 
@@ -49,7 +49,7 @@ const FiliereForm = () => {
           Date_Creation: filiereDateCreation,
           Effectif: filiereEffectif,
           id_coordinateur: filiereCoordinateur,
-          id_departement: filiereIdDepartement,
+          id_departement: filiereDepartement,
         },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -70,7 +70,7 @@ const FiliereForm = () => {
 
   const handleDepartementSelection = (Depart) => {
     setSelectedDepart(Depart.Nom);
-    setFiliereIdDepartement(Depart._id);
+    setFiliereDepartement(Depart._id);
     setSelectedCoordinateur("Not Selected");
     setFiliereCoordinateur("");
     setDepartModalIsOpen(false);
@@ -83,10 +83,9 @@ const FiliereForm = () => {
       return;
     } else {
       axios
-        .post(
-          API_DATABASE + "/professeur/get/departement",
+        .get(API_DATABASE+"/professeurs/departement/" + filiereDepartement,
           {
-            _id: filiereIdDepartement,
+            _id: filiereDepartement,
           },
           {
             headers: {

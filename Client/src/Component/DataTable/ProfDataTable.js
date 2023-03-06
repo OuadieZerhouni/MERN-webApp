@@ -31,9 +31,7 @@ const DataTable = () => {
 
     const getChefDepartement = async (id) => {
       return axios
-        .post(
-          API_DATABASE + "/professeur/get/id",
-          { _id: id },
+        .get(API_DATABASE + "/professeurs/" + id, 
           {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("token"),
@@ -50,9 +48,7 @@ const DataTable = () => {
     };
     const getCoordFiliere = async (id) => {
       return axios
-        .post(
-          API_DATABASE + "/professeur/get/id",
-          { _id: id },
+        .get(API_DATABASE + "/professeurs/" + id,
           {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("token"),
@@ -70,7 +66,7 @@ const DataTable = () => {
     const getProfName = async (id) => {
       return axios
         .post(
-          API_DATABASE + "/professeur/get/id",
+          API_DATABASE + "/professeurs/get/id",
           { _id: id },
           {
             headers: {
@@ -160,9 +156,7 @@ const DataTable = () => {
       });
     //professeurs
     axios
-      .post(
-        API_DATABASE + "/professeur/get/all",
-        {},
+      .get(API_DATABASE + "/professeurs",
         {
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         }

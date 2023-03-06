@@ -9,6 +9,8 @@ class Header extends React.Component {
 
   Logout = () => {
     localStorage.removeItem('token');
+    if(localStorage.getItem('departement')!==null)
+        localStorage.removeItem('departement');
     window.location.reload();
   }
 
@@ -35,12 +37,10 @@ class Header extends React.Component {
             <Link to="/filiere">Filiere</Link>
           </li>
           
-          <li className='header-list'>
-            <Link to="/about">About Us</Link>
-          </li>
+          
           {localStorage.getItem('token') && (
-            <li className='header-list' onClick={this.Logout}>
-              Log-out
+            <li className='log-out' onClick={this.Logout}>
+              Logout
             </li>
           )}
           {!localStorage.getItem('token') && (
