@@ -43,6 +43,7 @@
 .first-div {
   z-index: 2;
   height: 93vh;
+  background: #e7e7e7;
 }
 
 .second-div {

@@ -7,23 +7,26 @@ import Header from "../Header";
 
 export default function Home() {
   const logoRef = useRef(null);
-  const [opacity, setOpacity] = useState(1);
+  const bgcontent = useRef(null);
+  const hidden = useRef(null);
  
     function handleScroll() {
-      const scrollPosition = window.scrollY;
-      const opacity = 1 - Math.min(scrollPosition / 200, 1);
-      console.log(opacity);
-      setOpacity(opacity);
+
+      const scrollPosition = bgcontent.current.scrollTop;
+      const opacity = 1 - Math.min(scrollPosition / 1400, 1);
+      logoRef.current.style.opacity = opacity;
+      hidden.current.style.opacity = 1- opacity;
     }
   
   return (
-    <div className="bg-cont" onScroll={handleScroll}>
+    <div className="bg-cont" onScroll={handleScroll} ref={bgcontent}>
       <Header />
       <div className="logo-center" ref={logoRef} >
-        {/* content of the logo-center element */}
       </div>
       <div className="Home-cont" >
-        <div className="first-div"></div>
+        <div className="first-div" ref={hidden}>
+
+        </div>
         <div className="second-div"  >
           <Post />
         </div>

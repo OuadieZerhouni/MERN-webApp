@@ -10,13 +10,18 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0  ;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
   }
+
 header::after{
   margin-top: 50px;
 }
+
   
-  header img {
-    height: 50px; 
+.logo-up {
+    height: 100%;
+    margin: 0;
   }
   
 .ul-header {
@@ -49,6 +54,7 @@ header::after{
     background-color: #ffffff;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 2);
   }
+
 
   
  

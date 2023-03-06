@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import "./ComponentCSS/Header.css"
-import logo from '../assets/logo.png';
+import logo from '../assets/logo-small.png';
 
 class Header extends React.Component {
   
@@ -16,8 +16,8 @@ class Header extends React.Component {
     return (
       <header>
         
-        <Link to="/">
-          <img src={logo} alt="Logo" />
+        <Link to="/" className='logo-container'>
+          <img src={logo} alt="Logo" className='logo-up' />
         </Link>
         <ul className='ul-header'>
         {localStorage.getItem('token') && (
