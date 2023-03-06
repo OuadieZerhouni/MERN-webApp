@@ -44,6 +44,7 @@
   z-index: 2;
   height: 93vh;
   background: #e7e7e7;
+  opacity: 0;
 }
 
 .second-div {
