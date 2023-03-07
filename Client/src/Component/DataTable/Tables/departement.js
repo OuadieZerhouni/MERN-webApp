@@ -5,7 +5,10 @@ function DepartementTable({
   activeTab,
   departements,
   chefs,
-  _departement,
+  ShowInfo,
+  handleDeleteDepartement,
+  _departement=false,
+  IsAdmin=false,
 }) {
   return (
     <>
@@ -25,26 +28,43 @@ function DepartementTable({
               {departements.map((departement) => (
                 <tr key={departement._id}>
                   <td>{departement.Nom}</td>
-                  <td>
-                    {departement.description.length > 50
-                      ? departement.description.substring(0, 50) + "..."
-                      : departement.description}
-                  </td>
+                <td>
+                  {departement.description.length > 50 ? (
+                    <>
+                      {departement.description.substring(0, 50)}...
+                      <p
+                        style={{
+                          display: "inline",
+                          cursor: "pointer",
+                          color: "blue",
+                        }}
+                        onClick={() =>
+                          ShowInfo(departement.Nom, departement.description)
+                        }
+                      >
+                        read more
+                      </p>
+                    </>
+                  ) : (
+                    departement.description
+                  )}
+                </td>
 
                   <td>{departement.Date_Creation.substring(0, 10)}</td>
                   <td>
                     {chefs[departement._id] ? chefs[departement._id] : ""}
                   </td>
-                  {departement._id === _departement['_id'] ? (
+                  {departement._id === _departement['_id'] || IsAdmin ? (
                     <td>
-                      {/* <button
+                      {IsAdmin ? (  <button
                         className="btn btn-danger"
                         onClick={() => {
                           handleDeleteDepartement(departement._id);
                         }}
                       >
                         Delete
-                      </button> */}
+                      </button> ) : ( <></> ) }
+                     
                     <Link to={`/modify/departement/${departement._id}`}>
                       <button className="btn btn-primary">Edit</button>
                     </Link>

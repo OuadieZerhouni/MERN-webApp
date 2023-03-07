@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReactDom from "react-dom";
-import "../FormsCSS/Modal.css";
+import "../../../CSS/FormsCSS/Modal.css";
 
 export default function LOJModal({ IsOpen, toggleModal, handleLOJ, PrevLOJ }) {
   const [loj1, set_loj1] = useState("");

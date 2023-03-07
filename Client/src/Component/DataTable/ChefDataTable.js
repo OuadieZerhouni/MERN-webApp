@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../ComponentCSS/DataTable.css";
+import "../../CSS/ComponentCSS/DataTable.css";
+import InfoData from "./Portal/InfoData";
 
-import DepartTable from "./ChefTables/departement";
-import FiliereTable from "./ChefTables/filiere";
-import ProfTable from "./ChefTables/professeur";
-import ReunionTable from "./ChefTables/reunion";
+import DepartTable from "./Tables/departement";
+import FiliereTable from "./Tables/filiere";
+import ProfTable from "./Tables/professeur";
+import ReunionTable from "./Tables/reunion";
 
 const DataTable = () => {
   const [activeTab, setActiveTab] = useState("departements");
@@ -18,6 +19,11 @@ const DataTable = () => {
   const [FiliereDepartement, setFiliereDepartement] = useState({});
   const [ReunionDepartement, setReunionDepartement] = useState({});
   const [ReunionProfs, setReunionProfs] = useState({});
+
+  
+  const [PortalOpen, setPortalOpen] = useState(false);
+  const [Showedtitle, setShowedtitle] = useState([]);
+  const [ShowedDesc, setShowedDesc] = useState([]);
 
 
   const _departement = JSON.parse(localStorage.getItem("departement"));
@@ -103,6 +109,15 @@ const DataTable = () => {
         console.error(error);
       });
   };
+
+   //handles the portal
+   const togglePortal=()=>{
+    setPortalOpen(!PortalOpen);}
+  const ShowInfo=(title,desc)=>{
+    setShowedtitle(title);
+    setShowedDesc(desc);
+    togglePortal();
+  }
   useEffect(() => {
     document.title = "Dashboard";
 
@@ -281,6 +296,8 @@ const DataTable = () => {
 
   return (
     <div className="DataTable">
+                <InfoData IsOpen={PortalOpen} toggleModal={togglePortal} title={Showedtitle} description={ShowedDesc} />
+
       <div className="tabs">
         <div
           className={`tab ${activeTab === "departements" ? "active" : ""}`}
@@ -313,6 +330,9 @@ const DataTable = () => {
           departements={departements}
           chefs={chefs}
           _departement={_departement}
+          ShowInfo={ShowInfo}
+
+
         />
         <FiliereTable
           activeTab={activeTab}
@@ -322,6 +342,7 @@ const DataTable = () => {
           handleDeleteFiliere={handleDeleteFiliere}
           handleDeleteOption={handleDeleteOption}
           _departement={_departement}
+          ShowInfo={ShowInfo}
         />
         <ProfTable
           activeTab={activeTab}

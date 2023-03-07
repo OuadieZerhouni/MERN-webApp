@@ -9,7 +9,9 @@ function FiliereComponent({
   FiliereDepartement,
   handleDeleteFiliere,
   handleDeleteOption,
-  _departement,
+  _departement=false,
+  ShowInfo,
+  IsAdmin=false,
 }) {
   const [showOptions, setShowOptions] = useState({});
 
@@ -35,9 +37,25 @@ function FiliereComponent({
                 <tr>
                   <td>{filiere.Nom}</td>
                   <td>
-                    {filiere.Description.length > 50
-                      ? filiere.Description.substring(0, 50) + "..."
-                      : filiere.Description}
+                    {filiere.Description.length > 50 ? (
+                      <>
+                        filiere.Description.substring(0, 50) ...{" "}
+                        <p
+                          style={{
+                            display: "inline",
+                            cursor: "pointer",
+                            color: "blue",
+                          }}
+                          onClick={() =>
+                            ShowInfo(filiere.Nom, filiere.Description)
+                          }
+                        >
+                          read more
+                        </p>
+                      </>
+                    ) : (
+                      filiere.Description
+                    )}
                   </td>
                   <td>{filiere.Date_Creation.split("T")[0]}</td>
                   <td>{filiere.Effectif}</td>
@@ -47,7 +65,7 @@ function FiliereComponent({
                       ? FiliereDepartement[filiere._id]
                       : ""}
                   </td>
-                  {filiere.id_departement === _departement["_id"] ? (
+                  {filiere.id_departement === _departement["_id"] || IsAdmin ? (
                     <td>
                       <Link to={`/modify/filiere/${filiere._id}`}>
                         <button className="btn btn-primary">Edit</button>
@@ -114,7 +132,7 @@ function FiliereComponent({
                                 </Link>
                               </td>
                               {filiere.id_departement ===
-                              _departement["_id"] ? (
+                              _departement["_id"] || IsAdmin ? (
                                 <td>
                                   <Link to={`/modify/option/${option._id}`}>
                                     <button className="btn btn-primary">

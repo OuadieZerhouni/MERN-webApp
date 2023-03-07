@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../ComponentCSS/PDFReader.css";
+import "../../CSS/ComponentCSS/PDFReader.css";
 
 function EmploiReader() {
   const [numPages, setNumPages] = useState(null);

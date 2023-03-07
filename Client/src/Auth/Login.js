@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import "../Component/Forms/FormsCSS/Form.css";
+import "../CSS/FormsCSS/Form.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");

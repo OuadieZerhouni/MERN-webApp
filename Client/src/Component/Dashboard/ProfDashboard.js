@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../ComponentCSS/Dashboard.css";
+import "../../CSS/ComponentCSS/Dashboard.css";
 import DataTable from "../DataTable/ProfDataTable";
 
 

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../ComponentCSS/DataTable.css";
+import "../../CSS/ComponentCSS/DataTable.css";
+import InfoData from "./Portal/InfoData";
 
-import DepartTable from "./ProfTables/departement";
-import FiliereTable from "./ProfTables/filiere";
-import ReunionTable from "./ProfTables/reunion";
-import ProfTable from "./ProfTables/professeur";
+import DepartTable from "./Tables/departement";
+import FiliereTable from "./Tables/filiere";
+import ReunionTable from "./Tables/reunion";
+import ProfTable from "./Tables/professeur";
 
 const DataTable = () => {
   const [activeTab, setActiveTab] = useState("departements");
@@ -19,12 +20,26 @@ const DataTable = () => {
   const [ReunionDepartement, setReunionDepartement] = useState({});
   const [ReunionProfs, setReunionProfs] = useState({});
 
+  
+  const [PortalOpen, setPortalOpen] = useState(false);
+  const [Showedtitle, setShowedtitle] = useState([]);
+  const [ShowedDesc, setShowedDesc] = useState([]);
+
+
 
   const API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+   //handles the portal
+   const togglePortal=()=>{
+    setPortalOpen(!PortalOpen);}
+  const ShowInfo=(title,desc)=>{
+    setShowedtitle(title);
+    setShowedDesc(desc);
+    togglePortal();
+  }
 
   useEffect(() => {
     document.title = "Dashboard";
@@ -65,9 +80,8 @@ const DataTable = () => {
     };
     const getProfName = async (id) => {
       return axios
-        .post(
-          API_DATABASE + "/professeurs/get/id",
-          { _id: id },
+        .get(
+          API_DATABASE + "/professeurs/"+id ,
           {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("token"),
@@ -206,6 +220,8 @@ const DataTable = () => {
 
   return (
     <div className="DataTable">
+                <InfoData IsOpen={PortalOpen} toggleModal={togglePortal} title={Showedtitle} description={ShowedDesc} />
+
       <div className="tabs">
         <div
           className={`tab ${activeTab === "departements" ? "active" : ""}`}
@@ -237,12 +253,14 @@ const DataTable = () => {
           activeTab={activeTab}
           departements={departements}
           chefs={chefs}
+          ShowInfo={ShowInfo}
         />
         <FiliereTable
           activeTab={activeTab}
           filieres={filieres}
           coords={coords}
           FiliereDepartement={FiliereDepartement}
+          ShowInfo={ShowInfo}
         />
        <ProfTable activeTab={activeTab} professeurs={professeurs} />
       <ReunionTable activeTab={activeTab} reunions={reunion} ReunionDepartement={ReunionDepartement} ReunionProfs={ReunionProfs} />

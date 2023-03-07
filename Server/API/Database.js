@@ -24,6 +24,7 @@ router.use('/professeurs',ProfesseurRouter);
 router.use('/departements',DepartementRouter);
 router.use('/reunions',ReunionRouter)
 router.use('/emploiTemps',EmploiTempsRouter);
+router.use('/posts',PostRouter);
 
 
 

@@ -88,9 +88,8 @@ router.get('/:id', async (req, res) => {
 
 // Update filiere
 router.put('/:id', [
-  body('nom').not().isEmpty().trim().escape(),
-  body('description').optional({ nullable: true }).trim().escape(),
-  body('departement').not().isEmpty().trim().escape(),
+  body('Nom').not().isEmpty().trim().escape(),
+  body('Description').optional({ nullable: true }).trim().escape(),
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

@@ -1,7 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function ProfesseursTable({ activeTab, professeurs, handleDeleteProfesseur, _departement }) {
+function ProfesseursTable({
+  activeTab,
+  professeurs,
+  handleDeleteProfesseur,
+  _departement=false,
+  IsAdmin,
+}) {
   return (
     <>
       {activeTab === "professeurs" && (
@@ -24,7 +30,8 @@ function ProfesseursTable({ activeTab, professeurs, handleDeleteProfesseur, _dep
                 <td>{professeur.CIN}</td>
                 <td>{professeur.PhoneNumber}</td>
                 <td>{professeur.grade}</td>
-                {professeur.id_departement === _departement["_id"] ? (
+                {professeur.id_departement === _departement["_id"] ||
+                IsAdmin ? (
                   <td>
                     <Link to={`/modify/professeur/${professeur._id}`}>
                       <button className="btn btn-primary">Edit</button>

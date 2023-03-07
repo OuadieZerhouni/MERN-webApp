@@ -22,7 +22,7 @@ const FiliereForm = () => {
 
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
-  const handleInsertFiliere = () => {
+  const handleModifyFiliere = () => {
     if(SelectedDepart === "Not Selected"){
       alert("Please Select a Departement ");
       return;
@@ -39,7 +39,7 @@ const FiliereForm = () => {
       return;
     }
     axios
-      .put(API_DATABASE + "/filieres", {
+      .put(API_DATABASE + "/filieres/" + window.location.pathname.split("/")[3], {
         _id: window.location.pathname.split("/")[3],
         Nom: filiereNom,
         Description: filiereDescription,
@@ -217,7 +217,7 @@ const FiliereForm = () => {
       <button
         className="form-button"
         type="button"
-        onClick={handleInsertFiliere}
+        onClick={handleModifyFiliere}
       >
         Modifier  Filiere
       </button>

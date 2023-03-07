@@ -7,7 +7,8 @@ function Reunion({
   ReunionDepartement,
   ReunionProfs,
   handleDeleteReunion,
-  _departement,
+  _departement=false,
+  IsAdmin=false,
 }) {
   return (
     <>
@@ -57,7 +58,7 @@ function Reunion({
                     </Link>
                   </td>
 
-                  {reunion.id_departement === _departement["_id"] ? (
+                  {reunion.id_departement === _departement["_id"] || IsAdmin ? (
                     <td>
                       <Link to={`/modify/reunion/${reunion._id}`}>
                         <button className="btn btn-primary">Edit</button>

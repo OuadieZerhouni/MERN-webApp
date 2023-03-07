@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../ComponentCSS/DataTable.css";
+import "../../CSS/ComponentCSS/DataTable.css";
 
-import DepartTable from "./AdminTables/departement";
-import FiliereTable from "./AdminTables/filiere";
-import ProfTable from "./AdminTables/professeur";
-import ReunionTable from "./AdminTables/reunion";
+import DepartTable from "./Tables/departement";
+import FiliereTable from "./Tables/filiere";
+import ProfTable from "./Tables/professeur";
+import ReunionTable from "./Tables/reunion";
+import InfoData  from "./Portal/InfoData";
+import PostTable from "./Tables/post";
 
 const DataTable = () => {
   const [activeTab, setActiveTab] = useState("departements");
@@ -13,18 +15,26 @@ const DataTable = () => {
   const [filieres, setFilieres] = useState([]);
   const [professeurs, setProfesseurs] = useState([]);
   const [reunion, setReunion] = useState([]);
+  const[posts,setPosts]=useState([]);
+
+
   const [chefs, setChefs] = useState({});
   const [coords, setCoords] = useState({});
   const [FiliereDepartement, setFiliereDepartement] = useState({});
   const [ReunionDepartement, setReunionDepartement] = useState({});
   const [ReunionProfs, setReunionProfs] = useState({});
 
+  const [PortalOpen, setPortalOpen] = useState(false);
+  const [Showedtitle, setShowedtitle] = useState([]);
+  const [ShowedDesc, setShowedDesc] = useState([]);
+
   const API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
+  
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
-
+//Delete functions
   const handleDeleteDepartement = (id) => {
     axios
       .delete(API_DATABASE + "/departements/" + id, {
@@ -100,6 +110,20 @@ const DataTable = () => {
         console.error(error);
       });
   };
+const handleDeletePost=(id)=>{
+  axios
+  .delete(API_DATABASE + "/posts/" + id,
+    {headers: { Authorization: "Bearer " + localStorage.getItem("token") },}
+  )
+  .then((response) => {
+    setPosts(posts.filter((post) => post._id !== id));
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+}
+
+  //refresh functions
   const refreshFiliere = async () => {
     axios
       .get(API_DATABASE + "/filieres", {
@@ -128,6 +152,15 @@ const DataTable = () => {
         console.error(error);
       });
   };
+
+  //handles the portal
+  const togglePortal=()=>{
+    setPortalOpen(!PortalOpen);}
+  const ShowInfo=(title,desc)=>{
+    setShowedtitle(title);
+    setShowedDesc(desc);
+    togglePortal();
+  }
 
   useEffect(() => {
     document.title = "Dashboard";
@@ -295,10 +328,23 @@ const DataTable = () => {
       .catch((error) => {
         console.error(error);
       });
+
+      //posts
+      axios.get(API_DATABASE + "/posts", {headers: { Authorization: "Bearer " + localStorage.getItem("token") }})
+      .then((response) => {
+        setPosts(response.data);
+      }
+      )
+      .catch((error) => {
+        console.error(error);
+      }
+      );
   }, [API_DATABASE]);
 
   return (
     <div className="DataTable">
+          <InfoData IsOpen={PortalOpen} toggleModal={togglePortal} title={Showedtitle} description={ShowedDesc} />
+
       <div className="tabs">
         <div
           className={`tab ${activeTab === "departements" ? "active" : ""}`}
@@ -325,8 +371,8 @@ const DataTable = () => {
           Reunions
         </div>
         <div
-          className={`tab ${activeTab === "reunions" ? "active" : ""}`}
-          onClick={() => handleTabClick("reunions")}
+          className={`tab ${activeTab === "posts" ? "active" : ""}`}
+          onClick={() => handleTabClick("posts")}
         >
           Posts
         </div>
@@ -337,6 +383,8 @@ const DataTable = () => {
           departements={departements}
           chefs={chefs}
           handleDeleteDepartement={handleDeleteDepartement}
+          ShowInfo={ShowInfo}
+          IsAdmin={true}
         />
         <FiliereTable
           activeTab={activeTab}
@@ -345,11 +393,14 @@ const DataTable = () => {
           FiliereDepartement={FiliereDepartement}
           handleDeleteFiliere={handleDeleteFiliere}
           handleDeleteOption={handleDeleteOption}
+          ShowInfo={ShowInfo}
+          IsAdmin={true}
         />
         <ProfTable
           activeTab={activeTab}
           professeurs={professeurs}
           handleDeleteProf={handleDeleteProfesseur}
+          IsAdmin={true}
         />
         <ReunionTable
           activeTab={activeTab}
@@ -357,7 +408,16 @@ const DataTable = () => {
           ReunionDepartement={ReunionDepartement}
           ReunionProfs={ReunionProfs}
           handleDeleteReunion={handleDeleteReunion}
+          IsAdmin={true}
         />
+        <PostTable 
+          activeTab={activeTab}
+          posts={posts}
+          handleDeletePost={handleDeletePost}
+          IsAdmin={true}
+          ShowInfo={ShowInfo}
+        />
+
       </div>
     </div>
   );

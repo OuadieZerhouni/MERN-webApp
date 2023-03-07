@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDom from "react-dom";
-import "../FormsCSS/Modal.css";
+import "../../../CSS/FormsCSS/Modal.css";
 
 export default function ChefModal({
   IsOpen,
@@ -19,7 +19,7 @@ export default function ChefModal({
         <ul className="modal-ul">
           {professeurs.map((professeur) => (
             <li
-            className="modal-list"
+              className="modal-list"
               key={professeur._id}
               onClick={() =>
                 handleChefSelection([professeur._id, professeur.FullName])
@@ -32,7 +32,7 @@ export default function ChefModal({
         <button className="close-modal" onClick={toggleModal}>
           CLOSE
         </button>
-      </div> 
+      </div>
     </div>,
     document.getElementById("portal")
   );

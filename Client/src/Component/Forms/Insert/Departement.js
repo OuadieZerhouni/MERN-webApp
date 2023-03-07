@@ -3,7 +3,7 @@ import axios from "axios";
 
 import ChefModal from "../Portal/ChefModal";
 import ProfModal from "../Portal/ProfModal";
-import "../FormsCSS/Form.css";
+import "../../../CSS/FormsCSS/Form.css";
 
 const DepartementForm = () => {
   const [departementNom, setDepartementNom] = useState("");

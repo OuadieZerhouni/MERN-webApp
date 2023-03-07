@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDom from "react-dom";
 import { useState,useEffect } from "react";
-import "../FormsCSS/Modal.css";
+import "../../../CSS/FormsCSS/Modal.css";
 
 export default function ProfModal({
   IsOpen,
