@@ -69,9 +69,7 @@ const DataTable = () => {
   };
   const handleDeleteOption = (id) => {
     axios
-      .post(
-        API_DATABASE + "/option/delete",
-        { _id: id },
+      .delete(API_DATABASE + "/options/" + id,
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -88,9 +86,7 @@ const DataTable = () => {
 
   const handleDeleteReunion = (id) => {
     axios
-      .post(
-        API_DATABASE + "/reunion/delete",
-        { _id: id },
+      .delete(API_DATABASE + "/reunions/" + id,
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -120,9 +116,7 @@ const DataTable = () => {
   };
   const refreshReunion = async () => {
     axios
-      .post(
-        API_DATABASE + "/reunion/get/all",
-        {},
+      .get(API_DATABASE + "/reunions",
         {
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         }
@@ -269,9 +263,7 @@ const DataTable = () => {
       });
     //----reunion
     axios
-      .post(
-        API_DATABASE + "/reunion/get/all",
-        {},
+      .get(API_DATABASE + "/reunions",
         {
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         }

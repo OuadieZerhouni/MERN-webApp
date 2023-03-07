@@ -20,7 +20,6 @@ export default function Home() {
   
   return (
     <div className="bg-cont" onScroll={handleScroll} ref={bgcontent}>
-      <Header />
       <div className="logo-center" ref={logoRef} >
       </div>
       <div className="Home-cont" >

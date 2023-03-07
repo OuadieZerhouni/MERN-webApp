@@ -106,10 +106,7 @@ const DepartementForm = () => {
       setDepartementProfesseurs(Departement.professeurs);
       // Get Chef and
       axios
-        .get(API_DATABASE + "/professeurs",
-          {
-            _id: Departement.id_Chef,
-          },
+        .get(API_DATABASE + "/professeurs/departement/" + Departement._id,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`

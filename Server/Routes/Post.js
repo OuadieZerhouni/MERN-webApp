@@ -13,23 +13,23 @@ router.post("/insert", Post_Upload.single("image"), async (req, res) => {
     }
 );
 
-router.post("/get/all", async (req, res) => {
+router.get("/", async (req, res) => {
     const post = await PostService.getPosts();
     res.send(post);
 });
 
-router.post("/delete", async (req, res) => {
-    const post = await PostService.deletePost(req.body._id);
+router.delete("/:id", async (req, res) => {
+    const post = await PostService.deletePost(req.params.id);
     res.send(post);
 });
 
-router.post("/update", async (req, res) => {
-    const post = await PostService.updatePost(req.body._id, req.body);
+router.put("/:id", async (req, res) => {
+    const post = await PostService.updatePost(req.params.id, req.body);
     res.send(post);
 });
 
-router.post("/get/id", async (req, res) => {
-    const post = await PostService.getPost(req.body._id);
+router.get("/:id", async (req, res) => {
+    const post = await PostService.getPost(req.params.id);
     res.send(post);
 });
 

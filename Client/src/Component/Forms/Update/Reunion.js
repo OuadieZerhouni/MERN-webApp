@@ -21,10 +21,20 @@ const ReunionForm = () => {
 
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
-  const handleInsertReunion = () => {
+  const handleUpdateReunion = () => {
+    if (
+      reunionDate === "" ||
+      reunionLieu === "" ||
+      reunionIdDepartement === "" ||
+      reunionLoj === [] ||
+      reunionProfPresent === []
+    ) {
+      alert("Please Fill All Fields");
+      return;
+    }
     axios
-      .post(
-        API_DATABASE + "/reunion/update",
+      .put(
+        API_DATABASE + "/reunions/"+window.location.pathname.split("/")[3] ,
         {
           _id: window.location.pathname.split("/")[3],
           Date: reunionDate,
@@ -122,9 +132,8 @@ const ReunionForm = () => {
 
   useEffect(() => {
     axios
-      .post(
-        API_DATABASE + "/reunion/get/id",
-        { _id: window.location.pathname.split("/")[3] },
+      .get(
+        API_DATABASE + "/reunions/" + window.location.pathname.split("/")[3],
         {
           headers: { Authorization:`Bearer ${localStorage.getItem("token")}` }
         }
@@ -244,7 +253,7 @@ const ReunionForm = () => {
       <button
         className="form-button"
         type="button"
-        onClick={handleInsertReunion}
+        onClick={handleUpdateReunion}
       >
         Insert Reunion
       </button>

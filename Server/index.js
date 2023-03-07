@@ -30,7 +30,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 try{
-app.use('/api/database',Database);
+app.use('/api',Database);
 app.use('/login',login);
 app.use('/auth',UserAuth);
 

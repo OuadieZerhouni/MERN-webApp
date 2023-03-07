@@ -39,7 +39,8 @@ const OptionForm = () => {
     formData.append("effectif", OptionEffectif);
 
     axios
-      .post(API_DATABASE + "/Option/update", formData, {
+      .put(API_DATABASE + "/Options/"+window.location.pathname.split("/")[3]
+      , formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "multipart/form-data",

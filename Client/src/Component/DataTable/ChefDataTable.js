@@ -57,9 +57,7 @@ const DataTable = () => {
   };
   const handleDeleteOption = async (id) => {
     return axios
-      .post(
-        API_DATABASE + "/Option/delete",
-        { _id: id },
+      .delete(API_DATABASE + "/options/" + id,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
@@ -74,9 +72,7 @@ const DataTable = () => {
 
   const handleDeleteReunion = async (id) => {
     return axios
-      .post(
-        API_DATABASE + "/reunion/delete",
-        { _id: id },
+      .delete(API_DATABASE + "/reunions/" + id,
         {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -248,9 +244,8 @@ const DataTable = () => {
       });
     //----reunion
     axios
-      .post(
-        API_DATABASE + "/reunion/get/all",
-        {},
+      .get(
+        API_DATABASE + "/reunions",
         {
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         }

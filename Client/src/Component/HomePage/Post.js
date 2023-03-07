@@ -8,7 +8,7 @@ export default function Post() {
 
   React.useEffect(() => {
     axios
-      .post(`${API_Database}/post/get/all`,{},
+      .get(`${API_Database}/post`,{},
         {headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }})
       .then((res) => {
         console.log(res.data);

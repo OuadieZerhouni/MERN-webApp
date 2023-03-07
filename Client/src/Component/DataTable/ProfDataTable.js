@@ -169,9 +169,8 @@ const DataTable = () => {
       });
     //----reunion
     axios
-      .post(
-        API_DATABASE + "/reunion/get/all",
-        {},
+      .get(
+        API_DATABASE + "/reunions",
         {
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         }

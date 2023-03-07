@@ -41,7 +41,7 @@ const ReunionForm = () => {
     formData.append("LOJ", reunionLoj);
     formData.append("prof_present", reunionProfPresent);
     axios
-      .post(API_DATABASE + "/reunion/insert", formData, {
+      .post(API_DATABASE + "/reunions", formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "multipart/form-data",
@@ -75,7 +75,7 @@ const ReunionForm = () => {
       return;
     } else {
       axios
-        .post(
+        .get(
           API_DATABASE + "/professeurs/departement/" + reunionIdDepartement,
           {
             headers: {

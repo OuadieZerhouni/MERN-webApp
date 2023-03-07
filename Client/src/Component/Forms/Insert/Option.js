@@ -40,7 +40,7 @@ const OptionForm = () => {
     formData.append('effectif', OptionEffectif);
   
     axios
-      .post(API_DATABASE + "/Option/insert", formData, {
+      .post(API_DATABASE + "/Options", formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
           'Content-Type': 'multipart/form-data'

@@ -19,10 +19,10 @@ router.use('/post',PostRouter);
 router.use(verifyToken);
 
 router.use('/filieres',FiliereRouter);
-router.use('/option',OptionRouter);
+router.use('/options',OptionRouter);
 router.use('/professeurs',ProfesseurRouter);
 router.use('/departements',DepartementRouter);
-router.use('/reunion',ReunionRouter)
+router.use('/reunions',ReunionRouter)
 router.use('/emploiTemps',EmploiTempsRouter);
 
 

@@ -58,7 +58,7 @@ function App() {
     <div className="App">
       
       <Router> 
-      {window.location.pathname !== '/' && <Header />}
+      <Header />
 
      
         <Routes>

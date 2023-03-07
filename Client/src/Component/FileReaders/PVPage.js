@@ -10,9 +10,8 @@ function EmploiReader() {
 
   useEffect(() => {
     axios
-      .post(
-        API_DATABASE + "/reunion/PV",
-        { _id: window.location.pathname.split("/")[2] },
+      .get(
+        API_DATABASE + "/reunions/PV/"+  window.location.pathname.split("/")[2] ,
         {
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         }

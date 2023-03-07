@@ -11,8 +11,8 @@ function EmploiReader() {
   const[Download, setDownload] = useState('');
 
   useEffect(() => {
-    axios.post(API_DATABASE+'/option/Emploi_temps', { _id: window.location.pathname.split("/")[2]},
-    {headers: {Authorization: "Bearer " + localStorage.getItem("token")}})
+    axios.get(API_DATABASE+'/options/Emploi_temps/'+ window.location.pathname.split("/")[2],
+    {headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}})
       .then(response => {
         setDownload(response.data.path.replace("/images",".pdf"))
         let imageDirPath=response.data.path
