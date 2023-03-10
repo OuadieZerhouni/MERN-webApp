@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+
 import ReactDom from "react-dom";
 import "../../../CSS/FormsCSS/Modal.css";
 
@@ -11,6 +12,40 @@ export default function LOJModal({ IsOpen, toggleModal, handleLOJ, PrevLOJ }) {
   const [loj6, set_loj6] = useState("");
   const [loj7, set_loj7] = useState("");
 
+  useEffect(() => {
+    if (IsOpen && PrevLOJ) {
+      for(let i = 0; i < PrevLOJ.length; i++){
+        switch(i){
+          case 0:
+            set_loj1(PrevLOJ[i]);
+            break;
+          case 1:
+            set_loj2(PrevLOJ[i]);
+            break;
+          case 2:
+            set_loj3(PrevLOJ[i]);
+            break;
+          case 3:
+            set_loj4(PrevLOJ[i]);
+            break;
+          case 4:
+            set_loj5(PrevLOJ[i]);
+            break;
+          case 5: 
+            set_loj6(PrevLOJ[i]);
+            break;
+          case 6:
+            set_loj7(PrevLOJ[i]);
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  }, [IsOpen, PrevLOJ]);
+
+
+
   if (!IsOpen) return null;
 
   const handleConfirm = () => {
@@ -18,6 +53,7 @@ export default function LOJModal({ IsOpen, toggleModal, handleLOJ, PrevLOJ }) {
     const filteredLojs = lojs.filter((loj) => loj !== "");
     handleLOJ([...filteredLojs]);
   };
+
 
 
   return ReactDom.createPortal(

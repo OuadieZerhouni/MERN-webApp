@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
 import ProfModalPresent from "../Portal/ProfModal";
-import ProfModalAbsent from "../Portal/ProfModal";
 import DepartModal from "../Portal/DepartModal";
+import LOJModal from "../Portal/LOJModal";
 
 const ReunionForm = () => {
   const [reunionDate, setReunionDate] = useState("");
@@ -10,13 +11,14 @@ const ReunionForm = () => {
   const [reunionIdDepartement, setReunionIdDepartement] = useState("");
   const [reunionLoj, setReunionLoj] = useState([]);
   const [reunionProfPresent, setReunionProfPresent] = useState([]);
-  const [reunionProfAbsent, setReunionProfAbsent] = useState([]);
   const [Professeurs, setProfesseurs] = useState([]);
   const [SelectedDepart, setSelectedDepart] = useState("Not Selected");
+  const [PV_file, setPV_file] = useState(null);
 
   const [ProfModalPresentIsOpen, setProfModalPresentIsOpen] = useState(false);
-  const [ProfModalAbsentIsOpen, setProfModalAbsentIsOpen] = useState(false);
   const [Departements, setDepartements] = useState([]);
+
+  const [LOJModalIsOpen, setLOJModalIsOpen] = useState(false);
   const [DepartModatIsOpen, setDepartModalIsOpen] = useState(false);
 
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
@@ -27,37 +29,53 @@ const ReunionForm = () => {
       reunionLieu === "" ||
       reunionIdDepartement === "" ||
       reunionLoj === [] ||
-      reunionProfPresent === []
+      reunionProfPresent === []||
+      !PV_file 
     ) {
       alert("Please Fill All Fields");
       return;
     }
+
+    const formData = new FormData();
+    formData.append("file", PV_file);
+    console.log(PV_file);
+
+    formData.append("Date", reunionDate);
+    formData.append("Lieu", reunionLieu);
+    formData.append("id_departement", reunionIdDepartement);
+    formData.append("LOJ", JSON.stringify(reunionLoj));
+    formData.append("prof_present", JSON.stringify(reunionProfPresent));
     axios
       .put(
-        API_DATABASE + "/reunions/"+window.location.pathname.split("/")[3] ,
-        {
-          _id: window.location.pathname.split("/")[3],
-          Date: reunionDate,
-          Lieu: reunionLieu,
-          id_departement: reunionIdDepartement,
-          LOJ: reunionLoj,
-          prof_present: reunionProfPresent,
-          prof_absent: reunionProfAbsent,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-          },
-        }
-      )
+        API_DATABASE + "/reunions/" + localStorage.getItem("reunionId"),
+        formData,
+        {headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "multipart/form-data",
+        },})
       .then((response) => {
         alert("Reunion Updated");
         window.location.href = "/Dashboard";
-      }).catch((error) => {
+      })
+      .catch((error) => {
+
         console.error(error);
       });
   };
 
+  const handleFileChange = (event) => {
+    setPV_file(event.target.files[0]);
+  };
+
+  /* handle LOJ Modal*/
+  const toggleModalLOJ = () => {
+    setLOJModalIsOpen(!LOJModalIsOpen);
+  };
+  const handleLOJ = (LOJ) => {
+    setReunionLoj([]);
+    setReunionLoj(LOJ);
+    setLOJModalIsOpen(false);
+  };
   /*handle ProfModal*/
   const toggleModalPresent = () => {
     if (SelectedDepart === "Not Selected") {
@@ -65,10 +83,11 @@ const ReunionForm = () => {
       return;
     } else {
       axios
-        .get(API_DATABASE + "/professeurs/departement/" + reunionIdDepartement,
+        .get(
+          API_DATABASE + "/professeurs/departement/" + reunionIdDepartement,
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         )
@@ -82,39 +101,11 @@ const ReunionForm = () => {
         });
     }
   };
-  const toggleModalAbsent = () => {
-    if (SelectedDepart === "Not Selected") {
-      alert("Please Select Departement First");
-      return;
-    } else {
-      axios
-        .get(API_DATABASE + "/professeurs/departement/" + reunionIdDepartement,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`
-            },
-          }
-        )
-        .then((response) => {
-          if (response.data.length === 0) {
-            alert("No Professeur in this Departement");
-            return;
-          }
-          setProfesseurs(response.data);
-          setProfModalAbsentIsOpen(!ProfModalAbsentIsOpen);
-        });
-    }
-  };
 
   const handlePresentSelection = (Presents) => {
     setReunionProfPresent(Presents);
     setProfModalPresentIsOpen(false);
     console.log(ProfModalPresentIsOpen);
-  };
-
-  const handleAbsentSelection = (Absents) => {
-    setReunionProfAbsent(Absents);
-    setProfModalAbsentIsOpen(false);
   };
 
   /*hanle departModal*/
@@ -126,7 +117,6 @@ const ReunionForm = () => {
     setSelectedDepart(Depart.Nom);
     setReunionIdDepartement(Depart._id);
     setReunionProfPresent([]);
-    setReunionProfAbsent([]);
     setDepartModalIsOpen(false);
   };
 
@@ -135,7 +125,7 @@ const ReunionForm = () => {
       .get(
         API_DATABASE + "/reunions/" + window.location.pathname.split("/")[3],
         {
-          headers: { Authorization:`Bearer ${localStorage.getItem("token")}` }
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       )
       .then((response) => {
@@ -145,15 +135,13 @@ const ReunionForm = () => {
         setReunionIdDepartement(data.id_departement);
         setReunionLoj(data.LOJ);
         setReunionProfPresent(data.prof_present);
-        setReunionProfAbsent(data.prof_absent);
+        console.log(data.LOJ);
         axios
-          .get(API_DATABASE + "/departements",  
-            {
-              headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
-              },
-            }
-          )
+          .get(API_DATABASE + "/departements", {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          })
           .then((response2) => {
             setDepartements(response2.data);
             response2.data.forEach((depart) => {
@@ -190,6 +178,21 @@ const ReunionForm = () => {
         onChange={(e) => setReunionLieu(e.target.value)}
       />
       <br />
+      <button
+        onClick={toggleModalLOJ}
+        className="Modal-button"
+        id="reunion-loj"
+      >
+        Entrer Liste Ordre de jour
+      </button>
+      <LOJModal
+        IsOpen={LOJModalIsOpen}
+        toggleModal={toggleModalLOJ}
+        handleLOJ={handleLOJ}
+        PrevLOJ={reunionLoj}
+      ></LOJModal>
+
+      <br />
       <label htmlFor="reunion-id-departement" className="form-label">
         Selectionez le Departement:
       </label>
@@ -202,17 +205,7 @@ const ReunionForm = () => {
         Departements={Departements}
         handleDepartementSelection={handleDepartementSelection}
       ></DepartModal>
-      <br />
-      <label htmlFor="reunion-loj" className="form-label">
-        Reunion LOJ:
-      </label>
-      <input
-        className="form-input"
-        type="text"
-        id="reunion-loj"
-        value={reunionLoj}
-        onChange={(e) => setReunionLoj(e.target.value)}
-      />
+      
       <br />
       <label htmlFor="reunion-prof-present" className="form-label">
         les Professeurs Presents:
@@ -232,23 +225,15 @@ const ReunionForm = () => {
         AlreadySelectedProf={reunionProfPresent}
       ></ProfModalPresent>
       <br />
-      <label htmlFor="reunion-prof-absent" className="form-label">
-        Reunion Prof Absent:
+      <label htmlFor="Option-file" className="form-label">
+        Update Emploi du temps:
       </label>
-      <button
-        onClick={toggleModalAbsent}
-        className="Modal-button"
-        id="reunion-prof-absent"
-      >
-        Selectionner
-      </button>
-      <ProfModalAbsent
-        IsOpen={ProfModalAbsentIsOpen}
-        toggleModal={toggleModalAbsent}
-        professeurs={Professeurs}
-        handelProfselection={handleAbsentSelection}
-        AlreadySelectedProf={reunionProfAbsent}
-      ></ProfModalAbsent>
+      <input
+        className="form-input"
+        type="file"
+        id="Option-file"
+        onChange={handleFileChange}
+      />
       <br />
       <button
         className="form-button"

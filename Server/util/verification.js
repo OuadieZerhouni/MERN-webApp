@@ -57,6 +57,7 @@ try {
 
 exports.AdminChefVerifyProfInsert = (req, res, next) => {
   const token = req.token;
+  console.log(req.body);
   if (jwt.decode(token).role == "admin") next();
   else if (
     jwt.decode(token).role == "chef" &&

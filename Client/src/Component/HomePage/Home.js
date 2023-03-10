@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState , useRef} from "react";
 import Post from "../HomePage/Post";
-import "../ComponentCSS/Home.css";
+import "../../CSS/ComponentCSS/Home.css";
 import Header from "../Header";
 
 

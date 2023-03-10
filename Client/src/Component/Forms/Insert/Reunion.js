@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
 import ProfModalPresent from "../Portal/ProfModal";
 import DepartModal from "../Portal/DepartModal";
 import LOJModal from "../Portal/LOJModal";
@@ -27,7 +28,8 @@ const ReunionForm = () => {
       reunionLieu === "" ||
       reunionIdDepartement === "" ||
       reunionLoj === [] ||
-      reunionProfPresent === []
+      reunionProfPresent === []||
+      PV_file === null
     ) {
       alert("Please Fill All Fields");
       return;
@@ -113,11 +115,9 @@ const ReunionForm = () => {
 
   useEffect(() => {
     axios
-      .get( API_DATABASE + "/departements" ,
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
-      )
+      .get(API_DATABASE + "/departements", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
       .then((response) => {
         setDepartements(response.data);
       })

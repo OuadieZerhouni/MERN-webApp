@@ -50,11 +50,12 @@
 .second-div {
   position: relative;
   z-index: 1;
-  background-color: rgba(255, 255, 255, 0.661);
+  background-color: rgb(255, 255, 255);
   backdrop-filter: blur(15px);
   position: relative;
   padding: 20px;
   padding-bottom: 300px;
+  box-shadow: 0 0 15px 0 rgb(22, 31, 70);
 }
 .post-cont{
     font-family: georgia, "times new roman", times, serif;
@@ -68,20 +69,18 @@
 }
 .post-text{
     width: 100%;
+    max-width: 1000px;
     color: #000;
     outline: 0;
     margin: 0 0 1em 0;
-    font-size: 15px;
+    font-size: 20px;
     line-height: 30px;
     text-align: justify;
-    
-
-    padding-right: 50px;
     margin-right: 50px;
 }
 .post-img img{
     width: 100%;
-    max-height: 400px;
+    max-height: 600px;
     margin: 0;
     padding: 0;
     margin-right: 50px;
