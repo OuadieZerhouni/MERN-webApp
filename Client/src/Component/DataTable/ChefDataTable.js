@@ -7,6 +7,7 @@ import DepartTable from "./Tables/departement";
 import FiliereTable from "./Tables/filiere";
 import ProfTable from "./Tables/professeur";
 import ReunionTable from "./Tables/reunion";
+import PostTable from "./Tables/post";
 
 const DataTable = () => {
   const [activeTab, setActiveTab] = useState("departements");
@@ -14,11 +15,14 @@ const DataTable = () => {
   const [filieres, setFilieres] = useState([]);
   const [professeurs, setProfesseurs] = useState([]);
   const [reunion, setReunion] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [chefs, setChefs] = useState({});
   const [coords, setCoords] = useState({});
   const [FiliereDepartement, setFiliereDepartement] = useState({});
   const [ReunionDepartement, setReunionDepartement] = useState({});
   const [ReunionProfs, setReunionProfs] = useState({});
+
+
 
   
   const [PortalOpen, setPortalOpen] = useState(false);
@@ -91,6 +95,15 @@ const DataTable = () => {
       .catch((error) => {
         console.error(error);
       });
+  };
+  const handleDeletePost = async (id) => {
+    return axios.delete(API_DATABASE + "/posts/" + id,
+    {headers:{Authorization:`Bearer ${localStorage.getItem("token")}`}}).then((response)=>{
+      setPosts(posts.filter((item)=>item._id!==id));
+    }).catch((error)=>{
+      console.error(error);
+    }
+    );
   };
 
   const refreshFiliere = async () => {
@@ -323,6 +336,12 @@ const DataTable = () => {
         >
           Reunions
         </div>
+        <div
+          className={`tab ${activeTab === "posts" ? "active" : ""}`}
+          onClick={() => handleTabClick("posts")}
+        >
+          Posts
+        </div>
       </div>
       <div className="tab-content">
         <DepartTable
@@ -358,7 +377,13 @@ const DataTable = () => {
           handleDeleteReunion={handleDeleteReunion}
           _departement={_departement}
         />
-
+     <PostTable 
+          activeTab={activeTab}
+          posts={posts}
+          handleDeletePost={handleDeletePost}
+          IsAdmin={true}
+          ShowInfo={ShowInfo}
+        />
        
       </div>
     </div>

@@ -1,8 +1,9 @@
 header {
-  font-family: serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  sans-serif;
   font-size: 18px;
-
-  background-color: #ffffff;
+  background-color: rgb(47 77 133);
   position: fixed;
   top: 0;
   left: 0;
@@ -15,9 +16,17 @@ header {
   align-items: center;
   padding-right: 20px;
   box-shadow: 0 0 15px 0 rgb(22, 31, 70);
+  color: white;
+
 }
-
-
+.logo-container{
+  font-family:'Exo 2'!important;
+  font-size: 2.5rem;
+  align-items: center;
+  text-decoration: none;
+  padding-left: 20px;
+  color: inherit;
+}
 header img {
   height: 50px;
 }
@@ -27,42 +36,66 @@ header img {
   flex-direction: row;
   list-style: none;
   margin: 0;
+  margin-right: 2%;
   padding: 0;
 }
-
 .header-list {
+  position: relative;
+}
+.header-list a , .header-list button {
+  text-decoration: none;
   color: inherit;
   display: inline-block;
-  padding: 10px 20px;
+  padding: 10px 0px;
   border-radius: 5px;
-  color: #000000;
+  color: inherit;
   font-weight: 600;
   cursor: pointer;
   transition: 500ms;
-  margin: 0 10px;
+  margin: 0 20px;
   padding: auto;
+  border: none;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+
 }
-.log-out{
-  color: inherit;
-  display: inline-block;
-  padding: 10px 20px;
-  border-radius: 4px;
-  color: #000000;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 300ms;
-  margin: 0 10px;
-  padding: auto;
+.header-list a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 2px;
+  background-color: rgb(175 8 27);
+  transition: width 0.2s ease-in-out;
 }
-.log-out:hover{
-  background-color: #ffffff;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 2);
+
+.header-list a:hover::after {
+  width: 80%;
 }
-.header-list a {
-  color: inherit;
-  text-decoration: none;
+.header-list a:hover {
+  color: #922424;
 }
-.header-list:hover {
-  background-color: #ffffff;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 2);
+
+
+.header-list button::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 2px;
+  background-color: #922424;
+  transition: width 0.2s ease-in-out;
+}
+
+.header-list button:hover::after {
+  width: 80%;
+}
+.header-list button:hover {
+  color: #922424;
 }

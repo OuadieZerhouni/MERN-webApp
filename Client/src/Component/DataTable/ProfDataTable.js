@@ -7,6 +7,7 @@ import DepartTable from "./Tables/departement";
 import FiliereTable from "./Tables/filiere";
 import ReunionTable from "./Tables/reunion";
 import ProfTable from "./Tables/professeur";
+import PostTable from "./Tables/post";
 
 const DataTable = () => {
   const [activeTab, setActiveTab] = useState("departements");
@@ -14,6 +15,9 @@ const DataTable = () => {
   const [filieres, setFilieres] = useState([]);
   const [professeurs, setProfesseurs] = useState([]);
   const [reunion, setReunion] = useState([]);
+  const[posts,setPosts]=useState([]);
+
+  
   const [chefs, setChefs] = useState({});
   const [coords, setCoords] = useState({});
   const [FiliereDepartement, setFiliereDepartement] = useState({});

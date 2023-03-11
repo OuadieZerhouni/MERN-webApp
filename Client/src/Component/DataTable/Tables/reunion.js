@@ -7,12 +7,20 @@ function Reunion({
   ReunionDepartement,
   ReunionProfs,
   handleDeleteReunion,
-  _departement=false,
-  IsAdmin=false,
+  _departement = false,
+  IsAdmin = false,
 }) {
   return (
     <>
       {activeTab === "reunions" && (
+        <>
+          {IsAdmin || _departement ? (
+            <Link to="/Add/Reunion">
+              <button className="Insert-Btn">Insert Reunion</button>
+            </Link>
+          ) : (
+            <></>
+          )}
           <table>
             <thead>
               <tr>
@@ -61,7 +69,9 @@ function Reunion({
                   {reunion.id_departement === _departement["_id"] || IsAdmin ? (
                     <td>
                       <Link to={`/modify/reunion/${reunion._id}`}>
-                        <button className="btn btn-primary">Edit</button>
+                        <button className="btn btn-primary">
+                          <i className="fa-solid fa-pen"></i>
+                        </button>
                       </Link>
 
                       <button
@@ -70,7 +80,7 @@ function Reunion({
                           handleDeleteReunion(reunion._id);
                         }}
                       >
-                        Delete
+                        <i className="fa-solid fa-trash-can"></i>
                       </button>
                     </td>
                   ) : null}
@@ -78,7 +88,8 @@ function Reunion({
               ))}
             </tbody>
           </table>
-        )}
+        </>
+      )}
     </>
   );
 }

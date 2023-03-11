@@ -13,6 +13,10 @@ function DepartementTable({
   return (
     <>
       {activeTab === "departements" && (
+        <>
+        {IsAdmin ? ( <Link to="/Add/Departement">
+        <button className="Insert-Btn">Insert Departement</button>
+      </Link> ) : ( <></> ) }
           <table>
             <thead>
               <tr>
@@ -62,11 +66,11 @@ function DepartementTable({
                           handleDeleteDepartement(departement._id);
                         }}
                       >
-                        Delete
+                       <i className="fa-solid fa-trash-can"></i>
                       </button> ) : ( <></> ) }
                      
                     <Link to={`/modify/departement/${departement._id}`}>
-                      <button className="btn btn-primary">Edit</button>
+                      <button className="btn btn-primary"><i className="fa-solid fa-pen"></i></button>
                     </Link>
                     </td>
                   ) : (
@@ -79,6 +83,7 @@ function DepartementTable({
               ))}
             </tbody>
           </table>
+        </>
         )}
     </>
   );

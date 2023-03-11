@@ -107,7 +107,7 @@ exports.AdminChefVerifyoptionInsert = async (req, res, next) => {
     const filiere = await FiliereService.getById(req.body._id);
     const token = req.token || req.headers["authorization"].split(" ")[1];
     
-    if (jwt.decode(token).role === "Admin") {
+    if (jwt.decode(token).role === "admin") {
       next();
     } else if (
       jwt.decode(token).role === "chef" &&

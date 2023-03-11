@@ -56,7 +56,7 @@ const FiliereForm = () => {
       )
       .then((response) => {
         console.log(response);
-        window.location.href = "/";
+        window.location.reload();
       })
       .catch((error) => {
         console.error(error);
@@ -83,9 +83,7 @@ const FiliereForm = () => {
     } else {
       axios
         .get(API_DATABASE+"/professeurs/departement/" + filiereDepartement,
-          {
-            _id: filiereDepartement,
-          },
+         
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

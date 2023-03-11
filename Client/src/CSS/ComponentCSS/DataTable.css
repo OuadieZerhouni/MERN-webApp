@@ -2,31 +2,3 @@
 
 
 
-table {
-  border-collapse: collapse;
-  width: 100%;
-  max-width: 1280px;
-  margin: auto;
-  padding: 24px;
-  font-family: sans-serif;
-  font-size: 15px;
-  line-height: 1.5;
-  color: #000000;
-
-}
-
-td {
-  padding: 12px 24px;
-   border-bottom: 1px solid #E5E7EB;
-   border-right:1px solid #E5E7EB;
-
-}
-
-th {
-    padding: 12px 24px;
-    font-weight: bold;
-    text-transform: uppercase;
-    text-align: left;
-    background-color: #F3F4F6;
-
-}

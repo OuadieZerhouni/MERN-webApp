@@ -21,6 +21,7 @@ export default function Home() {
   return (
     <div className="bg-cont" onScroll={handleScroll} ref={bgcontent}>
       <div className="logo-center" ref={logoRef} >
+        USMBA
       </div>
       <div className="Home-cont" >
         <div className="first-div" ref={hidden}>

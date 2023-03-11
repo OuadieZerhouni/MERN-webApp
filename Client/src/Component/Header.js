@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import "../CSS/ComponentCSS/Header.css";
-import logo from '../assets/logo-small.png';
+import logo from '../assets/Logo.jpg';
 
 class Header extends React.Component {
   
@@ -19,7 +19,7 @@ class Header extends React.Component {
       <header>
         
         <Link to="/" className='logo-container'>
-          <img src={logo} alt="Logo" className='logo-up' />
+          USMBA
         </Link>
         <ul className='ul-header'>
         {localStorage.getItem('token') && (
@@ -28,24 +28,25 @@ class Header extends React.Component {
            </li>
           )}
           <li  className='header-list'>
-            <Link to="/">Home</Link>
+            <Link to="/">Accueil</Link>
           </li>
           <li className='header-list'>
-            <Link to="/departments">Departments</Link>
+            <Link to="/departments">Departements</Link>
           </li>
           <li className='header-list'>
-            <Link to="/filiere">Filiere</Link>
+            <Link to="/filiere">Filières</Link>
           </li>
           
           
           {localStorage.getItem('token') && (
-            <li className='log-out' onClick={this.Logout}>
-              Logout
+            <li className='header-list'>
+              <button onClick={this.Logout}>Log-out</button>
+      
             </li>
           )}
           {!localStorage.getItem('token') && (
             <li className='header-list' >
-              <Link to="/login">Log-in</Link>
+          <Link to="/login">Log-in</Link>
             </li>
           )}
         </ul>
