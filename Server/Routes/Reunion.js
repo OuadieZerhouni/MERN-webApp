@@ -9,6 +9,7 @@ const AdminChefVerifyProfInsert = require('../util/verification').AdminChefVerif
 const AdminChefVerifyReunionDelete = require('../util/verification').AdminChefVerifyReunionDelete;
 const jwt = require('jsonwebtoken');
 
+
 // GET all reunions
 router.get('/', async (req, res) => {
   const reunion = await Reunion.getAll();
@@ -86,26 +87,34 @@ router.post('/', PV_Upload.single('file'), AdminChefVerifyProfInsert, async (req
       }
     }
     const reunion = await Reunion.insert(reunionData);
-    res.send(reunion);
+    res.status(201).send(reunion);
   })
 });
 
 // PUT update an existing reunion
-router.put('/:id', AdminChefVerifyProfInsert, async (req, res) => {
+router.put('/:id', PV_Upload.single('file'), AdminChefVerifyProfInsert, async (req, res) => {
+  try{
+    console.log(req.params.id);
+  req.body.prof_present = JSON.parse(req.body.prof_present);
+  req.body.LOJ = JSON.parse(req.body.LOJ);
   const reunion = await Reunion.update(req.params.id, req.body);
   res.send(reunion);
+  }
+  catch(err){
+    console.log(err);
+  }
 });
 
 // DELETE a reunion
 router.delete('/:id', AdminChefVerifyReunionDelete, async (req, res) => {
   const reunion = await Reunion.remove(req.params.id);
-  res.send(reunion);
+  res.status(200).send(reunion);
 });
 
 // POST a comment
 router.post('/:id/comments', async (req, res) => {
   const comment = await Reunion.AddComment(req.params.id, req.body.comment);
-  res.send(comment);
+  res.status(201).send(comment);
 });
 
 // GET all comments for a reunion PV

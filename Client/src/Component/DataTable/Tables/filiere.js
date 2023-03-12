@@ -103,13 +103,13 @@ function FiliereComponent({
                         onClick={() =>
                           setShowOptions({
                             ...showOptions,
-                            [filiere._id]: !showOptions[filiere._id],
+                            [filiere._id]: !showOptions[filiere._id], 
                           })
                         }
                       >
                         {showOptions[filiere._id]
-                          ? "Hide Options"
-                          : "Show Options"}
+                          ? <i className="fa-solid fa-eye-slash"></i>
+                          : <i className="fa-solid fa-eye"></i>}
                       </button>
                     </td>
                   </tr>

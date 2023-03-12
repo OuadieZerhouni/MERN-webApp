@@ -11,6 +11,7 @@ const OptionForm = () => {
   const [OptionFiliereNom, setOptionFiliereNom] = useState("Not Selected");
   const [OptionEffectif, setOptionEffectif] = useState("");
   const [file, setFile] = useState(null);
+  const [OptionPrivateLink, setOptionPrivateLink] = useState("");
 
   const [filieres, setfilieres] = useState([]);
   const [FiliereModalIsopen, setFiliereModalIsopen] = useState(false);
@@ -33,11 +34,12 @@ const OptionForm = () => {
     formData.append("file", file);
     formData.append("_id", window.location.pathname.split("/")[3]);
     formData.append("id_filiere", OptionFiliere);
+    formData.append("Lien_modification", OptionPrivateLink);
     formData.append("Nom", OptionNom);
     formData.append("Description", OptionDescription);
     formData.append("Date_Creation", OptionDateCreation);
     formData.append("effectif", OptionEffectif);
-
+    console.log(formData.get("_id"));
     axios
       .put(API_DATABASE + "/Options/"+window.location.pathname.split("/")[3]
       , formData, {
@@ -47,8 +49,8 @@ const OptionForm = () => {
         },
       })
       .then((response) => {
-        console.log(formData);
         console.log(response);
+        alert("Option Modified");
       })
       .catch((error) => {
         console.error(error);
@@ -75,6 +77,7 @@ const OptionForm = () => {
       setOptionDescription(OptionData.Description);
       setOptionDateCreation(OptionData.Date_Creation.split("T")[0]);
       setOptionEffectif(OptionData.effectif);
+      setOptionPrivateLink(OptionData.Lien_modification);
     };
 
     axios
@@ -161,6 +164,17 @@ const OptionForm = () => {
         IsOpen={FiliereModalIsopen}
         toggleModal={ToggleModalFiliere}
         handleFiliereSelection={handleFiliereSelection}
+      />
+      <br />
+      <label htmlFor="Option-file" className="form-label">
+        lien privé(docs sheet drive)
+      </label>
+      <input
+        type={Text}
+        className="form-input"
+        id="Option-file"
+        value={OptionPrivateLink}
+        onChange={(e) => setOptionPrivateLink(e.target.value)}
       />
       <br />
       <label htmlFor="Option-file" className="form-label">

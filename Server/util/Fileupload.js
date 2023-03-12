@@ -5,7 +5,7 @@ const path = require('path');
 
 const Emploi_storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, "./uploads/Emplois/xlsx/");
+      cb(null, "./uploads/Emplois/");
     },
     filename: function (req, file, cb) {
       const Id = uuid();

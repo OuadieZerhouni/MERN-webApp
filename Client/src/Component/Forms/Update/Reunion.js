@@ -29,8 +29,7 @@ const ReunionForm = () => {
       reunionLieu === "" ||
       reunionIdDepartement === "" ||
       reunionLoj === [] ||
-      reunionProfPresent === []||
-      !PV_file 
+      reunionProfPresent === []
     ) {
       alert("Please Fill All Fields");
       return;
@@ -38,8 +37,6 @@ const ReunionForm = () => {
 
     const formData = new FormData();
     formData.append("file", PV_file);
-    console.log(PV_file);
-
     formData.append("Date", reunionDate);
     formData.append("Lieu", reunionLieu);
     formData.append("id_departement", reunionIdDepartement);
@@ -47,7 +44,7 @@ const ReunionForm = () => {
     formData.append("prof_present", JSON.stringify(reunionProfPresent));
     axios
       .put(
-        API_DATABASE + "/reunions/" + localStorage.getItem("reunionId"),
+        API_DATABASE + "/reunions/" + window.location.pathname.split("/")[3],
         formData,
         {headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

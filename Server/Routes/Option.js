@@ -5,10 +5,8 @@ const OptionService = require("../Services/Option");
 const FiliereService = require("../Services/Filiere");
 const pdfToImages = require("../util/ToPDF").pdfToImages;
 require("dotenv").config();
-const ToPDF = require("../util/ToPDF").ToPDF;
 const Emploi_Upload = require("../util/Fileupload").Emploi_Upload;
 const fs = require("fs");
-const path = require("path");
 
 const AdminChefVerifyoptionInsert =
   require("../util/verification").AdminChefVerifyoptionInsert;
@@ -21,23 +19,30 @@ router.post(
   Emploi_Upload.single("file"),
   AdminChefVerifyoptionInsert,
   async (req, res) => {
-    ToPDF(req.file, req.body.Nom).then(async (_pdfPath) => {
-      const imageDirPath = await pdfToImages(_pdfPath);
-
+    const option = await OptionService.getoptionByName(req.body.Nom);
+    if (option.length > 0) {
+      return res.status(400).send({ error: "Option name already taken" });
+    }
+    try {
+      const imageDirPath = await pdfToImages(req.file.path);
+      console.log(req.body);
       const optionData = {
         Nom: req.body.Nom,
         Description: req.body.Description,
         Date_Creation: req.body.Date_Creation,
         effectif: req.body.effectif,
         Emploi_temps: {
-          Lien_modification: req.file.path,
-          Lien_consultation: _pdfPath,
+          Lien_modification: req.body.Lien_modification,
+          Lien_consultation: req.file.path,
         },
       };
       const option = await OptionService.insertOption(req.body._id, optionData);
 
-      res.send(option);
-    });
+      res.status(201).send(option);
+    } catch (err) {
+      res.status(500).send({ error: "Insertion Failed" });
+      console.log(err);
+    }
   }
 );
 
@@ -47,21 +52,23 @@ router.get("/Emploi_temps/:id", async (req, res) => {
       req.params.id
     );
     let filePath = emploiTemps.Lien_consultation;
-    filePath = filePath.replace(".pdf", "");
-    const imageDirPath = path.resolve(filePath);
+    imageDirPath = filePath.replace(".pdf", "");
+    console.log(filePath);
 
     let Path = `${imageDirPath}\\images`;
 
     const files = fs.readdirSync(Path);
 
     const numPages = files.filter((file) => file.endsWith(".png")).length;
-    console.log(imageDirPath);
 
-    let _path = (process.env.APP_DOMAIN+"/"+
-    imageDirPath + "/images").replace(/\\/g, "/");
-    // Send the image directory path and the number of images
+    let _path = (
+      process.env.APP_DOMAIN +
+      "/" +
+      imageDirPath +
+      "/images"
+    ).replace(/\\/g, "/");
 
-    res.send({
+    res.status(200).send({
       path: _path,
       numPages: numPages,
     });
@@ -107,76 +114,48 @@ router.delete(
 );
 
 // Update an option by id
-router.put("/:optionId", Emploi_Upload.single("file"), async (req, res) => {
-  // Validate the option ID parameter
-  const errors = param("optionId").isMongoId().validate(req.params.optionId);
-  if (errors.length) {
-    return res.status(400).send({ error: errors[0].msg });
-  }
+router.put(
+  "/:optionId",
+  Emploi_Upload.single("file"),
+  AdminChefVerifyoptionInsert,
+  async (req, res) => {
 
-  // If there is a file sent
-  if (req.file) {
-    // Create the old directory if it doesn't exist
-    const oldDirPath = "uploads/old";
-    if (!fs.existsSync(oldDirPath)) {
-      fs.mkdirSync(oldDirPath);
-    }
+    let optionData = {};
 
-    try {
-      // Get the old file paths
-      const emploiTemps = await OptionService.getEmploiTempsByOptionId(
-        req.params.optionId
-      );
-      const filePathpdf = emploiTemps.Lien_consultation;
-      const filePathxl = emploiTemps.Lien_modification;
-      const imageDirPath = path.join(
-        path.dirname(filePathpdf),
-        path.basename(filePathpdf, ".pdf")
-      );
+    if (req.file) {
+      // Convert the new file to img
+      await pdfToImages(req.file.path)
+      optionData = {
+          _id : req.body._id,
+          Nom: req.body.Nom,
+          Description: req.body.Description,
+          Date_Creation: req.body.Date_Creation,
+          effectif: req.body.effectif,
+          Emploi_temps: {
+            Lien_modification: req.body.Lien_modification,
+            Lien_consultation: req.file.path,
+          },
+        };
 
-      // Move the old files to the old directory
-
-      const oldPathpdf = path.join(oldDirPath, path.basename(filePathpdf));
-      const oldPathxl = path.join(oldDirPath, path.basename(filePathxl));
-      const oldPathimage = path.join(oldDirPath, path.basename(imageDirPath));
-      fs.renameSync(filePathpdf, oldPathpdf);
-      fs.renameSync(filePathxl, oldPathxl);
-      fs.renameSync(imageDirPath, oldPathimage);
-    } catch (err) {
-      console.log(err);
-    }
-
-    // Convert the new file to img
-    pdfToImages(req.file.path).then(async (_pdfPath) => {
-      const optionData = {
+      }
+          
+     else {
+      optionData = {
+        _id : req.body._id,
         Nom: req.body.Nom,
         Description: req.body.Description,
         Date_Creation: req.body.Date_Creation,
         effectif: req.body.effectif,
-        Emploi_temps: {
-          Lien_modification: req.file.path,
-          Lien_consultation: _pdfPath,
-        },
+        Lien_modification: req.body.Lien_modification,
       };
-      const option = await OptionService.updateOption(
-        req.params.optionId,
-        optionData
-      );
-      res.send(option);
-    });
-  } else {
-    const optionData = {
-      Nom: req.body.Nom,
-      Description: req.body.Description,
-      Date_Creation: req.body.Date_Creation,
-      effectif: req.body.effectif,
-    };
+     
+    }
     const option = await OptionService.updateOption(
-      req.params.optionId,
+      req.body._id,
       optionData
     );
     res.send(option);
   }
-});
+);
 
 module.exports = router;

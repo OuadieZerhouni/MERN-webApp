@@ -8,15 +8,13 @@ const OptionForm = () => {
   const [OptionDateCreation, setOptionDateCreation] = useState("");
 
   const [OptionFiliere, setOptionFiliere] = useState("");
-  const [OptionFiliereNom , setOptionFiliereNom] = useState("NotSelected");
+  const [OptionFiliereNom, setOptionFiliereNom] = useState("NotSelected");
   const [OptionEffectif, setOptionEffectif] = useState("");
   const [file, setFile] = useState(null);
+  const [OptionPrivateLink, setOptionPrivateLink] = useState("");
 
-  const[filieres , setfilieres] = useState([]);
-  const[FiliereModalIsopen , setFiliereModalIsopen] = useState(false);
-
-
-
+  const [filieres, setfilieres] = useState([]);
+  const [FiliereModalIsopen, setFiliereModalIsopen] = useState(false);
 
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
@@ -26,69 +24,65 @@ const OptionForm = () => {
       OptionDescription === "" ||
       OptionDateCreation === "" ||
       OptionEffectif === ""
+
     ) {
       alert("Please Fill All Fields");
       return;
     }
-  
+
     const formData = new FormData();
-    formData.append('file', file);
-    formData.append('_id', OptionFiliere);
-    formData.append('Nom', OptionNom);
-    formData.append('Description', OptionDescription);
-    formData.append('Date_Creation', OptionDateCreation);
-    formData.append('effectif', OptionEffectif);
-  
+    formData.append("_id", OptionFiliere);
+    formData.append("file", file);
+    formData.append("Lien_modification", OptionPrivateLink);
+    formData.append("Nom", OptionNom);
+    formData.append("Description", OptionDescription);
+    formData.append("Date_Creation", OptionDateCreation);
+    formData.append("effectif", OptionEffectif);
+
     axios
       .post(API_DATABASE + "/Options", formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
-          'Content-Type': 'multipart/form-data'
+          "Content-Type": "multipart/form-data",
         },
       })
       .then((response) => {
         console.log(response);
         alert("Option Inserted");
-        
       })
       .catch((error) => {
         console.error(error);
       });
   };
-  
+
   const handleFileChange = (event) => {
-    
     setFile(event.target.files[0]);
   };
 
-
   //handle Modal Filiere
-    const ToggleModalFiliere = () => {  
-        setFiliereModalIsopen(!FiliereModalIsopen);
-    }
-    const handleFiliereSelection=(Filiere)=>{
-        setOptionFiliere(Filiere._id);
-        setOptionFiliereNom(Filiere.Nom);
-        setFiliereModalIsopen(false);}
+  const ToggleModalFiliere = () => {
+    setFiliereModalIsopen(!FiliereModalIsopen);
+  };
+  const handleFiliereSelection = (Filiere) => {
+    setOptionFiliere(Filiere._id);
+    setOptionFiliereNom(Filiere.Nom);
+    setFiliereModalIsopen(false);
+  };
 
   useEffect(() => {
     axios
-      .get(
-        API_DATABASE + "/filieres",
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
-      )
+      .get(API_DATABASE + "/filieres", {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
       .then((response) => {
         setfilieres(response.data);
-        response.data.forEach(filiere => {
+        response.data.forEach((filiere) => {
           if (filiere._id === window.location.pathname.split("/")[3]) {
             setOptionFiliere(filiere._id);
             setOptionFiliereNom(filiere.Nom);
           }
         });
-      })
-     
+      });
   }, [API_DATABASE]);
 
   return (
@@ -132,26 +126,48 @@ const OptionForm = () => {
       </label>
       <input
         className="form-input"
-        type="number"   
+        type="number"
         id="Option-effectif"
         value={OptionEffectif}
         onChange={(e) => setOptionEffectif(e.target.value)}
       />
       <br />
-        <label htmlFor="Option-filiere" className="form-label">   Option Filiere:
-        </label>
-        <button className="form-button" onClick={ToggleModalFiliere}>{OptionFiliereNom}</button>
-        <FilierModal filieres={filieres} IsOpen={FiliereModalIsopen} toggleModal={ToggleModalFiliere} handleFiliereSelection={handleFiliereSelection}/>
-     <br/>
+      <label htmlFor="Option-filiere" className="form-label">
+        {" "}
+        Option Filiere:
+      </label>
+      <button className="form-button" onClick={ToggleModalFiliere}>
+        {OptionFiliereNom}
+      </button>
+      <FilierModal
+        filieres={filieres}
+        IsOpen={FiliereModalIsopen}
+        toggleModal={ToggleModalFiliere}
+        handleFiliereSelection={handleFiliereSelection}
+      />
+      <br />
       <label htmlFor="Option-file" className="form-label">
-        Emploi du temps:
-        </label>
+        lien privé(docs sheet drive)
+      </label>
+      <input
+        type={Text}
+        className="form-input"
+        id="Option-file"
+        value={OptionPrivateLink}
+        onChange={(e) => setOptionPrivateLink(e.target.value)}
+      />
+      <br />
+      <label htmlFor="Option-file" className="form-label">
+        Emploi du temps (pdf):
+      </label>
       <input
         className="form-input"
         type="file"
         id="Option-file"
+        accept=".pdf"
         onChange={handleFileChange}
       />
+      <br />
 
       <button
         className="form-button"

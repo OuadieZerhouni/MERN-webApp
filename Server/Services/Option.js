@@ -56,6 +56,10 @@ exports.updateEmploiTemps = async (option_id, emploi_temps) => {
     { $set: { "Options.$.Emploi_temps": emploi_temps } }
   );
 };
+exports.getoptionByName = async (name) => {
+  return await Filiere.find({ "Options.Nom": name });
+};
+
 // exports.deleteEmploiTemps = async (option_id) => {
 //   return await Filiere.findOneAndUpdate(
 //     { "Options._id": option_id },
