@@ -10,6 +10,10 @@ function PostForm(){
 
 
     const handlePostInsert = () => {
+      // if(PostTitle === "" || PostText === "" || !PostImage ){
+      //   alert("Please Fill All Fields");
+      //   return;
+      // }
         const formData = new FormData();
         formData.append("title", PostTitle);
         formData.append("text", PostText);

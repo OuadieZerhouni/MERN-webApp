@@ -24,7 +24,6 @@ const ProfesseurForm = () => {
       professeurPhoneNumber === "" ||
       professeurFullName === "" ||
       professeurEmail === "" ||
-      professeurPassword === "" ||
       professeurRole === "" ||
     
       Error.innerHTML!==""
@@ -37,19 +36,26 @@ const ProfesseurForm = () => {
 
 
 
-  const handleInsertProfesseur = () => { 
+  const handleModifyProfesseur = () => { 
     if (!verifyinputs()) return;
+
+    let professeurData = {
+      _id: window.location.pathname.split("/")[3],
+      CIN: professeurCIN,
+      PhoneNumber: professeurPhoneNumber,
+      FullName: professeurFullName,
+      email: professeurEmail,
+      grade: professeurRole,
+      id_departement: (professeurDepartement===""?null:professeurDepartement),
+    };
+    if(professeurPassword!==""){
+      professeurData.password=professeurPassword
+    }
+
     axios
-      .put(API_DATABASE + "/professeurs"+window.location.pathname.split("/")[3], {
-        _id: window.location.pathname.split("/")[3],
-        CIN: professeurCIN,
-        PhoneNumber: professeurPhoneNumber,
-        FullName: professeurFullName,
-        email: professeurEmail,
-        password:professeurPassword,
-        grade: professeurRole,
-        id_departement: (professeurDepartement===""?null:professeurDepartement),
-      },{headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}}
+      .put(API_DATABASE + "/professeurs/"+window.location.pathname.split("/")[3], 
+      professeurData
+      ,{headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}}
       )
       .then((response) => {
         alert("Professeur Updated!")
@@ -92,7 +98,6 @@ const ProfesseurForm = () => {
         setProfesseurPhoneNumber(response.data.PhoneNumber)
         setProfesseurFullName(response.data.FullName)
         setProfesseurEmail(response.data.email)
-        setProfesseurPassword(response.data.password)
         setProfesseurRole(response.data.grade)
         setProfesseurDepartement(response.data.id_departement)
         axios.get(API_DATABASE + "/departements",
@@ -210,7 +215,7 @@ const ProfesseurForm = () => {
       <button
         className="form-button"
         type="button"
-        onClick={handleInsertProfesseur}
+        onClick={handleModifyProfesseur}
       >
         Modifier
       </button>

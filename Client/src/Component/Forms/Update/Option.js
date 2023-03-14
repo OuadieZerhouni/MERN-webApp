@@ -166,13 +166,13 @@ const OptionForm = () => {
         handleFiliereSelection={handleFiliereSelection}
       />
       <br />
-      <label htmlFor="Option-file" className="form-label">
+      <label htmlFor="Option-link" className="form-label">
         lien privé(docs sheet drive)
       </label>
       <input
         type={Text}
         className="form-input"
-        id="Option-file"
+        id="Option-link"
         value={OptionPrivateLink}
         onChange={(e) => setOptionPrivateLink(e.target.value)}
       />
@@ -184,6 +184,7 @@ const OptionForm = () => {
         className="form-input"
         type="file"
         id="Option-file"
+        accept=".pdf"
         onChange={handleFileChange}
       />
 

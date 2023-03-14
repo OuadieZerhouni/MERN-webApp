@@ -202,7 +202,8 @@ const ReunionForm = () => {
       <input
         className="form-input"
         type="file"
-        id="Option-file"
+        id="Reunion-file"
+        accept=".pdf"
         onChange={handleFileChange}
       />
       <br />
