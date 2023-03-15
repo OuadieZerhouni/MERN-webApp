@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useCallback} from "react";
 import axios from "axios";
+
 import "../../CSS/ComponentCSS/DataTable.css";
 
 import DepartTable from "./Tables/departement";
@@ -30,12 +31,13 @@ const DataTable = () => {
 
   const API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
-  
+
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
-//Delete functions
-  const handleDeleteDepartement = (id) => {
+
+
+  const handleDeleteDepartement = useCallback((id) => {
     axios
       .delete(API_DATABASE + "/departements/" + id, {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
@@ -50,8 +52,9 @@ const DataTable = () => {
       .catch((error) => {
         console.error(error);
       });
-  };
-  const handleDeleteFiliere = (id) => {
+  }, [departements]);
+  
+  const handleDeleteFiliere = useCallback((id) => {
     axios
       .delete(API_DATABASE + "/filieres/" + id, {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
@@ -62,10 +65,11 @@ const DataTable = () => {
       .catch((error) => {
         console.error(error);
       });
-  };
-  const handleDeleteProfesseur = (id) => {
+  }, [filieres]);
+  
+  const handleDeleteProfesseur = useCallback((id) => {
     axios
-      .delete(API_DATABASE + " /professeurs/" + id, {
+      .delete(API_DATABASE + "/professeurs/" + id, {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       })
       .then((response) => {
@@ -76,8 +80,9 @@ const DataTable = () => {
       .catch((error) => {
         console.error(error);
       });
-  };
-  const handleDeleteOption = (id) => {
+  }, [professeurs]);
+  
+  const handleDeleteOption = useCallback((id) => {
     axios
       .delete(API_DATABASE + "/options/" + id,
         {
@@ -92,9 +97,9 @@ const DataTable = () => {
       .catch((error) => {
         console.error(error);
       });
-  };
-
-  const handleDeleteReunion = (id) => {
+  }, []);
+  
+  const handleDeleteReunion = useCallback((id) => {
     axios
       .delete(API_DATABASE + "/reunions/" + id,
         {
@@ -109,49 +114,47 @@ const DataTable = () => {
       .catch((error) => {
         console.error(error);
       });
-  };
-const handleDeletePost=(id)=>{
-  axios
-  .delete(API_DATABASE + "/posts/" + id,
-    {headers: { Authorization: "Bearer " + localStorage.getItem("token") },}
-  )
-  .then((response) => {
-    setPosts(posts.filter((post) => post._id !== id));
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-}
-
-  //refresh functions
-  const refreshFiliere = async () => {
+  }, [reunion]);
+  
+  const handleDeletePost=useCallback((id)=>{
     axios
-      .get(API_DATABASE + "/filieres", {
+    .delete(API_DATABASE + "/posts/" + id,
+      {headers: { Authorization: "Bearer " + localStorage.getItem("token") },}
+    )
+    .then((response) => {
+      setPosts(posts.filter((post) => post._id !== id));
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }, [posts]);
+
+  const refreshFiliere = useCallback(async () => {
+    try {
+      const response = await axios.get(API_DATABASE + "/filieres", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
-      })
-      .then((response) => {
-        setFilieres(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
       });
-  };
-  const refreshReunion = async () => {
-    axios
-      .get(API_DATABASE + "/reunions",
-        {
-          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-        }
-      )
-      .then((response) => {
-        setReunion(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+      setFilieres(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
+  const refreshReunion = useCallback(async () => {
+    try {
+      const response = await axios.get(API_DATABASE + "/reunions",
+      {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      }
+      );
+      setReunion(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
 
   //handles the portal
   const togglePortal=()=>{
@@ -399,7 +402,7 @@ const handleDeletePost=(id)=>{
         <ProfTable
           activeTab={activeTab}
           professeurs={professeurs}
-          handleDeleteProf={handleDeleteProfesseur}
+          handleDeleteProfesseur={handleDeleteProfesseur}
           IsAdmin={true}
         />
         <ReunionTable

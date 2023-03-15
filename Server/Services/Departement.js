@@ -33,6 +33,12 @@ exports.insert = async function (departement) {
       $addToSet: { professeurs: id_professeur },
     });
   }
+    exports.removeProfesseur = async function (id_Dep, id_professeur) {
+    return await Departement.findByIdAndUpdate(id_Dep, {
+      $pull: { professeurs: id_professeur },
+    });
+  }
+  
   exports.IsChef = async function ( id_professeur) {
     return await Departement.findOne({ id_Chef: id_professeur });
   }

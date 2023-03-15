@@ -10,7 +10,7 @@ const DepartementForm = () => {
   const [departementNom, setDepartementNom] = useState("");
   const [departementDescription, setDepartementDescription] = useState("");
   const [departementDateCreation, setDepartementDateCreation] = useState("");
-  const [departementIdChef, setDepartementIdChef] = useState("");
+  const [departementIdChef, setDepartementChef] = useState("");
   const [departementProfesseurs, setDepartementProfesseurs] = useState([]);
   const [professeurs, setProfesseurs] = useState([]);
 
@@ -19,12 +19,13 @@ const DepartementForm = () => {
 
   const [ChefModalIsOpen, setChefModalIsOpen] = useState(false);
   const [ProfModalIsOpen, setProfModalIsOpen] = useState(false);
+  
 
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
   /* Chef Modal handling */
   const handleChefSelection = (chef) => {
-    setDepartementIdChef(chef[0]);
+    setDepartementChef(chef[0]);
     setSelectedChef(chef[1]);
     setChefModalIsOpen(false);
   };
@@ -83,61 +84,57 @@ const DepartementForm = () => {
         console.error(error);
       });
   };
-
   useEffect(() => {
-    // Get Departement
-    axios
-      .get(API_DATABASE + "/departements/" + window.location.pathname.split("/")[3],
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
-      )
-      .then((response) => {
-        FillForm(response.data);
-      }).catch((error) => {
+    const fetchData = async () => {
+      try {
+        const [departementResponse, professeurResponse] = await Promise.all([
+          axios.get(API_DATABASE + "/departements/" + window.location.pathname.split("/")[3],
+            { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+          ),
+          axios.get(API_DATABASE + "/professeurs",
+            { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
+          )
+        ]);
+  
+        const departement = departementResponse.data;
+  
+        // Fill Form with Departement data
+        const { Nom, description, Date_Creation, id_Chef, professeurs } = departement;
+        setDepartementNom(Nom);
+        setDepartementDescription(description);
+        setDepartementDateCreation(Date_Creation.split("T")[0]);
+        setDepartementChef(id_Chef);
+        setDepartementProfesseurs(professeurs);
+  
+        // Fill Professeurs data
+        const professeursData = professeurResponse.data;
+        const professeursByDepartement = [];
+        const selectedProfs = [];
+  
+        professeursData.forEach((prof) => {
+          if (prof.id_departement === departement._id || !prof.id_departement) {
+            professeursByDepartement.push(prof);
+          }
+  
+          if (prof._id === departement.id_Chef) {
+            setSelectedChef(prof.FullName);
+          }
+  
+          if (departement.professeurs.includes(prof._id)) {
+            selectedProfs.push(prof);
+          }
+        });
+  
+        setProfesseurs(professeursByDepartement);
+        setSelectedProfs(selectedProfs);
+      } catch (error) {
         console.error(error);
-      });
-    // Get Professeurs
- 
-    const FillForm = (Departement) => {
-      setDepartementNom(Departement.Nom);
-      setDepartementDescription(Departement.description);
-      let date = Departement.Date_Creation.split("T")[0];
-      setDepartementDateCreation(date);
-      setDepartementIdChef(Departement.id_Chef);
-      setDepartementProfesseurs(Departement.professeurs);
-      // Get Chef and
-      axios
-        .get(API_DATABASE + "/professeurs/departement/" + Departement._id,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`
-            },
-          }
-        )
-        .then((response) => {
-          setProfesseurs([]);
-        
-        response.data.forEach((prof) => {
-          if (
-            !(prof.id_departement === undefined) &&
-            !(prof.id_departement === "")
-          ) {
-            setProfesseurs((prev) => [...prev, prof]);
-          }
-        });
-
-          response.data.forEach((prof) => {
-            if(prof._id===Departement.id_Chef){
-              setSelectedChef(prof.FullName);
-            }
-          setSelectedProfs([]);
-            if(Departement.professeurs.includes(prof._id)){
-              setSelectedProfs((prev) => [...prev, prof]);
-            }
-          });
-        });
+      }
     };
-    
+  
+    fetchData();
   }, [API_DATABASE]);
+  
 
   return (
     <div>
@@ -206,12 +203,14 @@ const DepartementForm = () => {
           {" "}
           {SelectedChef}{" "}
         </button>
-        <ChefModal
-          IsOpen={ChefModalIsOpen}
-          toggleModal={handleChefModal}
-          professeurs={SelectedProfs}
-          handleChefSelection={handleChefSelection}
-        ></ChefModal>
+        {SelectedProfs.length > 0 && (
+  <ChefModal
+    IsOpen={ChefModalIsOpen}
+    toggleModal={handleChefModal}
+    professeurs={SelectedProfs}
+    handleChefSelection={handleChefSelection}
+  />
+)}
 
         <br />
         <button
@@ -221,6 +220,8 @@ const DepartementForm = () => {
         >
           Modifier
         </button>
+        <button onClick={()=>{console.log(SelectedProfs)} } className="form-button">Test</button>
+        
       </div>
     </div>
   );

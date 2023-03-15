@@ -28,6 +28,9 @@ export default function DepartModal({
         <button className="close-modal" onClick={toggleModal}>
           CLOSE
         </button>
+        <button className="Deselect-modal" onClick={() => handleDepartementSelection(null)}>
+          Aucun
+        </button>
       </div>
     </div>,
     document.getElementById("portal")

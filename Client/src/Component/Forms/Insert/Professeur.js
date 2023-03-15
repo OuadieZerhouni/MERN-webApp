@@ -77,6 +77,12 @@ const ProfesseurForm = () => {
   };
 
   const handleDepartementSelection = (Depart) => {
+    if(Depart===null){
+      setSelectedDepart("Not Selected");
+      setProfesseurDepartement("");
+      setDepartModalIsOpen(false);
+      return;
+    }
     setSelectedDepart(Depart.Nom);
     setProfesseurDepartement(Depart._id);
     setDepartModalIsOpen(false);
