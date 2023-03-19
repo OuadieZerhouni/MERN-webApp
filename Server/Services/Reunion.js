@@ -56,45 +56,56 @@ exports.getPV=async(id_reunion)=>{
     exports.removeByDepartement = async function (id_departement) {
     return await Reunion.deleteMany({ id_departement: id_departement });
 }
+    exports.removeProf=async(id_prof)=>{
+    return await Reunion.updateMany(
+        { prof_present: id_prof },
+        { $pull: { prof_present: id_prof } }
+    );
+}
 
-/* PVs */
+
+/* PV */
    exports.AddPV = async function (id, value) {
     return await Reunion.findByIdAndUpdate(id, {
-        $addToSet: { PVs: value },
+        $addToSet: { PV: value },
     });
 }
    exports.RemovePV = async function (id, value) {
     return await Reunion.findByIdAndUpdate(id, {
-        $pull: { PVs: value },
+        $pull: { PV: value },
     });
 }
    exports.UpdatePV  = async function (id, id_pv, value) {
     return await Reunion.updateOne(
-        { _id: id, "PVs._id": id_pv },
-        { $set: { "PVs.$": value } }
+        { _id: id, "PV._id": id_pv },
+        { $set: { "PV.$": value } }
     );
 }
-   exports.getCommentsByPV = async function (id_reunion, id_pv) {
-    return await Reunion.find(
-        { _id: id_reunion, "PVs._id": id_pv },
-        { "PVs.$": 1 }
-    );}
-   exports.AddComment = async function (id_reunion, id_pv, value) {
+exports.getCommentsByReunion = async function (id_reunion) {
+    const _reunion =await Reunion.findOne(
+        { _id: id_reunion }
+    );
+    return _reunion.PV.comments
+}
+
+exports.AddComment = async function (id_reunion, value) {
     return await Reunion.updateOne(
-        { _id: id_reunion, "PVs._id": id_pv },
-        { $addToSet: { "PVs.$.comments": value } }
+        { _id: id_reunion },
+        { $addToSet: { "PV.comments": value } }
     );
 }
-   exports.RemoveComment = async function (id_reunion, id_pv,id_comment) {
+
+exports.RemoveComment = async function (id_reunion, id_comment) {
     return await Reunion.updateOne(
-        { _id: id_reunion, "PVs._id": id_pv },
-        { $pull: { "PVs.$.comments": { _id: id_comment } } }
+        { _id: id_reunion },
+        { $pull: { "PV.comments": { _id: id_comment } } }
     );
 }
-   exports.UpdateComment = async function (id_reunion, id_pv, id_comment, value) {
+
+exports.UpdateComment = async function (id_reunion, id_comment, value) {
     return await Reunion.updateOne(
-        { _id: id_reunion, "PVs._id": id_pv, "PVs.comments._id": id_comment },
-        { $set: { "PVs.$.comments.$": value } }
+        { _id: id_reunion, "PV.comments._id": id_comment },
+        { $set: { "PV.comments.$": value } }
     );
 }
 

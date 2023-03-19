@@ -1,7 +1,6 @@
 const express=require('express');
 const router = express.Router();
 
-const verifyToken=require('../util/verification').verifyToken;
 
 const FiliereRouter=require('../Routes/Filiere');
 const OptionRouter=require('../Routes/Option');
@@ -16,7 +15,6 @@ const PostRouter=require('../Routes/Post');
 
 
 router.use('/post',PostRouter);
-router.use(verifyToken);
 
 router.use('/filieres',FiliereRouter);
 router.use('/options',OptionRouter);

@@ -3,8 +3,8 @@ const router = express.Router();
 const Departement = require('../Services/Departement');
 const Professeur = require('../Services/Professeur');
 const { body, validationResult } = require('express-validator');
-const AdminVerify = require('../util/verification').AdminVerify;
-const AdminChefVerify = require('../util/verification').AdminChefVerifyDepart;
+const { AdminVerify, AdminChefVerifyDepart, verifyToken } = require('../util/verification');
+
 // Create a departement
 router.post('/', AdminVerify, [
   body('Nom').notEmpty().withMessage('Nom is required'),
@@ -17,12 +17,10 @@ router.post('/', AdminVerify, [
     }
 
     const departement = await Departement.insert(req.body);
-    req.body.professeurs.forEach(async (prof) => {
-      await Professeur.setIdDepartement(prof, departement._id);
-    });
+    await Promise.all(req.body.professeurs.map((prof) => Professeur.setIdDepartement(prof, departement._id)));
     res.status(201).json(departement);
   } catch (error) {
-    console.error(err.message);
+    console.error(error.message);
     res.status(500).send('Server Error');
   }
 });
@@ -33,7 +31,7 @@ router.get('/', async (req, res) => {
     const departements = await Departement.getAll();
     res.status(200).json(departements);
   } catch (error) {
-    console.error(err.message);
+    console.error(error.message);
     res.status(500).send('Server Error');
   }
 });
@@ -47,7 +45,7 @@ router.get('/:id', async (req, res) => {
     }
     res.status(200).json(departement);
   } catch (error) {
-    console.error(err.message);
+    console.error(error.message);
     res.status(500).send('Server Error');
   }
 });
@@ -61,34 +59,33 @@ router.get('/search', async (req, res) => {
     }
     res.status(200).json(departement);
   } catch (error) {
-    console.error(err.message);
+    console.error(error.message);
     res.status(500).send('Server Error');
   }
 });
 
+router.use(verifyToken);
+
 // Update a departement
-router.put('/:id', AdminChefVerify, [
+router.put('/:id', AdminChefVerifyDepart, [
   body('Nom').notEmpty().withMessage('Nom is required'),
   body('professeurs').notEmpty().withMessage('professeurs is required'),
 ], async (req, res) => {
   try {
-    const { params: {id }, body: { professeurs } } = req;
+    const { id } = req.params;
+    const { professeurs } = req.body;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-    
+
     const oldDepartement = await Departement.getById(id);
     const oldProfesseurs = oldDepartement.professeurs;
     const removedProfesseurs = oldProfesseurs.filter((prof) => !professeurs.includes(prof));
     const addedProfesseurs = professeurs.filter((prof) => !oldProfesseurs.includes(prof));
-    await Promise.all(removedProfesseurs.map(async (prof) => {
-      await Professeur.setIdDepartement(prof, null);
-    }));
-    await Promise.all(addedProfesseurs.map(async (prof) => {
-      await Professeur.setIdDepartement(prof, id);
-    }));
-  
+    await Promise.all(removedProfesseurs.map((prof) => Professeur.setIdDepartement(prof, null)));
+    await Promise.all(addedProfesseurs.map((prof) => Professeur.setIdDepartement(prof, id)));
+
     const departement = await Departement.update(id, { ...req.body });
     if (!departement) {
       return res.status(404).json({ message: 'Departement not found' });
@@ -104,24 +101,16 @@ router.put('/:id', AdminChefVerify, [
 // Delete a departement by ID
 router.delete('/:id', AdminVerify, async (req, res) => {
   try {
-    //get all professeurs and delete them 
-    const old_departement = await Departement.getById(req.params.id);
+    const { id } = req.params;
+    const departement = await Departement.getById(id);
     if (!departement) {
       return res.status(404).json({ message: 'Departement not found' });
     }
-    departement.professeurs.forEach(async (prof) => {
-      await Professeur.setIdDepartement(prof, null);
-    });
-
-
-
-    const departement = await Departement.remove(req.params.id);
-    if (!departement) {
-      return res.status(404).json({ message: 'Departement not found' });
-    }
+    await Promise.all(departement.professeurs.map((prof) => Professeur.setIdDepartement(prof, null)));
+    await Departement.remove(id);
     res.status(200).json({ message: 'Departement deleted successfully' });
   } catch (error) {
-    console.error(err.message);
+    console.error(error.message);
     res.status(500).send('Server Error');
   }
 });

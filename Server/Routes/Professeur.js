@@ -4,9 +4,13 @@ const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const Professeur = require("../Services/Professeur");
 const Departement = require("../Services/Departement");
+const FiliereService = require("../Services/Filiere");
+const ReunionService = require("../Services/Reunion");
+
 const {
   AdminChefVerifyProfInsert,
   AdminChefVerifyProfDelete,
+  verifyToken,
 } = require("../util/verification");
 
 // Get all professeurs
@@ -15,8 +19,20 @@ router.get("/", async (req, res) => {
     const professeurs = await Professeur.getAll();
     res.send(professeurs);
   } catch (error) {
-    console.log(error);
-    res.status(500).send("Server error");
+    console.error(error);
+    res.status(500).send({ message: "Failed to get professeurs" });
+  }
+});
+
+//get professeur by deparetement id
+router.get("/departement/:id", async (req, res) => {
+  try {
+    const professeurs = await Professeur.getByDepartement(req.params.id);
+    console.log(professeurs);
+    res.send(professeurs);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Failed to get professeurs by department id" });
   }
 });
 
@@ -24,13 +40,15 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const professeur = await Professeur.getById(req.params.id);
-    if (!professeur) return res.status(404).send("Professeur not found");
+    if (!professeur) return res.status(404).send({ message: "Professeur not found" });
     res.send(professeur);
   } catch (error) {
-    console.log(error);
-    res.status(500).send("Server error");
+    console.error(error);
+    res.status(500).send({ message: "Failed to get professeur by id" });
   }
 });
+
+router.use(verifyToken);
 
 // Insert a new professeur
 router.post(
@@ -59,11 +77,12 @@ router.post(
         Departement.addProfesseur(req.body.id_departement, professeur._id);
       res.send(professeur);
     } catch (error) {
-      console.log(error);
-      res.status(500).send("Server error");
+      console.error(error);
+      res.status(500).send({ message: "Failed to insert a new professeur" });
     }
   }
 );
+
 router.put(
   "/:id",
   AdminChefVerifyProfInsert,
@@ -85,7 +104,7 @@ router.put(
       );
 
       if (!updatedProfesseur) {
-        return res.status(404).send("Professeur not found");
+        return res.status(404).send({ message: "Professeur not found" });
       }
 
       //check if departement changed
@@ -106,7 +125,7 @@ router.put(
       res.send(updatedProfesseur);
     } catch (error) {
       console.error(error);
-      res.status(500).send("Server error");
+      res.status(500).send({ message: "Failed to update professeur data" });
     }
   }
 );
@@ -115,26 +134,15 @@ router.put(
 router.delete("/:id", AdminChefVerifyProfDelete, async (req, res) => {
   try {
     const professeur = await Professeur.getById(req.params.id);
-    if (!professeur) return res.status(404).send("Professeur not found");
-    Departement.removeProfesseur(professeur.id_departement, professeur._id);
-    await Professeur.remove(req.params.id);
+    if (!professeur) return res.status(404).send({ message: "Professeur not found" });
+
+    await Professeur.delete(req.params.id);
     res.send({ message: "Professeur deleted successfully" });
   } catch (error) {
-    console.log(error);
-    res.status(500).send("Server error");
+    console.error(error);
+    res.status(500).send({ message: "Failed to delete professeur" });
   }
-});
-
-//get professeur by deparetement id
-router.get("/departement/:id", async (req, res) => {
-  try {
-    const professeurs = await Professeur.getByDepartement(req.params.id);
-    console.log(professeurs);
-    res.send(professeurs);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Server error");
-  }
-});
+}
+);
 
 module.exports = router;

@@ -8,7 +8,10 @@ const pdfToImages = require("../util/ToPDF").pdfToImages;
 const AdminChefVerifyProfInsert = require('../util/verification').AdminChefVerifyProfInsert;
 const AdminChefVerifyReunionDelete = require('../util/verification').AdminChefVerifyReunionDelete;
 const jwt = require('jsonwebtoken');
+const { verifyToken } = require('../util/verification');
 
+
+router.use(verifyToken)
 // GET all reunions
 router.get('/', async (req, res) => {
   try {
@@ -149,6 +152,9 @@ router.delete('/:id', AdminChefVerifyReunionDelete, async (req, res) => {
 // POST a comment
 router.post('/:id/comments', async (req, res) => {
   try{
+    console.log("564"+req.body.comment);
+    req.body.comment.professeur = jwt.decode(req.headers.authorization.split(' ')[1]).user;
+    req.body.comment.date_comment  = new Date().toISOString();
     const comment = await Reunion.AddComment(req.params.id, req.body.comment);
     res.status(201).send(comment);
   }catch (err) {
@@ -159,19 +165,21 @@ router.post('/:id/comments', async (req, res) => {
 
 // GET all comments for a reunion PV
 router.get('/:id/comments', async (req, res) => {
-  try{
-    const comment = await Reunion.getCommentsByPV(req.params.id, req.query.pv_id);
-    res.send(comment);
-  }catch (err) {
-    console.log(err );
-    res.status(500).send({error:"Loading Comments Failed"});
+  try {
+    const comments = await Reunion.getCommentsByReunion(req.params.id);
+    const user = jwt.decode(req.token).user;
+   
+    res.status(200).send({comments:comments, user:user});
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ error: "Loading Comments Failed" });
   }
 });
 
 // DELETE a comment
-router.delete('/:id/comments', async (req, res) => {
+router.delete('/:id/comments/:comment_id', async (req, res) => {
   try{
-    const comment = await Reunion.RemoveComment(req.params.id, req.query.pv_id, req.query.comment_id);
+    const comment = await Reunion.RemoveComment(req.params.id, req.params.comment_id);
     res.status(200).send(comment);
   }catch (err) {
     console.log(err);

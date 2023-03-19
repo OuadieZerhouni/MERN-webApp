@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../CSS/ComponentCSS/PDFReader.css";
+import CommentSection from "./Comment";
 
 function EmploiReader() {
   const [numPages, setNumPages] = useState(null);
@@ -31,24 +32,25 @@ function EmploiReader() {
         console.error(error);
       });
   }, [API_DATABASE, numPages]);
+
   return (
     <div className="Container">
       <a href={Download} className="Download-Link">
         Download
       </a>
-    <div className="PDF-container">
-      
-      <div className="PDF-pages">
-        {images.map((image, index) => (
-          <img
-            className="Page-pdf"
-            key={index}
-            src={image}
-            alt="Emploi du temps"
-          />
-        ))}
+      <div className="PDF-container">
+        <div className="PDF-pages">
+          {images.map((image, index) => (
+            <img
+              className="Page-pdf"
+              key={index}
+              src={image}
+              alt="Emploi du temps"
+            />
+          ))}
+        </div>
       </div>
-    </div>
+      <CommentSection token={localStorage.getItem("token")} />
     </div>
   );
 }

@@ -7,7 +7,8 @@ import DataTable from "../DataTable/AdminDataTable";
 
 
 
-export default function Home() {
+export default function Dashboard() {
+  console.log("sdqsdqd"+localStorage.getItem("departement"));
     
   return (
     <div className="Dash-cont">

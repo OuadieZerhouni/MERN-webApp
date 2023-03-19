@@ -1,13 +1,14 @@
 import './CSS/App.css';
-import { Route, Routes,BrowserRouter as Router,useNavigate } from "react-router-dom";
+import { Route, Routes,BrowserRouter as Router } from "react-router-dom";
 
-import {withAuth, userAuth,adminChefAuth} from './Auth/Auth';
+import { userAuth,adminChefAuth,withAuth} from './Auth/Auth';
 
 
 
 import Header from './Component/Header';
 import Home from './Component/HomePage/Home';
 import Login from './Auth/Login';
+import Redirect from './Auth/redirect';
 import AdminDashboard from './Component/Dashboard/AdminDashboard';
 import ChefDashboard from './Component/Dashboard/ChefDashboard';
 import ProfDashboard from './Component/Dashboard/ProfDashboard';
@@ -36,6 +37,7 @@ import EmploiTempsViewer from './Component/FileReaders/EmploiPage';
 
 
 
+
 const WithAuthDashboard = userAuth(AdminDashboard, ChefDashboard, ProfDashboard);
 
 
@@ -45,6 +47,7 @@ const WithAuthReunionForm = adminChefAuth(InsérerReunionForm);
 const WithAuthProfesseur = adminChefAuth(InsérerProfesseurForm);
 const WithAuthOption = adminChefAuth(InsérerOptionForm);
 const WithAuthPost = adminChefAuth(IndérerPostForm);
+const WithAutPVviewer= withAuth(PVviewer);
 
 const WithAuthModifyDepartment = adminChefAuth(ModifyDepartmentForm);
 const WithAuthModifyFiliere = adminChefAuth(ModifyFiliereForm);
@@ -82,8 +85,9 @@ function App() {
 
           <Route path="/Dashboard" element={<WithAuthDashboard />} />
           <Route path="/Login" element={<Login />} />
+          <Route path="/redirect" element={<Redirect />} />
 
-          <Route path="/PV/:id" element={<PVviewer />} />
+          <Route path="/PV/:id" element={<WithAutPVviewer />} />
           <Route path="/Emploi_temps/:id" element={<EmploiTempsViewer />} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>

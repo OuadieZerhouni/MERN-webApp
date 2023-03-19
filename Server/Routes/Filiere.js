@@ -3,26 +3,10 @@ const express = require('express');
 const { body, validationResult } = require('express-validator');
 const router = express.Router();
 const Filiere = require('../Services/Filiere');
+const verifyToken = require('../util/verification').verifyToken;
 
-// Insert a new filiere
-router.post('/', [
-  body('Nom').not().isEmpty().trim().escape(),
-  body('Description').optional({ nullable: true }).trim().escape(),
-  body('id_departement').not().isEmpty().trim().escape(),
-], async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).json({ errors: errors.array() });
-  }
 
-  try {
-    const filiere = await Filiere.insert(req.body);
-    res.status(201).json(filiere);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Server Error');
-  }
-});
+
 
 // Get all filieres
 router.get('/', async (req, res) => {
@@ -49,6 +33,9 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+router.use(verifyToken);
+
+
 // Update filiere
 router.put('/:id', [
   body('Nom').not().isEmpty().trim().escape(),
@@ -70,7 +57,24 @@ router.put('/:id', [
     res.status(500).send('Server Error');
   }
 });
+router.post('/', [
+  body('Nom').not().isEmpty().trim().escape(),
+  body('Description').optional({ nullable: true }).trim().escape(),
+  body('id_departement').not().isEmpty().trim().escape(),
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
 
+  try {
+    const filiere = await Filiere.insert(req.body);
+    res.status(201).json(filiere);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
+});
 // Delete filiere
 router.delete('/:id', async (req, res) => {
   try {

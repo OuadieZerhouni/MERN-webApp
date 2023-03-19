@@ -2,70 +2,81 @@ import axios from "axios";
 import React, { useState } from "react";
 import "../CSS/FormsCSS/Form.css";
 
+const URL = process.env.REACT_APP_proxy;
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  let URL = process.env.REACT_APP_proxy;
-  const HandleLogin = () => {
+
+  const handleLogin = () => {
     axios
-      .post(URL+"/login", {
-        email: email,
-        password: password,
+      .post(`${URL}/login`, {
+        email,
+        password,
       })
       .then((res) => {
-        if (res.data["error"]) {
-          document.getElementById("error").innerHTML = res.data["error"];
+        if (res.data.error) {
+          setError(res.data.error);
         } else {
-          localStorage.setItem("token", res.data["token"]);
-          const depart=(JSON.stringify(res.data.depart));
-          if(res.data.depart)
-            localStorage.setItem("departement", depart);
+          localStorage.setItem("token", res.data.token);
+          if (res.data.depart) {
+            localStorage.setItem("departement", JSON.stringify(res.data.depart));
+          }
           window.location.href = "/Dashboard";
-          
         }
       });
   };
-  const CheckEmail = (_email) => {
+
+  const checkEmail = (_email) => {
     const emailRegex =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!emailRegex.test(_email)) {
-      document.getElementById("error").innerHTML = "Email is not valid!";
+      setError("Email is not valid!");
     } else {
-      document.getElementById("error").innerHTML = "";
+      setError("");
     }
   };
 
   return (
     <div className="form">
-        <h3>Log-in</h3>
-        <label htmlFor="email" className="form-label">
-          Email :
-        </label>
-        <input
-          type="email"
-          placeholder="Email"
-          className="form-input"
-          onChange={(e) => setEmail(e.target.value)}
-          onBlur={(e) => CheckEmail(e.target.value)}
-        />
+      <h3>Log-in</h3>
+      <label htmlFor="email" className="form-label">
+        Email :
+      </label>
+      <input
+        type="email"
+        placeholder="Email"
+        className="form-input"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        onBlur={(e) => checkEmail(e.target.value)}
+      />
 
-        <label htmlFor="password" className="form-label">
-          Password :
-        </label>
-        <input
-          type="password"
-          placeholder="Password"
-          className="form-input"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button className="form-button" type="button" onClick={HandleLogin}>
-          Log In
+      <label htmlFor="password" className="form-label">
+        Password :
+      </label>
+      <input
+        type="password"
+        placeholder="Password"
+        className="form-input"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button className="form-button" type="button" onClick={handleLogin}>
+        Log In
+      </button>
+      {error && <p className="Error">{error}</p>}
+   
+      <a href={`${URL}/google`}>
+        <button type="button">
+          <img
+            src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png"
+            alt="Sign in"
+          />
         </button>
-        <p id="error" className="Error"></p>
-        {/* <button className="loginRegisterButton">
-                            <Link className="link" to="/register">Create a New Account</Link>
-                        </button> */}
+      </a>
     </div>
   );
 }
