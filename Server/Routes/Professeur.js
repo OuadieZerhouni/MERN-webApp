@@ -65,7 +65,7 @@ router.post(
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       }
-
+      req.body.email = req.body.email.toLowerCase();
       let _professeur = await Professeur.getByEmail(req.body.email);
       if (_professeur)
         return res.status(400).send({ message: "Email already exists" });

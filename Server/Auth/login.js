@@ -13,14 +13,16 @@ app.post("/", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await Professeur.getByEmail(email);
-    const admin = await Admin.getByEmail(email);
-
+    const user = await Professeur.getByEmail(email.toLowerCase());
+    const admin = await Admin.getByEmail(email.toLowerCase());
     if (!user && !admin) {
       throw new Error("Email not found");
     }
 
-    const match = await bcrypt.compare(password, user?.password || admin?.password || '');
+    const match = await bcrypt.compare(
+      password,
+      user?.password || admin?.password || ""
+    );
 
     if (!match) {
       throw new Error("Invalid password");
@@ -33,7 +35,11 @@ app.post("/", async (req, res) => {
     } else {
       depart = await Departement.IsChef(user._id);
       token = jwt.sign(
-        { role: depart ? "chef" : "prof", user: user._id, departement: depart?._id },
+        {
+          role: depart ? "chef" : "prof",
+          user: user._id,
+          departement: depart?._id,
+        },
         process.env.SECRET_KEY
       );
     }

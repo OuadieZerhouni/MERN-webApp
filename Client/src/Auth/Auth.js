@@ -17,7 +17,7 @@ export function userAuth(AdminComponent, ChefComponent, ProfComponent){
             proxy + "/auth",
             {},
             {
-              headers: { Authentication: `Bearer ${token}` },
+              headers: { authorization: `Bearer ${token}` },
             }
           )
           .then((response) => {
@@ -66,7 +66,7 @@ export function withAuth(Component) {
         proxy + "/auth",
         {},
         {
-          headers: { Authentication: `Bearer ${token}` },
+          headers: { authorization: `Bearer ${token}` },
         }
       )
       .then((response) => {
@@ -100,7 +100,7 @@ export function adminChefAuth(Component) {
         proxy + "/auth",
         {},
         {
-          headers: { Authentication: `Bearer ${token}` },
+          headers: { authorization: `Bearer ${token}` },
         }
       )
       .then((response) => {

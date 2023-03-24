@@ -11,16 +11,17 @@ exports.AdminVerify = async (req, res, next) => {
       throw new Error("No token provided");
     }
 
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
 
     if (!decodedToken || decodedToken.role !== "admin") {
       throw new Error("Not authorized");
     }
 
-    req.user = await Services.getProfesseurById(decodedToken.profId);
+    req.user = await ProfesseurService.getById(decodedToken.profId);
 
     next();
   } catch (error) {
+    console.log(error);
     res.status(401).json({ error: error.message });
   }
 };

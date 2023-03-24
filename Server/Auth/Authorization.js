@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const profService = require("../Services/Professeur");
 
 router.post("/", async (req, res) => {
-    const bearer = req.headers["authentication"].split(" ")
+    const bearer = req.headers["authorization"].split(" ")
     const token = bearer[1] || bearer[0];
 
 

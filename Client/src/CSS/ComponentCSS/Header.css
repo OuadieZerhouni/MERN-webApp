@@ -1,3 +1,4 @@
+/* Desktop styles */
 header {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
                 "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -17,14 +18,15 @@ header {
   color: white;
 }
 
-.logo-container{
-  font-family:'Exo 2'!important;
+.logo-container {
+  font-family: 'Exo 2'!important;
   font-size: 2.8rem;
   align-items: center;
   text-decoration: none;
   padding-left: 20px;
   color: inherit;
 }
+
 header img {
   height: 50px;
 }
@@ -37,10 +39,13 @@ header img {
   margin-right: 2%;
   padding: 0;
 }
+
 .header-list {
   position: relative;
 }
-.header-list a , .header-list button {
+
+.header-list a,
+.header-list button {
   text-decoration: none;
   color: inherit;
   display: inline-block;
@@ -51,14 +56,13 @@ header img {
   cursor: pointer;
   transition: 500ms;
   margin: 0 20px;
-  padding: auto;
   border: none;
   background-color: transparent;
   font-family: inherit;
   font-size: inherit;
   font-style: inherit;
-
 }
+
 .header-list a::after {
   content: "";
   position: absolute;
@@ -74,10 +78,10 @@ header img {
 .header-list a:hover::after {
   width: 80%;
 }
+
 .header-list a:hover {
   color: #922424;
 }
-
 
 .header-list button::after {
   content: "";
@@ -94,6 +98,76 @@ header img {
 .header-list button:hover::after {
   width: 80%;
 }
+
 .header-list button:hover {
   color: #922424;
+}
+
+/* Tablet styles */
+/* Tablet styles */
+@media only screen and (max-width: 768px) {
+  .logo-container {
+    font-size: 2rem;
+    padding-left: 10px;
+  }
+  .ul-header {
+    display: none;
+  }
+
+  .menu-btn {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 20px;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+  }
+
+  .menu-btn__line {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+    margin-bottom: 5px;
+    transition: transform 250ms ease-in-out;
+  }
+
+  .menu-btn__line:last-child {
+    margin-bottom: 0;
+  }
+
+  .menu-btn:hover .menu-btn__line:nth-child(1) {
+    transform: translateY(-2px);
+  }
+
+  .menu-btn:hover .menu-btn__line:nth-child(3) {
+    transform: translateY(2px);
+  }
+
+  .menu-btn:not(.open) .menu-btn__line:nth-child(1) {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  .menu-btn:not(.open) .menu-btn__line:nth-child(2) {
+    opacity: 1;
+  }
+
+  .menu-btn:not(.open) .menu-btn__line:nth-child(3) {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  .menu-btn.open .menu-btn__line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .menu-btn.open .menu-btn__line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-btn.open .menu-btn__line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
 }

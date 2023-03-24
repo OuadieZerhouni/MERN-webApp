@@ -9,25 +9,32 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+const handleLogin = () => {
+  axios
+    .post(`${URL}/login`, {
+      email,
+      password,
+    })
+    .then((res) => {
+      setError(res.data);
 
-  const handleLogin = () => {
-    axios
-      .post(`${URL}/login`, {
-        email,
-        password,
-      })
-      .then((res) => {
-        if (res.data.error) {
-          setError(res.data.error);
-        } else {
-          localStorage.setItem("token", res.data.token);
-          if (res.data.depart) {
-            localStorage.setItem("departement", JSON.stringify(res.data.depart));
-          }
-          window.location.href = "/Dashboard";
+      if (res.data.error) {
+      } else {
+        localStorage.setItem("token", res.data.token);
+        if (res.data.depart) {
+          localStorage.setItem(
+            "departement",
+            JSON.stringify(res.data.depart)
+          );
         }
-      });
-  };
+        window.location.href = "/Dashboard";
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      setError(err.response.data.error);
+    });
+};
 
   const checkEmail = (_email) => {
     const emailRegex =
@@ -68,7 +75,7 @@ export default function Login() {
         Log In
       </button>
       {error && <p className="Error">{error}</p>}
-   
+
       <a href={`${URL}/google`}>
         <button type="button">
           <img
