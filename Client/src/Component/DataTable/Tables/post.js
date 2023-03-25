@@ -11,7 +11,7 @@ function DepartementTable({
   ShowInfo,
 }) {
   return (
-    <>
+    <div className="table-container">
       {activeTab === "posts" && (
         <>
           {IsAdmin || _departement ? (
@@ -56,15 +56,15 @@ function DepartementTable({
                   </td>
 
                   <td>{post.date.substring(0, 10)}</td>
-                  <td>
-                    <Link to={post.image} target="_blank">
-                      <img
-                        src={post.image}
-                        alt="image"
-                        style={{ height: "50px" }}
-                      />
-                    </Link>
-                  </td>
+                <td>
+                  <Link to={post.image} target="_blank">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      style={{ height: "50px" }}
+                    />
+                  </Link>
+                </td>
                   {post._id === _departement["_id"] || IsAdmin ? (
                     <td>
                       {IsAdmin ? (
@@ -90,7 +90,7 @@ function DepartementTable({
           </table>
         </>
       )}
-    </>
+    </div>
   );
 }
 

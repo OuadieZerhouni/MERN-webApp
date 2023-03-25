@@ -16,7 +16,7 @@ function FiliereComponent({
   const [showOptions, setShowOptions] = useState({});
 
   return (
-    <>
+    <div className="table-container">
       {activeTab === "filiere" && (
         <>
           {IsAdmin || _departement ? (
@@ -175,7 +175,7 @@ function FiliereComponent({
           </table>
         </>
       )}
-    </>
+    </div>
   );
 }
 

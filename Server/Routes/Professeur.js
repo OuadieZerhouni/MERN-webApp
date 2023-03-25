@@ -96,6 +96,7 @@ router.put(
       if (req.body.password) {
         req.body.password = await bcrypt.hash(req.body.password, 10);
       }
+      req.body.email = req.body.email.toLowerCase();
       const oldprofesseur = await Professeur.getById(req.params.id);
       const updatedProfesseur = await Professeur.update(
         req.params.id,

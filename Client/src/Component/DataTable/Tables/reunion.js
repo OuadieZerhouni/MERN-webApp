@@ -11,7 +11,7 @@ function Reunion({
   IsAdmin = false,
 }) {
   return (
-    <>
+    <div className="table-container">
       {activeTab === "reunions" && (
         <>
           {IsAdmin || _departement ? (
@@ -90,7 +90,7 @@ function Reunion({
           </table>
         </>
       )}
-    </>
+    </div>
   );
 }
 

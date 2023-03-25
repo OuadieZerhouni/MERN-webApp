@@ -9,7 +9,7 @@ import ProfTable from "./Tables/professeur";
 import ReunionTable from "./Tables/reunion";
 import PostTable from "./Tables/post";
 
-const DataTable = () => {
+const DataTable = ({Prof}) => {
   const [activeTab, setActiveTab] = useState("departements");
   const [departements, setDepartements] = useState([]);
   const [filieres, setFilieres] = useState([]);
@@ -310,7 +310,6 @@ const DataTable = () => {
   return (
     <div className="DataTable">
                 <InfoData IsOpen={PortalOpen} toggleModal={togglePortal} title={Showedtitle} description={ShowedDesc} />
-
       <div className="tabs">
         <div
           className={`tab ${activeTab === "departements" ? "active" : ""}`}
@@ -343,6 +342,11 @@ const DataTable = () => {
           Posts
         </div>
       </div>
+      <div className="prof-info">
+        <p>Nom : {Prof.FullName}</p>
+        <p>email : {Prof.email}</p>
+        <p>Grade : {Prof.grade}</p>
+        </div>
       <div className="tab-content">
         <DepartTable
           activeTab={activeTab}

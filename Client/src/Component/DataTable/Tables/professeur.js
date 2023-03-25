@@ -9,7 +9,7 @@ function ProfesseursTable({
   IsAdmin,
 }) {
   return (
-    <>
+    <div className="table-container">
       {activeTab === "professeurs" && (
         <>
           {IsAdmin || _departement ? (
@@ -62,7 +62,7 @@ function ProfesseursTable({
           </table>
         </>
       )}
-    </>
+    </div>
   );
 }
 

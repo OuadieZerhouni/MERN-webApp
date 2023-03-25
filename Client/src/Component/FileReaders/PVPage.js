@@ -34,10 +34,12 @@ function EmploiReader() {
   }, [API_DATABASE, numPages]);
 
   return (
-    <div className="Container">
+    <div>
       <a href={Download} className="Download-Link">
         Download
       </a>
+    <div className="Container">
+ 
       <div className="PDF-container">
         <div className="PDF-pages">
           {images.map((image, index) => (
@@ -50,8 +52,9 @@ function EmploiReader() {
           ))}
         </div>
       </div>
+
       <CommentSection token={localStorage.getItem("token")} />
-    </div>
+    </div></div>
   );
 }
 

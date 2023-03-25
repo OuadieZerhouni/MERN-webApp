@@ -5,17 +5,12 @@ import DataTable from "../DataTable/ChefDataTable";
 
 
 
-export default function Dashboard(Prof) {
-    Prof = Prof.Prof;
+export default function Dashboard({Prof}) {
   return (
     <div className="Dash-cont">
-     <div className="prof-info">
-        <p>Nom : {Prof.FullName}</p>
-        <p>email : {Prof.email}</p>
-        <p>Grade : {Prof.grade}</p>
-        </div>
+    
    
-      <DataTable />
+      <DataTable Prof={Prof} />
     </div>
   );
 }
