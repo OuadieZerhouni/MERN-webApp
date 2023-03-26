@@ -6,6 +6,7 @@ export default function Departement(){
 
     const API_Database = process.env.REACT_APP_API_DATABASE;
 
+    
     React.useEffect(() => {
         axios.get(`${API_Database}/departements`,{},
         {headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }})

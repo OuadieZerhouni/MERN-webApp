@@ -33,9 +33,7 @@ render() {
       <li className="header-list">
         <Link to="/departments">Departements</Link>
       </li>
-      <li className="header-list">
-        <Link to="/filiere">Filières</Link>
-      </li>
+
       {localStorage.getItem("token") && (
         <li className="header-list">
           <button onClick={this.Logout}>Log-out</button>

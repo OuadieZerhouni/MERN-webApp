@@ -26,6 +26,7 @@ export default function Home() {
         <div className="second-div">
           <Departement />
           <Post />
+           {/* here plac ehte footer */}
         </div>
       </div>
     </div>
