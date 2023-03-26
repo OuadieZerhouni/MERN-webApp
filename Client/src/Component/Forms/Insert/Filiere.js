@@ -4,23 +4,25 @@ import DepartModal from "../Portal/DepartModal";
 import CoordinateurModal from "../Portal/ChefModal";
 
 const FiliereForm = () => {
-  const [filiereNom, setFiliereNom] = useState("");
-  const [filiereDescription, setFiliereDescription] = useState("");
-  const [filiereDateCreation, setFiliereDateCreation] = useState("");
-  const [filiereDepartement, setFiliereDepartement] = useState("");
-  const [filiereEffectif, setFiliereEffectif] = useState("");
-  const [filiereCoordinateur, setFiliereCoordinateur] = useState("");
-
+  const [filiere, setFiliere] = useState({
+    Nom: "",
+    Description: "",
+    Date_Creation: "",
+    Effectif: "",
+    id_departement: "",
+    id_coordinateur: "",
+  });
   const [SelectedDepart, setSelectedDepart] = useState("Not Selected");
   const [SelectedCoordinateur, setSelectedCoordinateur] = useState("Not Selected");
-
   const [Departements, setDepartements] = useState([]);
   const [Professeurs, setProfesseurs] = useState([]);
-
-  const [DepartModatIsOpen, setDepartModalIsOpen] = useState(false);
+  const [DepartModalIsOpen, setDepartModalIsOpen] = useState(false);
   const [CoordinateurModalIsOpen, setCoordinateurModalIsOpen] = useState(false);
 
-  let API_DATABASE = process.env.REACT_APP_API_DATABASE;
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 25 }, (_, i) => currentYear - i);
+
+  const API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
   const handleInsertFiliere = () => {
     if (SelectedDepart === "Not Selected") {
@@ -32,27 +34,19 @@ const FiliereForm = () => {
       return;
     }
     if (
-      filiereNom === "" ||
-      filiereDescription === "" ||
-      filiereDateCreation === "" ||
-      filiereEffectif === ""
+      filiere.Nom === "" ||
+      filiere.Description === "" ||
+      filiere.Date_Creation === "" ||
+      filiere.Effectif === ""
     ) {
       alert("Please Fill All Fields");
       return;
     }
     axios
-      .post(API_DATABASE + "/filieres", 
-        {
-          Nom: filiereNom,
-          Description: filiereDescription,
-          Date_Creation: filiereDateCreation,
-          Effectif: filiereEffectif,
-          id_coordinateur: filiereCoordinateur,
-          id_departement: filiereDepartement,
-        },
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
+      .post(
+        API_DATABASE + "/filieres",
+        filiere,
+        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       )
       .then((response) => {
         console.log(response);
@@ -62,34 +56,28 @@ const FiliereForm = () => {
         console.error(error);
       });
   };
-  /*hanle departModal*/
+
   const handleDepartModal = () => {
-    setDepartModalIsOpen(!DepartModatIsOpen);
+    setDepartModalIsOpen(!DepartModalIsOpen);
   };
 
-  const handleDepartementSelection = (Depart) => {
-    setSelectedDepart(Depart.Nom);
-    setFiliereDepartement(Depart._id);
+  const handleDepartementSelection = (depart) => {
+    setSelectedDepart(depart.Nom);
+    setFiliere({ ...filiere, id_departement: depart._id, id_coordinateur: "" });
     setSelectedCoordinateur("Not Selected");
-    setFiliereCoordinateur("");
+    setCoordinateurModalIsOpen(false);
     setDepartModalIsOpen(false);
   };
 
-  /*handle coordinateurModal*/
   const handleCoordinateurModal = () => {
     if (SelectedDepart === "Not Selected") {
       alert("Please Select Departement First");
       return;
     } else {
       axios
-        .get(API_DATABASE+"/professeurs/departement/" + filiereDepartement,
-         
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        )
+        .get(API_DATABASE + "/professeurs/departement/" + filiere.id_departement, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        })
         .then((response) => {
           if (response.data.length === 0) {
             alert("No Professeur in this Departement");
@@ -97,13 +85,16 @@ const FiliereForm = () => {
           }
           setProfesseurs(response.data);
           setCoordinateurModalIsOpen(!CoordinateurModalIsOpen);
+        })
+        .catch((error) => {
+          console.error(error);
         });
     }
   };
 
-  const handleCoordinateurSelection = (_coordinateur) => {
-    setSelectedCoordinateur(_coordinateur[1]);
-    setFiliereCoordinateur(_coordinateur[0]);
+  const handleCoordinateurSelection = (coordinateur) => {
+    setSelectedCoordinateur(coordinateur[1]);
+    setFiliere({ ...filiere, id_coordinateur: coordinateur[0] });
     setCoordinateurModalIsOpen(false);
   };
 
@@ -130,8 +121,8 @@ const FiliereForm = () => {
         className="form-input"
         type="text"
         id="filiere-nom"
-        value={filiereNom}
-        onChange={(e) => setFiliereNom(e.target.value)}
+        value={filiere.Nom}
+        onChange={(e) => setFiliere({ ...filiere, Nom: e.target.value })}
       />
       <br />
       <label htmlFor="filiere-Desc" className="form-label">
@@ -141,32 +132,41 @@ const FiliereForm = () => {
         className="form-input"
         type="text"
         id="filiere-Desc"
-        value={filiereDescription}
-        onChange={(e) => setFiliereDescription(e.target.value)}
+        value={filiere.Description}
+        onChange={(e) => setFiliere({ ...filiere, Description: e.target.value })}
       />
       <br />
       <label htmlFor="filiere-date-creation" className="form-label">
         Filiere Date Creation:
       </label>
-      <input
+      <select
         className="form-input"
-        type="Date"
         id="filiere-date-creation"
-        value={filiereDateCreation}
-        onChange={(e) => setFiliereDateCreation(e.target.value)}
-      />
+        value={filiere.Date_Creation}
+        onChange={(e) => setFiliere({ ...filiere, Date_Creation: e.target.value })}
+      >
+        <option value="" disabled>
+          Select Year
+        </option>
+        {years.map((year) => (
+          <option key={year} value={year}>
+            {year}
+          </option>
+        ))}
+      </select>
       <br />
       <label htmlFor="filiere-effectif" className="form-label">
         Filiere Effectif:
       </label>
-      <input
+      <input  
         className="form-input"
         type="number"
         id="filiere-effectif"
-        value={filiereEffectif}
-        onChange={(e) => setFiliereEffectif(e.target.value)}
+        value={filiere.Effectif}
+        onChange={(e) => setFiliere({ ...filiere, Effectif: e.target.value })}
       />
       <br />
+      
       <label htmlFor="filiere-id-departement" className="form-label">
         Filiere Id Departement:
       </label>
@@ -174,7 +174,7 @@ const FiliereForm = () => {
         {SelectedDepart}
       </button>
       <DepartModal
-        IsOpen={DepartModatIsOpen}
+        IsOpen={DepartModalIsOpen}
         toggleModal={handleDepartModal}
         Departements={Departements}
         handleDepartementSelection={handleDepartementSelection}
@@ -205,3 +205,4 @@ const FiliereForm = () => {
 };
 
 export default FiliereForm;
+     

@@ -1,3 +1,15 @@
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+:root {
+  --clr-1: #ffa200;
+  --clr-3: #be0404;
+  --clr-4: #b19797;
+  --clr-5: rgb(47 77 133);
+}
+
 .bg-cont {
   height: 100vh;
   width: 100%;
@@ -111,5 +123,68 @@
     padding-bottom: 20px;
     
 }
-    
 
+
+/* departement cards */.departement-cont {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.departement {
+  width: 300px;
+  height: 400px;
+  margin: 20px;
+  padding: 20px;
+  transition: box-shadow 0.3s ease-in-out;
+  aspect-ratio: 1 / 1.5;
+  background: #ffffff;
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+.departement::before {
+  content: "";
+  position: absolute;
+  inset: -0.5rem;
+  z-index: -1;
+  background: conic-gradient(
+    from var(--gradient-angle),
+    var(--clr-3),
+    var(--clr-4),
+    var(--clr-5),
+    var(--clr-4),
+    var(--clr-3)
+  );
+  border-radius: inherit;
+}
+
+.departement:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.departement-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.departement p {
+  font-size: 16px;
+  line-height: 1.5;
+  max-height:80%;
+  overflow: auto;
+}
+
+@keyframes rotation {
+  0% {
+    --gradient-angle: 0deg;
+  }
+  100% {
+    --gradient-angle: 360deg;
+  }
+}
+
+.departement::before {
+  animation: rotation 10s linear infinite;
+}

@@ -20,6 +20,11 @@ const FiliereForm = () => {
   const [DepartModatIsOpen, setDepartModalIsOpen] = useState(false);
   const [CoordinateurModalIsOpen, setCoordinateurModalIsOpen] = useState(false);
 
+  
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 25 }, (_, i) => currentYear - i);
+
+
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
   const handleModifyFiliere = () => {
@@ -166,16 +171,24 @@ const FiliereForm = () => {
         onChange={(e) => setFiliereDescription(e.target.value)}
       />
       <br />
-      <label htmlFor="filiere-date-creation" className="form-label">
+     <label htmlFor="filiere-date-creation" className="form-label">
         Filiere Date Creation:
       </label>
-      <input
+      <select
         className="form-input"
-        type="Date"
         id="filiere-date-creation"
         value={filiereDateCreation}
         onChange={(e) => setFiliereDateCreation(e.target.value)}
-      />
+      >
+        <option value="" disabled>
+          Select Year
+        </option>
+        {years.map((year) => (
+          <option key={year} value={year}>
+            {year}
+          </option>
+        ))}
+      </select>
       <br />
       <label htmlFor="filiere-effectif" className="form-label">
         Filiere Effectif:

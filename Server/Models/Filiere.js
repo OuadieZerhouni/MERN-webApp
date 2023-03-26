@@ -14,7 +14,7 @@ const filiereSchema = new mongoose.Schema({
     required: true
   },
   Date_Creation: {
-    type: Date,
+    type: String,
     required: true
   },
   Effectif: {

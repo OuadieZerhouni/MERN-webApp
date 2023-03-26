@@ -12,7 +12,7 @@ const DepartementSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  Date_Creation: { type: Date, required: true },
+  Date_Creation: { type: String, required: true },
   id_Chef: {
     type: String,
   },

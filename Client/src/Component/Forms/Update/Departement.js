@@ -20,6 +20,10 @@ const DepartementForm = () => {
   const [ChefModalIsOpen, setChefModalIsOpen] = useState(false);
   const [ProfModalIsOpen, setProfModalIsOpen] = useState(false);
   
+  
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 25 }, (_, i) => currentYear - i);
+
 
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
@@ -162,16 +166,24 @@ const DepartementForm = () => {
           onChange={(e) => setDepartementDescription(e.target.value)}
         />
         <br />
-        <label htmlFor="departement-date-creation" className="form-label">
-          Departement Date Creation:
-        </label>
-        <input
-          className="form-input"
-          type="Date"
-          id="departement-date-creation"
-          value={departementDateCreation}
-          onChange={(e) => setDepartementDateCreation(e.target.value)}
-        />
+        <label htmlFor="filiere-date-creation" className="form-label">
+        Filiere Date Creation:
+      </label>
+      <select
+        className="form-input"
+        id="filiere-date-creation"
+        value={departementDateCreation}
+        onChange={(e) => setDepartementDateCreation(e.target.value)}
+      >
+        <option value="" disabled>
+          Select Year
+        </option>
+        {years.map((year) => (
+          <option key={year} value={year}>
+            {year}
+          </option>
+        ))}
+      </select>
         <br />
         <label htmlFor="departement-professeurs" className="form-label">
           Departement Professeurs:
@@ -220,7 +232,6 @@ const DepartementForm = () => {
         >
           Modifier
         </button>
-        <button onClick={()=>{console.log(SelectedProfs)} } className="form-button">Test</button>
         
       </div>
     </div>
