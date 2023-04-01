@@ -5,7 +5,7 @@
 }
 :root {
   --clr-1: #ffa200;
-  --clr-3: #be0404;
+  --clr-3: #ad0c0c;
   --clr-4: #b19797;
   --clr-5: rgb(47 77 133);
 }
@@ -31,11 +31,11 @@
 }
 
 .logo-center {
- 
   box-sizing: inherit;
   margin-top: 0;
-  margin-bottom: .512em;
-  font-family: Stanford,Source Serif Pro,Georgia,Times,Times New Roman,serif!important;
+  margin-bottom: 0.512em;
+  font-family: Stanford, Source Serif Pro, Georgia, Times, Times New Roman,
+    serif !important;
   font-style: normal;
   font-weight: 400;
   font-variant: normal;
@@ -48,18 +48,17 @@
   display: block;
   backface-visibility: hidden;
   padding: 0;
-  transition: font-size .5s ease;
+  transition: font-size 0.5s ease;
   width: auto;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   font-size: 7em;
-  text-shadow: 0 0 30px rgba(0,0,0,.7);
+  text-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
   position: fixed;
   color: #ffffff;
   text-shadow: #000 0 0 10px;
-  }
-  
+}
 
 .first-div {
   z-index: 2;
@@ -78,56 +77,52 @@
   padding-bottom: 300px;
   box-shadow: 0 0 15px 0 rgb(22, 31, 70);
 }
-.post-cont{
-    font-family: georgia, "times new roman", times, serif;
-    padding-left: 50px;
+.post-cont {
+  font-family: georgia, "times new roman", times, serif;
+  padding-left: 50px;
 }
-.post-title{
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    text-align: center;
+.post-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-align: center;
 }
-.post-text{
-    width: 100%;
-    max-width: 1000px;
-    color: #000;
-    outline: 0;
-    margin: 0 0 1em 0;
-    font-size: 20px;
-    line-height: 30px;
-    text-align: justify;
-    margin-right: 50px;
+.post-text {
+  width: 100%;
+  max-width: 1000px;
+  color: #000;
+  outline: 0;
+  margin: 0 0 1em 0;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: justify;
+  margin-right: 50px;
 }
-.post-img img{
-    width: 100%;
-    max-height: 600px;
-    margin: 0;
-    padding: 0;
-    margin-right: 50px;
-    margin-bottom: 20px;
-    float: right;
+.post-img img {
+  width: 100%;
+  max-height: 600px;
+  margin: 0;
+  padding: 0;
+  margin-right: 50px;
+  margin-bottom: 20px;
+  float: right;
 }
-.post-inside{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    gap: 1rem;
-
+.post-inside {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 1rem;
 }
-.post-footer{ 
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    padding-bottom: 20px;
-    
+.post-footer {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding-bottom: 20px;
 }
-
 
 /* departement cards */
-    
 .departement-cont {
   display: flex;
   flex-wrap: wrap;
@@ -144,10 +139,9 @@
   background: #ffffff;
   border-radius: 0.5rem;
   position: relative;
-
 }
-.departement::before,
-.departement::after {
+
+.departement::before {
   content: "";
   position: absolute;
   inset: -0.5rem;
@@ -163,9 +157,7 @@
   border-radius: inherit;
   animation: rotation 10s linear infinite;
 }
-.departement::after {
-  filter: blur(3.5rem);
-}
+
 @keyframes rotation {
   0% {
     --gradient-angle: 0deg;
@@ -175,9 +167,8 @@
   }
 }
 
-
 .departement:hover {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
 }
 
 .departement-title {
@@ -185,14 +176,31 @@
   font-weight: bold;
   margin-bottom: 10px;
 }
-
+.departement h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
 .departement p {
   font-size: 16px;
   line-height: 1.5;
-  max-height:80%;
+  max-height: 80%;
   overflow: auto;
-
 }
 
 
+/* Create a custom scrollbar track */
+::-webkit-scrollbar {
+  width: 0.7rem;
+  height: 0.5rem;
+}
+::-webkit-scrollbar-track {
+  background: #0c33b396;
+}
 
+/* Create a custom scrollbar */
+::-webkit-scrollbar-thumb {
+  background:     var(--clr-3);
+  border-radius: 40px;
+}

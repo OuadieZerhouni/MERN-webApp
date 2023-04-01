@@ -7,6 +7,7 @@ import { userAuth,adminChefAuth,withAuth} from './Auth/Auth';
 
 import Header from './Component/Header';
 import Home from './Component/HomePage/Home';
+import DepartmentsPage from './Component/HomePage/departementPage';
 import Login from './Auth/Login';
 import Redirect from './Auth/redirect';
 import AdminDashboard from './Component/Dashboard/AdminDashboard';
@@ -65,7 +66,12 @@ function App() {
 
      
         <Routes>
-        <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/Departements" element={<DepartmentsPage />} />
+          <Route path="/Dashboard" element={<WithAuthDashboard />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/redirect" element={<Redirect />} />
+
           <Route path="/Add/Departement" element={<WithAuthDepartementForm/>} />
           <Route path="/Add/Filiere" element={<WithAuthFiliereForm />} />
           <Route path="/Add/Reunion" element={<WithAuthReunionForm />} />
@@ -82,10 +88,6 @@ function App() {
           
           
 
-
-          <Route path="/Dashboard" element={<WithAuthDashboard />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/redirect" element={<Redirect />} />
 
           <Route path="/PV/:id" element={<WithAutPVviewer />} />
           <Route path="/Emploi_temps/:id" element={<EmploiTempsViewer />} />

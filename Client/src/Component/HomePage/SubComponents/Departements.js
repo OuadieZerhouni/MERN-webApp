@@ -1,10 +1,12 @@
 import React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Departement(){
     const [departements, setDepartements] = React.useState([]); 
 
     const API_Database = process.env.REACT_APP_API_DATABASE;
+    const navigate = useNavigate();
 
     
     React.useEffect(() => {
@@ -20,12 +22,19 @@ export default function Departement(){
     }
     ,[]);
 
+    const handleDepartementClick = (id) => {
+        return () => {
+            navigate(`/departements/${id}`)
+        }
+    }
+
+
     return(
         <div className="departement-cont">
             {departements.map((departement) => {return (
-                <div key={departement} className="departement">
+                <div key={departement} className="departement" onClick={handleDepartementClick(departement._id)}>
                     <div className="departement-title">
-                        <p>{departement.Nom+'\n'}</p>
+                        <h2>{departement.Nom+'\n'}</h2>
                     </div>
                     <p> {departement.description}</p>
                 </div> )

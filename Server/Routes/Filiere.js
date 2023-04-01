@@ -6,8 +6,6 @@ const Filiere = require('../Services/Filiere');
 const verifyToken = require('../util/verification').verifyToken;
 
 
-
-
 // Get all filieres
 router.get('/', async (req, res) => {
   try {
@@ -23,6 +21,20 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const filiere = await Filiere.getById(req.params.id);
+    if (!filiere) {
+      return res.status(404).json({ msg: 'Filiere not found' });
+    }
+    res.status(200).json(filiere);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server Error');
+  }
+});
+
+// Get filiere by id
+router.get('/:id/options', async (req, res) => {
+  try {
+    const filiere = await Filiere.getOptions(req.params.id);
     if (!filiere) {
       return res.status(404).json({ msg: 'Filiere not found' });
     }
@@ -88,5 +100,7 @@ router.delete('/:id', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+
 
 module.exports = router;

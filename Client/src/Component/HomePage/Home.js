@@ -21,12 +21,12 @@ export default function Home() {
       <div className="logo-center" ref={logoRef}>
         USMBA
       </div>
-      <div className="Home-cont">
+      <div className="Home-cont" id='home'>
         <div className="first-div" ref={hidden}></div>
         <div className="second-div">
           <Departement />
           <Post />
-           {/* here plac ehte footer */}
+           {/* here place the footer */}
         </div>
       </div>
     </div>
