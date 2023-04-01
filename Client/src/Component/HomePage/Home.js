@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import Post from "./SubComponents/Post";
 import "../../CSS/ComponentCSS/Home.css";
 import Departement from "./SubComponents/Departements";
+import Footer from "./Footer.js"
 
 export default function Home() {
   const logoRef = useRef(null);
@@ -26,7 +27,7 @@ export default function Home() {
         <div className="second-div">
           <Departement />
           <Post />
-           {/* here place the footer */}
+           <Footer/>
         </div>
       </div>
     </div>
