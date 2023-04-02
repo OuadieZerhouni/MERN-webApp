@@ -24,7 +24,8 @@ export default function Departement(){
 
     const handleDepartementClick = (id) => {
         return () => {
-            navigate(`/departements/${id}`)
+            navigate(`/departements`)
+            // navigate(`/departements/${id}`)
         }
     }
 

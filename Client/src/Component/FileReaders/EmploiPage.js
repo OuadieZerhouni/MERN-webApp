@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import '../../CSS/ComponentCSS/PDFReader.css';
+import '../../CSS/ComponentCSS/Emploi_temps.css';
 
 
 function EmploiReader() {
@@ -34,11 +34,11 @@ return (
   <div className="Container">
         <a href={Download}  className="Download-Link">Download</a>
 
-  <div className="PDF-container">
-    <div className="PDF-pages">
+  <div className="Emploi-container">
+    <div className="Emploi-pages">
 
     {images.map((image, index) => (
-      <img className="Page-pdf" key={index} src={image} alt="Emploi du temps" />
+      <img className="Page-Emploi" key={index} src={image} alt="Emploi du temps" />
     ))}
   </div>
   </div>

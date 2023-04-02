@@ -74,7 +74,7 @@
   backdrop-filter: blur(15px);
   position: relative;
   padding: 20px;
-  padding-bottom: 300px;
+  padding-bottom: 50px;
   box-shadow: 0 0 15px 0 rgb(22, 31, 70);
 }
 .post-cont {
@@ -203,4 +203,7 @@
 ::-webkit-scrollbar-thumb {
   background:     var(--clr-3);
   border-radius: 40px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ce3838;
 }

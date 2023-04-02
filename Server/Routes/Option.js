@@ -5,9 +5,9 @@ const OptionService = require("../Services/Option");
 const FiliereService = require("../Services/Filiere");
 const pdfToImages = require("../util/ToPDF").pdfToImages;
 const verifyToken = require("../util/verification").verifyToken;
-require("dotenv").config();
 const Emploi_Upload = require("../util/Fileupload").Emploi_Upload;
 const fs = require("fs");
+require("dotenv").config();
 
 const AdminChefVerifyoptionInsert =
   require("../util/verification").AdminChefVerifyoptionInsert;
@@ -22,9 +22,6 @@ router.get("/Emploi_temps/:id", async (req, res) => {
     imageDirPath = filePath.replace(".pdf", "");
     console.log(filePath);
 
-    Copy;
-    Insert;
-    New;
     let Path = `${imageDirPath}\\images`;
 
     const files = fs.readdirSync(Path);
@@ -37,7 +34,6 @@ router.get("/Emploi_temps/:id", async (req, res) => {
       imageDirPath +
       "/images"
     ).replace(/\\/g, "/");
-
     res.status(200).send({
       path: _path,
       numPages: numPages,
@@ -111,9 +107,6 @@ router.post(
         return res.status(400).send({ error: "Option name already taken" });
       }
 
-      Copy;
-      Insert;
-      New;
       const imageDirPath = await pdfToImages(req.file.path);
       console.log(req.body);
 
@@ -138,7 +131,9 @@ router.post(
   }
 );
 
-// Update an option by id
+/**
+ * Update an option by id
+ */
 router.put(
   "/:optionId",
   Emploi_Upload.single("file"),
@@ -147,9 +142,6 @@ router.put(
     try {
       let optionData = {};
 
-      Copy;
-      Insert;
-      New;
       if (req.file) {
         // Convert the new file to img
         await pdfToImages(req.file.path);

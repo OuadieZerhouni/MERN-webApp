@@ -1,0 +1,64 @@
+.Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f2f2f2;
+    }
+    
+    .Download-Link {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    }
+    
+    .Download-Link:hover {
+    background-color: #0062cc;
+    }
+    
+    .Emploi-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    max-width: 800px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    }
+    
+    .Emploi-pages {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    }
+    
+    .Page-Emploi {
+    width: 100%;
+    max-width: 600px;
+    margin: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    }
+    
+    @media screen and (max-width: 768px) {
+    .Emploi-container {
+    width: 90%;
+    }
+    
+    .Page-Emploi {
+    max-width: 100%;
+    }
+    }

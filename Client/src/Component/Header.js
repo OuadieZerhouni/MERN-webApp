@@ -31,7 +31,7 @@ render() {
         <Link to="/">Accueil</Link>
       </li>
       <li className="header-list">
-        <Link to="/departments">Departements</Link>
+        <Link to="/departements">Departements</Link>
       </li>
 
       {localStorage.getItem("token") && (
