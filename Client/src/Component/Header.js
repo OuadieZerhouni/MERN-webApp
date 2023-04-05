@@ -1,19 +1,19 @@
-import React from 'react';
+import React , {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import "../CSS/ComponentCSS/Header.css";
 import logo from '../assets/Logo.jpg';
 
-class Header extends React.Component {
+function Header () {
   
 
 
-  Logout = () => {
+  const Logout = () => {
     localStorage.removeItem('token');
     if(localStorage.getItem('departement')!==null)
         localStorage.removeItem('departement');
     window.location.reload();
   }
-render() {
+
   return (<header>
     <Link to="/" className="logo-container">
       USMBA
@@ -24,7 +24,7 @@ render() {
     <ul className="ul-header">
       {localStorage.getItem("token") && (
         <li className="header-list">
-          <Link to="/Dashboard">Dashboard</Link>
+          <Link to="/Dashboard">Tableau de bord</Link>
         </li>
       )}
       <li className="header-list">
@@ -36,7 +36,7 @@ render() {
 
       {localStorage.getItem("token") && (
         <li className="header-list">
-          <button onClick={this.Logout}>Log-out</button>
+          <button onClick={Logout}>Log-out</button>
         </li>
       )}
       {!localStorage.getItem("token") && (
@@ -47,7 +47,7 @@ render() {
     </ul>
   </header>
   );
-}
+
 }
 
 export default Header;

@@ -14,7 +14,6 @@
   height: 100vh;
   width: 100%;
   margin: 0;
-  margin-top: 40px;
   padding: 0;
   background-image: url("../../assets/graduate1.jpg");
   background-repeat: no-repeat;
@@ -62,7 +61,7 @@
 
 .first-div {
   z-index: 2;
-  height: 93vh;
+  height: 98vh;
   background: #e7e7e7;
   opacity: 0;
 }
@@ -70,6 +69,7 @@
 .second-div {
   position: relative;
   z-index: 1;
+  border-radius: 30px 30px 0 0;
   background-color: rgb(255, 255, 255);
   backdrop-filter: blur(15px);
   position: relative;
@@ -196,14 +196,14 @@
   height: 0.5rem;
 }
 ::-webkit-scrollbar-track {
-  background: #0c33b396;
+  background: #8d99c096;
 }
 
 /* Create a custom scrollbar */
 ::-webkit-scrollbar-thumb {
-  background:     var(--clr-3);
+  background:     #3e4e6d;
   border-radius: 40px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #ce3838;
+  background: #523131;
 }

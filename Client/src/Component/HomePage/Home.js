@@ -10,11 +10,25 @@ export default function Home() {
   const bgcontent = useRef(null);
   const hidden = useRef(null);
 
+
+  useEffect(() => {
+    const header = document.querySelector("header");
+      header.style.background = "linear-gradient(0deg,transparent,rgba(34, 43, 70, 0.99)),linear-gradient(0deg,transparent 20%,rgba(30, 46, 133, 0.788))";
+  }
+  , []);
   function handleScroll() {
     const scrollPosition = bgcontent.current.scrollTop;
     const opacity = 1 - Math.min(scrollPosition / 1400, 1);
     logoRef.current.style.opacity = opacity;
     hidden.current.style.opacity = 1 - opacity;
+    const header = document.querySelector("header");
+    if (scrollPosition > 0 ) {
+      header.style.background = "rgb(47 77 133)";
+    }
+    if (scrollPosition === 0) {
+      header.style.background = "linear-gradient(0deg,transparent,rgba(34, 43, 70, 0.99)),linear-gradient(0deg,transparent 20%,rgba(30, 46, 133, 0.788))";
+    }
+   
   }
 
   return (

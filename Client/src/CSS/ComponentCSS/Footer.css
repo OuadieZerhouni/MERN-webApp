@@ -21,14 +21,14 @@ footer a {
   }
   #footer-div-1 #links a:hover{
     text-decoration: underline;
-    color: rgb(88, 175, 203);
+    color: rgb(47 77 133);
   }
   #footer-div-1 #links li{
     margin-bottom: 5px;
   }
   .footer-ul-title {
     font-weight: bold;
-    color: rgb(88, 88, 243);
+    color: rgb(47 77 133);
   }
   #social-media i {
     margin-left: 10px;
@@ -48,7 +48,7 @@ footer a {
     transition: color .25s ease-in-out;
   }
   .fa-twitter:hover{
-    color: #1da1f2;
+    color: rgb(47 77 133);
     transition: color .25s ease-in-out;
   }
   /*footer div 2*/
