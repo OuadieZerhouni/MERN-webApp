@@ -168,74 +168,40 @@
 .post-read-more:hover {
   background-color: #0056b3;
 }
-
-/* departement cards */
 .departement-cont {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  gap: 1rem;
 }
 
 .departement {
-  width: 300px;
-  height: 400px;
-  margin: 20px;
-  padding: 20px;
-  transition: box-shadow 0.3s ease-in-out;
-  aspect-ratio: 1 / 1.5;
-  background: #1b1a1a;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
   border-radius: 0.5rem;
-  position: relative;
-  color: white;
-}
-
-.departement::before {
-  content: "";
-  position: absolute;
-  inset: -0.5rem;
-  z-index: -1;
-  background: conic-gradient(
-    from var(--gradient-angle),
-    var(--clr-3),
-    var(--clr-4),
-    var(--clr-5),
-    var(--clr-4),
-    var(--clr-3)
-  );
-  border-radius: inherit;
-  animation: rotation 10s linear infinite;
-}
-
-@keyframes rotation {
-  0% {
-    --gradient-angle: 0deg;
-  }
-  100% {
-    --gradient-angle: 360deg;
-  }
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  flex: 1 0 300px;
+  padding: 1rem;
+  transition: all 0.2s ease-in-out;
 }
 
 .departement:hover {
-  box-shadow: 0 0 15px 0 rgb(219, 219, 219);
-  transition: 0.5s ease-in-out;
+  transform: translateY(-0.25rem);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .departement-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
 }
-.departement h2 {
-  font-size: 20px;
+
+.departement-title h2 {
+  font-size: 1.5rem;
   font-weight: bold;
-  margin-bottom: 10px;
-  text-align: center;
+  margin: 0;
 }
+
 .departement p {
-  font-size: 16px;
-  line-height: 1.5;
-  max-height: 80%;
-  overflow: auto;
+  margin: 0;
 }
 
 
