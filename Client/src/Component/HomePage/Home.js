@@ -11,11 +11,7 @@ export default function Home() {
   const hidden = useRef(null);
 
 
-  useEffect(() => {
-    const header = document.querySelector("header");
-      header.style.background = "linear-gradient(0deg,transparent,rgba(34, 43, 70, 0.99)),linear-gradient(0deg,transparent 20%,rgba(30, 46, 133, 0.788))";
-  }
-  , []);
+ 
   function handleScroll() {
     const scrollPosition = bgcontent.current.scrollTop;
     const opacity = 1 - Math.min(scrollPosition / 1400, 1);
