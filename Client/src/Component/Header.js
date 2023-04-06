@@ -1,11 +1,20 @@
 import React , {useEffect} from 'react';
+import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import "../CSS/ComponentCSS/Header.css";
 import logo from '../assets/Logo.jpg';
 
 function Header () {
-  
+   
+const location = useLocation();
 
+useEffect(() => {
+  const header = document.querySelector("header");
+  if (location.pathname !== "/") {
+    console.log(location.pathname);
+    header.style.background = "rgb(47 ,77, 133)";
+}}
+, [location]);
 
   const Logout = () => {
     localStorage.removeItem('token');
