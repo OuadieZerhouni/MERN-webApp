@@ -38,6 +38,7 @@ export default function Departement(){
                         <h2>{departement.Nom+'\n'}</h2>
                     </div>
                     <p> {departement.description}</p>
+                    
                 </div> )
             })}
         </div>
