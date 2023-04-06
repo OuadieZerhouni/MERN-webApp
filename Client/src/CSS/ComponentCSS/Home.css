@@ -175,6 +175,7 @@
 }
 
 .departement {
+  position: relative;
   background-color: #ffffff;
   border: 1px solid #d1d5db;
   border-radius: 0.5rem;
@@ -189,9 +190,29 @@
   transform: translateY(-0.25rem);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
+.departement:hover .departement-title::after,
+.departement:hover .departement-title::before {
+width: 100%;
+}
 .departement-title {
   margin-bottom: 1rem;
+}
+.departement-title::after,.departement-title::before{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 4px;
+  background-color: rgb(146, 14, 30);
+  border-radius: 5px;
+  transition: width 0.3s ease-in-out;
+}
+.departement-title::before{
+  top: 0;
+  /* left: 0%; */
+  /* transform: translateX(0); */
 }
 
 .departement-title h2 {
