@@ -34,7 +34,7 @@ footer a {
     margin-left: 10px;
     
   }
-  /*soccial media icons hover*/
+  /*social media icons hover*/
   .fa-square-facebook:hover{
     color: #1877f2;
     transition: color .25s ease-in-out;
@@ -49,6 +49,10 @@ footer a {
   }
   .fa-twitter:hover{
     color: rgb(47 77 133);
+    transition: color .25s ease-in-out;
+  }
+  .fa-location-dot:hover{
+    color: rgb(187,218,164);
     transition: color .25s ease-in-out;
   }
   /*footer div 2*/

@@ -7,18 +7,24 @@ export default function Footer() {
     <footer>
       <div id="footer-div-1">
         <div id="social-media">
-          <i class="fa-brands fa-square-facebook"></i>
-          <i class="fa-brands fa-instagram"></i>
-          <i class="fa-brands fa-linkedin-in"></i>
-          <i class="fa-brands fa-twitter"></i>
+          
+          
+          
+          
+          <a href=""><i class="fa-brands fa-square-facebook"></i></a>
+          <a href=""><i class="fa-brands fa-instagram"></i></a>
+          <a href=""><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href=""><i class="fa-brands fa-twitter"></i></a>
+          <a href="https://www.google.fr/maps/place/33%C2%B059'22.6%22N+5%C2%B000'06.9%22W/@33.989603,-5.001903,14z/data=!4m4!3m3!8m2!3d33.989603!4d-5.001903?hl=fr"><i class="fa-solid fa-location-dot"></i></a>
         </div>
+          
         <div id="links">
           <ul>
-            <li class="footer-ul-title">E-LEARN</li>
-            <li><a href="">Moodle</a></li>
-            <li><a href="">Learn remote</a></li>
-            <li><a href="">USMBA E-LEARN</a></li>
-            <li><a href="">Remote Learning</a></li>
+            <li class="footer-ul-title">Est services</li>
+            <li><a href="http://elearn.est-usmba.ac.ma/est/">Moodle</a></li>
+            <li><a href="http://services.est-usmba.ac.ma/etudiant/login/">E-Notes</a></li>
+            <li><a href="http://www.est-usmba.ac.ma/CONCOURSESTfes.php">Concours</a></li>
+            <li><a href=" http://www.est-usmba.ac.ma/duESTFES.php">Suivi des lauréats</a></li>
           </ul>
           <ul>
           <li class="footer-ul-title">Departements</li>
@@ -28,21 +34,15 @@ export default function Footer() {
             <li><a href="">G.Procedes</a></li>
           </ul>
           <ul>
-          <li class="footer-ul-title">ADMISSION</li>
-            <li><a href="">Admisson 1</a></li>
-            <li><a href="">Admisson 2</a></li>
-            <li><a href="">Admisson 3</a></li>
-            <li><a href="">Admisson 4</a></li>
+          <li class="footer-ul-title">Autre liens</li>
+            <li><a href="http://www.est-usmba.ac.ma/Cours.php">Cours</a></li>
+            <li><a href="http://www.est-usmba.ac.ma/contact.php">Contact</a></li>
+            <li><a href=" http://www.est-usmba.ac.ma/rech_activ.php">Activités de l'EstF</a></li>
+            
             
             
           </ul>
-          <ul>
-          <li class="footer-ul-title">HEALTH CARE</li>
-            <li><a href="">Health care</a></li>
-            <li><a href="">Inssurance</a></li>
-            <li><a href="">Health Program</a></li>
-            <li><a href="">Covid-19</a></li>
-          </ul>
+          
         </div>
       </div>
       <div id="footer-div-2">
