@@ -315,13 +315,13 @@ const DataTable = ({Prof}) => {
           className={`tab ${activeTab === "departements" ? "active" : ""}`}
           onClick={() => handleTabClick("departements")}
         >
-          Departements
+          Départements
         </div>
         <div
           className={`tab ${activeTab === "filiere" ? "active" : ""}`}
           onClick={() => handleTabClick("filiere")}
         >
-          Filiere
+          Filières
         </div>
         <div
           className={`tab ${activeTab === "professeurs" ? "active" : ""}`}
@@ -333,18 +333,18 @@ const DataTable = ({Prof}) => {
           className={`tab ${activeTab === "reunions" ? "active" : ""}`}
           onClick={() => handleTabClick("reunions")}
         >
-          Reunions
+          Réunions
         </div>
         <div
           className={`tab ${activeTab === "posts" ? "active" : ""}`}
           onClick={() => handleTabClick("posts")}
         >
-          Posts
+          Postes
         </div>
       </div>
       <div className="prof-info">
         <p>Nom : {Prof.FullName}</p>
-        <p>email : {Prof.email}</p>
+        <p>E-mail : {Prof.email}</p>
         <p>Grade : {Prof.grade}</p>
         </div>
       <div className="tab-content">

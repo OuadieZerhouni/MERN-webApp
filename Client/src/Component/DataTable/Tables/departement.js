@@ -23,9 +23,9 @@ function DepartementTable({
             <thead>
               <tr>
                 <th>Nom</th>
-                <th>description</th>
-                <th>Date de Creation</th>
-                <th>Chef de departement</th>
+                <th>Description</th>
+                <th>Date de création</th>
+                <th>Chef de département</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -52,7 +52,7 @@ function DepartementTable({
                               )
                             }
                           >
-                            read more
+                            Voir plus
                           </p>
                         </>
                       ) : (

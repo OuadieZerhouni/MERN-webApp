@@ -25,10 +25,10 @@ function Reunion({
             <thead>
               <tr>
                 <th>Date</th>
-                <th>lieu</th>
-                <th>Departement</th>
+                <th>Lieu</th>
+                <th>Département</th>
                 <th>Liste Ordres de Jour</th>
-                <th>prof. presents</th>
+                <th>Profs. presents</th>
                 <th>PV</th>
                 <th>Actions</th>
               </tr>
@@ -62,7 +62,7 @@ function Reunion({
                   </td>
                   <td>
                     <Link className="btn-modify" to={"/PV/" + reunion._id}>
-                      view
+                      voir
                     </Link>
                   </td>
 

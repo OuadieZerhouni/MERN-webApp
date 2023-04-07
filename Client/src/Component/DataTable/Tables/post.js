@@ -16,7 +16,7 @@ function DepartementTable({
         <>
           {IsAdmin || _departement ? (
             <Link to="/Add/Post">
-              <button className="Insert-Btn">Insert Post</button>
+              <button className="Insert-Btn">Insérer un poste</button>
             </Link>
           ) : (
             <></>
@@ -24,9 +24,9 @@ function DepartementTable({
           <table>
             <thead>
               <tr>
-                <th>title</th>
-                <th>texte</th>
-                <th>Date de Creation</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Date de création</th>
                 <th>Image</th>
                 <th>Actions</th>
               </tr>
@@ -47,7 +47,7 @@ function DepartementTable({
                           }}
                           onClick={() => ShowInfo(post.title, post.text)}
                         >
-                          read more
+                          Voir plus
                         </p>
                       </>
                     ) : (

@@ -26,7 +26,7 @@ function ProfesseursTable({
                 <th>Email</th>
                 <th>CIN</th>
                 <th>Telephone</th>
-                <th>grade</th>
+                <th>Grade</th>
                 <th>Actions</th>
               </tr>
             </thead>

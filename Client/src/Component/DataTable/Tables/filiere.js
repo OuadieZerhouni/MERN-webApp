@@ -29,12 +29,12 @@ function FiliereComponent({
           <table>
             <thead>
               <tr>
-                <th>Filiere Name</th>
+                <th>Nom de filière</th>
                 <th>Description</th>
-                <th>Date de Creation</th>
+                <th>Date de création</th>
                 <th>Effectif</th>
                 <th>Cordinateur</th>
-                <th>departement</th>
+                <th>département</th>
                 <th>Actions</th>
                 <th>Options</th>
               </tr>

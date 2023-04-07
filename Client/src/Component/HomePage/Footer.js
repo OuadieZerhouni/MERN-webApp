@@ -110,12 +110,13 @@ export default function Footer() {
 
           <h4>
           <span>Develepée par</span>
-            <a target={"_blank"} href="https://github.com/Abdessamad-Belmadani">
-              Abdessamad Belmadani
+          <a target={"_blank"} href="https://github.com/OuadieZerhouni">
+              Ouadie Zerhouni
             </a>
             <span id="dot"> •</span>
-            <a target={"_blank"} href="https://github.com/OuadieZerhouni">
-              Ouadie Zerhouni
+            
+            <a target={"_blank"} href="https://github.com/Abdessamad-Belmadani">
+            Abdessamad Belmadani
             </a>
           </h4>
         </div>
