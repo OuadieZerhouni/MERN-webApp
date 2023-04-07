@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { useInView } from "react-intersection-observer"; // Import the useInView hook
 
 export default function Post() {
   const [posts, setPosts] = React.useState([]);
@@ -18,11 +19,12 @@ export default function Post() {
         console.log(err);
       });
   }, []);
+  const { ref, inView } = useInView({ threshold: 0.5 });
 
   return (
-    <div className="post-cont">
+    <div className={`post-cont ${!inView ? "animate" : ""}`}>
       {posts.map((post) => {return (
-        <div key={post} className="post">
+        <div key={post} className={`post ${!inView ? "animate" : ""}`}>
           <div className="post-title">
             <p>{post.title+'\n'}</p>
           </div>

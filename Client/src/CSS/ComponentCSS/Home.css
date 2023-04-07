@@ -184,7 +184,7 @@
   cursor: pointer;
   flex: 1 0 300px;
   padding: 1rem;
-  transition: all 0.2s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 
 .departement:hover {
@@ -224,6 +224,16 @@ width: 100%;
 
 .departement p {
   margin: 0;
+}
+.animate {
+  transform: translateY(80px);
+  opacity: 0;
+  transition: transform 2s ease-out, opacity 2s ease-out;
+}
+
+.departement.animate.in-view {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 

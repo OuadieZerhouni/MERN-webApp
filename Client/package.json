@@ -10,6 +10,7 @@
     "pdfjs-dist": "^3.3.122",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-intersection-observer": "^9.4.3",
     "react-modal": "^3.16.1",
     "react-pdf": "^6.2.2",
     "react-router-dom": "^6.6.1",
