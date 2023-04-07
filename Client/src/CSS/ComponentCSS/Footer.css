@@ -1,11 +1,26 @@
+footer{
+  background: rgb(47 ,77, 133);
+  color: white;
+  
+}
 footer a {
     text-decoration: none;
-    color: black;
+    color: inherit;
   }
   footer ul {
     list-style: none;
   }
-  
+
+  #footer-links{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 20px;
+  }
+
+  #links{
+    display: inherit;
+  }
   /*footer div 1*/
   #social-media {
     display: flex;
@@ -14,69 +29,72 @@ footer a {
     background-color: #f4f4f4;
     height: 50px;
   }
-  #footer-div-1 #links {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  #footer-div-1 #links a:hover{
-    text-decoration: underline;
-    color: rgb(47 77 133);
-  }
-  #footer-div-1 #links li{
-    margin-bottom: 5px;
-  }
+  
+ 
   .footer-ul-title {
     font-weight: bold;
-    color: rgb(47 77 133);
+    color:#989eaa;
   }
   #social-media i {
-    margin-left: 10px;
+    margin-right: 10px;
+    color: gray;
     
   }
   /*social media icons hover*/
-  .fa-square-facebook:hover{
+  #facebook:hover i{
     color: #1877f2;
     transition: color .25s ease-in-out;
   }
-  .fa-instagram:hover{
+  #instagram:hover i{
     color: #c32aa3;
     transition: color .25s ease-in-out;
   }
-  .fa-linkedin-in:hover{
+  #linkedin:hover i{
     color: #0a66c2;
     transition: color .25s ease-in-out;
   }
-  .fa-twitter:hover{
-    color: rgb(47 77 133);
+  #twitter:hover i{
+    color: #1DA1F2;
     transition: color .25s ease-in-out;
   }
-  .fa-location-dot:hover{
+  #location:hover i{
     color: rgb(187,218,164);
     transition: color .25s ease-in-out;
   }
-  /*footer div 2*/
-  #footer-div-2{
-    display: flex;
-    padding: 10px;
-    align-items: center;
-    background-color: #3690cb;
-    
-  }
-  #footer-div-2 ul{
-     display: flex;
-     
-  }
-  #footer-div-2>h1{
-    margin-right: 20px;
-  }
-  #footer-div-2 ul li{
-    margin-right: 10px;
-  }
-  #footer-div-2 a{
-    color: white;
-  }
-  #footer-div-2 a:hover{
-   text-decoration: underline;
-   
-  }
+
+/*footer credits*/
+
+#footer-credits{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding-bottom: 20px;
+}
+
+
+
+#footer-credits>ul{
+  display: flex;
+  justify-content: space-between;
+  
+}
+#footer-credits>ul>li{
+  margin-right: 6px;
+}
+
+#footer-credits h4>span{
+  color:#989eaa;
+  margin-right: 6px;
+}
+#dot{
+  padding: 8px;
+
+}
+
+/*links hover*/
+
+footer a:hover{
+  color: #d7ca96;
+  transition: color .25s ease-in-out;
+
+}
