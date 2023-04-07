@@ -6,11 +6,13 @@ table {
   font-size: 15px;
   line-height: 1.5;
   color: #000000;
+  margin: 0 auto;
+  border: black solid 1px;
 }
 
 td {
   padding: 5px 10px;
-  border-bottom: 1px solid #E5E7EB;
+  
   border-right: 1px solid rgb(47 77 133);
 }
 
