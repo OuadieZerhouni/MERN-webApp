@@ -39,7 +39,7 @@ export default function Departement() {
         return (
           <div
             key={departement}
-            className={`departement ${!inView ? "animate" : ""}`}
+            className={`departement ${inView ? "animate" : ""}`}
             onClick={handleDepartementClick(departement._id)}
             ref={ref}
           >

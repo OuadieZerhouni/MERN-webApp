@@ -11,9 +11,12 @@ const location = useLocation();
 useEffect(() => {
   const header = document.querySelector("header");
   if (location.pathname !== "/") {
-    console.log(location.pathname);
     header.style.background = "rgb(47 ,77, 133)";
-}}
+}
+else {
+  header.style.background = "linear-gradient(0deg,transparent,rgba(34, 43, 70, 0.99)),linear-gradient(0deg,transparent 20%,rgba(30, 46, 133, 0.788))";
+}
+}
 , [location]);
 
   const Logout = () => {

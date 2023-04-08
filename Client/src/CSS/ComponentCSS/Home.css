@@ -74,8 +74,7 @@
   -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
   position: relative;
-  padding: 0;
-  padding-bottom: 0;
+  padding: 40px 1% 0 1%;
   box-shadow: 0 0 15px 0 rgb(22, 31, 70);
 }
 .post {
@@ -88,7 +87,9 @@
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out;
+  transform: translateY(50px);
+
+  transition: transform 0.5s ease-in-out;
 }
 
 .post:hover {
@@ -184,7 +185,9 @@
   cursor: pointer;
   flex: 1 0 300px;
   padding: 1rem;
-  transition: all 1s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  transform: translateY(40px);
+  opacity: 0;
 }
 
 .departement:hover {
@@ -226,15 +229,15 @@ width: 100%;
   margin: 0;
 }
 .animate {
-  transform: translateY(80px);
-  opacity: 0;
-  transition: transform 2s ease-out, opacity 2s ease-out;
+  transform: translateY(0px);
+  opacity: 1;
+  transition: transform 0.5s ease-out, opacity 1s ease-out;
 }
-
+/* 
 .departement.animate.in-view {
   transform: translateY(0);
   opacity: 1;
-}
+} */
 
 
 /* Create a custom scrollbar track */

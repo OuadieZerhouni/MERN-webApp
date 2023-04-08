@@ -1,45 +1,70 @@
-table {
-  border-collapse: collapse;
-  width: 90%;
-  max-width: 1280px;
-  font-family: Arial, sans-serif;
-  font-size: 15px;
-  line-height: 1.5;
-  color: #000000;
-  margin: 0 auto;
-  border: black solid 1px;
-}
-
-td {
-  padding: 5px 10px;
-  
-  border-right: 1px solid rgb(47 77 133);
-}
-
-th {
-  padding: 10px 10px;
-  text-align: left;
-  background-color: #4d68b3;
-  color: white;
-  border-right: 1.5px solid rgb(47 77 133);
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
 .table-container {
-  max-width: 1280px;
-  max-height: 80%;
-  padding-left: 20px;
-  border-radius: 5px;
+  margin: 20px 0;
+  }
+  
+  .table-container table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+  }
+  
+  .table-container thead tr {
+  background-color: #292b2c;
+  color: #fff;
+  }
+  
+  .table-container th,
+  .table-container td {
+  padding: 12px;
   text-align: center;
-}
-.Insert-Btn{
-  padding: 10px ;
-  background: rgb(47 77 133);
-  color: white;
-  border: none;
+  }
+  
+  .table-container th:first-child,
+  .table-container td:first-child {
+  text-align: left;
+  }
+  
+  .table-container td p {
+  margin: 0;
+  }
+  
+  .Insert-Btn {
+  background-color: #007bff;
   border-radius: 5px;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px;
+  margin-bottom: 15px;
+  }
+  
+  .Insert-Btn:hover {
+  background-color: #0069d9;
   cursor: pointer;
-  margin: 5px;
-}
+  }
+  
+  .btn {
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px;
+  margin: 0 5px;
+  }
+  
+  .btn-danger {
+  background-color: #dc3545;
+  }
+  
+  .btn-primary {
+  background-color: #007bff;
+  }
+  
+  .btn-danger:hover,
+  .btn-primary:hover {
+  cursor: pointer;
+  }
+  
+  .btn i {
+  margin-right: 5px;
+  }

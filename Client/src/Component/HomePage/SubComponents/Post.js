@@ -19,12 +19,12 @@ export default function Post() {
         console.log(err);
       });
   }, []);
-  const { ref, inView } = useInView({ threshold: 0.5 });
+  const { ref, inView } = useInView({ threshold: 0.1 });
 
   return (
-    <div className={`post-cont ${!inView ? "animate" : ""}`}>
+    <div className='post-cont' ref={ref} >
       {posts.map((post) => {return (
-        <div key={post} className={`post ${!inView ? "animate" : ""}`}>
+        <div key={post} className={`post ${inView ? "animate" : ""}`} >
           <div className="post-title">
             <p>{post.title+'\n'}</p>
           </div>

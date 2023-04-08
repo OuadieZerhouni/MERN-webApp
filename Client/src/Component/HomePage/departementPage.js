@@ -49,31 +49,45 @@ const DepartmentList = () => {
               selectedDepartment._id === departement._id && (
                 <div className="departement-details">
                   <p className="departement-description">
-                    Description : {selectedDepartment.description}
-                  </p>
-                  <p className="departement-description">
                     creé en :{selectedDepartment.Date_Creation}
                   </p>
+                  <p className="departement-description">
+                    Description : {selectedDepartment.description}
+                  </p>
+
                   <h4 className="departement-filiere-heading">Filières</h4>
                   <ul className="departement-filieres">
                     {departement.filieres.map((filiere) => (
                       <li key={filiere._id} className="departement-filiere">
-                        <p>{filiere.Nom}</p>{" "}
+                        <p className="departement-filiere-nom">{filiere.Nom}</p>{" "}
                         <p> Creé en : {filiere.Date_Creation}</p>
                         <p>Description : {filiere.Description}</p>
                         <p>Effectif : {filiere.Effectif}</p>
-                        <h5 className="departement-filiere-options-heading">Options</h5>
+                        <h5 className="departement-filiere-options-heading">
+                          Options
+                        </h5>
                         <ul className="departement-filiere-options">
                           {filiere.Options.map((option) => (
-                            <li key={option._id} className="departement-filiere-options">
-                              <p>{option.Nom}</p>
+                            <li
+                              key={option._id}
+                              className="departement-filiere-options"
+                            >
+                              <p className="departement-filiere-options-nom">
+                                {option.Nom}
+                              </p>
                               <p>Creé en : {option.Date_Creation}</p>
                               <p>Description : {option.Description}</p>
-                              <p>Effectif : {option.Effectif}</p>
-                              <p>Emploi du temps : <a href={"/Emploi_temps/"+option._id} target="_blank">Emploi du temps</a></p>
-
-                      </li>
-
+                              <p>Effectif : {option.effectif}</p>
+                              <p>
+                                Emploi du temps :{" "}
+                                <a
+                                  href={"/Emploi_temps/" + option._id}
+                                  target="_blank"
+                                >
+                                  Emploi du temps
+                                </a>
+                              </p>
+                            </li>
                           ))}
                         </ul>
                       </li>
@@ -85,8 +99,6 @@ const DepartmentList = () => {
         ))}
       </ul>
     </div>
-
-
   );
 };
 

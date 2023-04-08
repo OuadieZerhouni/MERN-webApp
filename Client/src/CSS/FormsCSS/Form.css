@@ -7,7 +7,7 @@
   box-sizing: border-box;
   background: #fff;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 10px rgb(47 77 133);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -66,8 +66,19 @@
 }
 
 .form-button:hover{
-  background-color: #333333;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  background-color: #f0eaea;
+  color: #0A2E5F;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.486);
+  transition: 300ms ease-in-out;
+}
+.google-btn img{
+  width: 200px;
+  margin: 10px;
+  transition: 0.5s;
+
+}.google-btn:hover img{
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.534);
+  transform: scale(1.1);
 }
 .Modal-button {
   display: inline-block;

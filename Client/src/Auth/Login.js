@@ -76,13 +76,11 @@ const handleLogin = () => {
       </button>
       {error && <p className="Error">{error}</p>}
 
-      <a href={`${URL}/google`}>
-        <button type="button">
-          <img
-            src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png"
+      <a href={`${URL}/google`} className="google-btn">
+                <img
+            src="https://www.oncrashreboot.com/images/create-apple-google-signin-buttons-quick-dirty-way-google.png"
             alt="Sign in"
           />
-        </button>
       </a>
     </div>
   );
