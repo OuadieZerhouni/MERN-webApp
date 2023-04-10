@@ -47,8 +47,8 @@ const OptionForm = () => {
         },
       })
       .then((response) => {
-        console.log(response);
-        alert("Option Inserted");
+        alert("Option Ajouté");
+        window.location.reload();
       })
       .catch((error) => {
         console.error(error);
@@ -174,7 +174,7 @@ const OptionForm = () => {
         type="button"
         onClick={handleInsertOption}
       >
-        Insert Option
+        insérer Option
       </button>
     </div>
   );

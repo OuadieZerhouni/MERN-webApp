@@ -51,7 +51,7 @@ const ProfesseurForm = () => {
       },{headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}}
       )
       .then((response) => {
-        console.log(response.data);
+        alert("Professeur Ajouté");
       })
       .catch((error) => {
         console.error(error);

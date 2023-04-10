@@ -3,3 +3,5 @@
 Server/node_modules/
 Server/uploads/
 Server/.env
+Client/src/assets/
+

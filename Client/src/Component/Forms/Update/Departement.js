@@ -82,7 +82,8 @@ const DepartementForm = () => {
         }
       )
       .then((response) => {
-        alert("Departement modified successfully");
+        alert("Departement modifié");
+        window.location.reload();
       })
       .catch((error) => {
         console.error(error);
