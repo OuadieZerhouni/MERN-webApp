@@ -1,6 +1,10 @@
 .table-container {
+  display: table-row;
   margin: 20px 0;
+  overflow-x: auto;
+  text-align: center;
   }
+
   
   .table-container table {
   table-layout: fixed;
@@ -19,6 +23,10 @@
   text-align: center;
   }
   
+  .table-container tr:nth-child(even) {
+  background: #eff1f7;
+  }
+  
   .table-container th:first-child,
   .table-container td:first-child {
   text-align: left;
@@ -29,13 +37,14 @@
   }
   
   .Insert-Btn {
-  background-color: #007bff;
+  background-color: rgb(47 ,77, 133);
   border-radius: 5px;
   border: none;
   color: #fff;
   font-size: 16px;
   padding: 10px;
-  margin-bottom: 15px;
+  margin: 15px 0 ;
+  transition: all 0.2s ease-in-out;
   }
   
   .Insert-Btn:hover {
@@ -54,10 +63,17 @@
   
   .btn-danger {
   background-color: #dc3545;
+  padding: 7px 7px;
+  padding-right: 2px;
+  margin-bottom: 2px;
   }
   
   .btn-primary {
-  background-color: #007bff;
+  background-color: #aecff1;
+  color: #000000;
+  padding: 5px 5px;
+  padding-right: 0px;
+  margin-bottom: 2px;
   }
   
   .btn-danger:hover,

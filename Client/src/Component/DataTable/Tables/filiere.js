@@ -21,7 +21,7 @@ function FiliereComponent({
         <>
           {IsAdmin || _departement ? (
             <Link to="/Add/Filiere">
-              <button className="Insert-Btn">Insert Filiere</button>
+              <button className="Insert-Btn">insérer Filiere</button>
             </Link>
           ) : (
             <></>
@@ -79,11 +79,7 @@ function FiliereComponent({
                         <Link to={`/modify/filiere/${filiere._id}`}>
                           <button className="btn btn-primary"><i className="fa-solid fa-pen"></i></button>
                         </Link>
-                        <Link to={`/add/option/${filiere._id}`}>
-                          <button className="btn btn-primary">
-                          <i className="fa-solid fa-plus">Option</i>
-                          </button>
-                        </Link>
+
                         <button
                           className="btn btn-danger"
                           onClick={() => {
@@ -99,7 +95,7 @@ function FiliereComponent({
 
                     <td>
                       <button
-                        className="btn-modify"
+                        className="btn btn-primary"
                         onClick={() =>
                           setShowOptions({
                             ...showOptions,
@@ -111,6 +107,11 @@ function FiliereComponent({
                           ? <i className="fa-solid fa-eye-slash"></i>
                           : <i className="fa-solid fa-eye"></i>}
                       </button>
+                      <Link to={`/add/option/${filiere._id}`}>
+                          <button className="btn btn-primary">
+                          <i className="fa-solid fa-plus">Option</i>
+                          </button>
+                        </Link>
                     </td>
                   </tr>
                   {showOptions[filiere._id] && filiere.Options && (

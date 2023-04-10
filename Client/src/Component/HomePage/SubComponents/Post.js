@@ -28,7 +28,7 @@ export default function Post() {
           <div className="post-title">
             <p>{post.title+'\n'}</p>
           </div>
-          <p> {"at : "+post.date.split("T")[0]}</p>
+          <p> {post.date.split("T")[0]}</p>
 
             <div className="post-inside">
           <div className="post-img">

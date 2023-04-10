@@ -58,7 +58,8 @@ const ProfesseurForm = () => {
       ,{headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}}
       )
       .then((response) => {
-        alert("Professeur Updated!")
+        alert("Professeur modifié")
+        window.location.reload()
       })
       .catch((error) => {
         console.error(error);

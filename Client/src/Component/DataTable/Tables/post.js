@@ -16,7 +16,7 @@ function DepartementTable({
         <>
           {IsAdmin || _departement ? (
             <Link to="/Add/Post">
-              <button className="Insert-Btn">Insérer un poste</button>
+              <button className="Insert-Btn">Insérer poste</button>
             </Link>
           ) : (
             <></>

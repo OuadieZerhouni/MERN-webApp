@@ -14,7 +14,7 @@ function ProfesseursTable({
         <>
           {IsAdmin || _departement ? (
             <Link to="/Add/Professeur">
-              <button className="Insert-Btn">Insert Professeur</button>
+              <button className="Insert-Btn">insérer Professeur</button>
             </Link>
           ) : (
             <></>

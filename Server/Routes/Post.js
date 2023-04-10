@@ -48,7 +48,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.post("/insert", Post_Upload.single("image"),
+router.post("/", Post_Upload.single("image"),
 [
   body("title").notEmpty().withMessage("Title is required"),
   body("text").notEmpty().withMessage("Text is required")

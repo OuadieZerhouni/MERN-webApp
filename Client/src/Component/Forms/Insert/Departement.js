@@ -75,7 +75,8 @@ const DepartementForm = () => {
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       )
       .then(() => {
-        alert("Departement inserted successfully");
+        alert("Departement Ajouté");
+        window.location.reload();
       })
       .catch((error) => {
         console.error(error);

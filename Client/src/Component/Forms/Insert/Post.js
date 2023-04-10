@@ -18,10 +18,10 @@ function PostForm(){
         formData.append("title", PostTitle);
         formData.append("text", PostText);
         formData.append("image", PostImage);
-        axios.post(API_Database+"/post/insert", formData,{
+        axios.post(API_Database+"/post", formData,{
             headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
         }).then((response) => {
-            alert("Post inserted successfully");
+            alert("Post Ajouté");
             window.location.reload();
         }).catch((error) => {
             alert("Error inserting Post");
@@ -70,7 +70,7 @@ function PostForm(){
           type="button"
           onClick={handlePostInsert}
         >
-          Insert Post
+          insérer Post
         </button>
       </div>
     )

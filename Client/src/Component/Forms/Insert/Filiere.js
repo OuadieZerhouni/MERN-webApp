@@ -49,7 +49,7 @@ const FiliereForm = () => {
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       )
       .then((response) => {
-        console.log(response);
+        alert("Filiere Ajouté");
         window.location.reload();
       })
       .catch((error) => {
@@ -198,7 +198,7 @@ const FiliereForm = () => {
         type="button"
         onClick={handleInsertFiliere}
       >
-        Insert Filiere
+        insérer Filiere
       </button>
     </div>
   );

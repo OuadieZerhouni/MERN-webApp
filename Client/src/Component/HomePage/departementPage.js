@@ -60,7 +60,7 @@ const DepartmentList = () => {
                     {departement.filieres.map((filiere) => (
                       <li key={filiere._id} className="departement-filiere">
                         <p className="departement-filiere-nom">{filiere.Nom}</p>{" "}
-                        <p> Creé en : {filiere.Date_Creation}</p>
+                        <p> Creé en : {filiere.Date_Creation.split("T")[0]}</p>
                         <p>Description : {filiere.Description}</p>
                         <p>Effectif : {filiere.Effectif}</p>
                         <h5 className="departement-filiere-options-heading">
@@ -75,7 +75,7 @@ const DepartmentList = () => {
                               <p className="departement-filiere-options-nom">
                                 {option.Nom}
                               </p>
-                              <p>Creé en : {option.Date_Creation}</p>
+                              <p>Creé en : {option.Date_Creation.split("T")[0]}</p>
                               <p>Description : {option.Description}</p>
                               <p>Effectif : {option.effectif}</p>
                               <p>

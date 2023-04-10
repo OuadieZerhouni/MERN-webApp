@@ -16,7 +16,7 @@ function Reunion({
         <>
           {IsAdmin || _departement ? (
             <Link to="/Add/Reunion">
-              <button className="Insert-Btn">Insert Reunion</button>
+              <button className="Insert-Btn">insérer Reunion</button>
             </Link>
           ) : (
             <></>

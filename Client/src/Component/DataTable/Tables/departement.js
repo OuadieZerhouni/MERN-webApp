@@ -16,7 +16,7 @@ function DepartementTable({
         <>
           {IsAdmin && (
             <Link to="/Add/Departement">
-              <button className="Insert-Btn">Insert Departement</button>
+              <button className="Insert-Btn">insérer Departement</button>
             </Link>
           )}
           <table>

@@ -51,8 +51,8 @@ const ReunionForm = () => {
           "Content-Type": "multipart/form-data",
         },})
       .then((response) => {
-        alert("Reunion Updated");
-        window.location.href = "/Dashboard";
+        alert("Reunion modifié");
+        window.location.reload();
       })
       .catch((error) => {
 
@@ -238,7 +238,7 @@ const ReunionForm = () => {
         type="button"
         onClick={handleUpdateReunion}
       >
-        Insert Reunion
+        Modifier
       </button>
     </div>
   );

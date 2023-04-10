@@ -56,8 +56,8 @@ const FiliereForm = () => {
       { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       )
       .then((response) => {
-        console.log(response);
-        window.location.href="/";
+        alert("Filiere Modifié");
+        window.location.reload();
       })
       .catch((error) => {
         console.error(error);
@@ -232,7 +232,7 @@ const FiliereForm = () => {
         type="button"
         onClick={handleModifyFiliere}
       >
-        Modifier  Filiere
+        Modifier
       </button>
     </div>
   );

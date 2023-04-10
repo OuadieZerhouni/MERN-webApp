@@ -18,6 +18,10 @@ const OptionForm = () => {
 
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 25 }, (_, i) => currentYear - i);
+
+
   const handleModifyOption = () => {
     if (
       OptionNom === "" ||
@@ -49,8 +53,8 @@ const OptionForm = () => {
         },
       })
       .then((response) => {
-        console.log(response);
-        alert("Option Modified");
+        alert("Option modifié");
+        window.location.reload();
       })
       .catch((error) => {
         console.error(error);
@@ -128,17 +132,25 @@ const OptionForm = () => {
         value={OptionDescription}
         onChange={(e) => setOptionDescription(e.target.value)}
       />
-      <br />
-      <label htmlFor="Option-date-creation" className="form-label">
-        Option Date Creation:
+       <br />
+     <label htmlFor="filiere-date-creation" className="form-label">
+        Filiere Date Creation:
       </label>
-      <input
+      <select
         className="form-input"
-        type="Date"
-        id="Option-date-creation"
+        id="filiere-date-creation"
         value={OptionDateCreation}
         onChange={(e) => setOptionDateCreation(e.target.value)}
-      />
+      >
+        <option value="" disabled>
+          Select Year
+        </option>
+        {years.map((year) => (
+          <option key={year} value={year}>
+            {year}
+          </option>
+        ))}
+      </select>
       <br />
       <label htmlFor="Option-effectif" className="form-label">
         Option Effectif:
@@ -156,7 +168,7 @@ const OptionForm = () => {
         {" "}
         Option Filiere:
       </label>
-      <button className="form-button" onClick={ToggleModalFiliere}>
+      <button className="Modal-button" onClick={ToggleModalFiliere}>
         {OptionFiliereNom}
       </button>
       <FilierModal
@@ -193,7 +205,7 @@ const OptionForm = () => {
         type="button"
         onClick={handleModifyOption}
       >
-        Modifier Option
+        Modifier
       </button>
     </div>
   );

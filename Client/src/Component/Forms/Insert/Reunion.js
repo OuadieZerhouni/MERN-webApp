@@ -50,7 +50,8 @@ const ReunionForm = () => {
         },
       })
       .then((response) => {
-        alert("Reunion Inserted");
+        alert("Reunion Ajouté");
+        window.location.reload();
       })
       .catch((error) => {
         console.error(error);
@@ -212,7 +213,7 @@ const ReunionForm = () => {
         type="button"
         onClick={handleInsertReunion}
       >
-        Insert Reunion
+        insérer Reunion
       </button>
     </div>
   );
