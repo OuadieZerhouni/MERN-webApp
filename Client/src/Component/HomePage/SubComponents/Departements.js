@@ -31,7 +31,7 @@ export default function Departement() {
   };
 
   // Use the useInView hook to detect when the department card is in view
-  const { ref, inView } = useInView({ threshold: 0.5 });
+  const { ref, inView } = useInView({ threshold: 0 });
 
   return (
     <div className="departement-cont">

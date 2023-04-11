@@ -19,7 +19,7 @@ export default function Post() {
         console.log(err);
       });
   }, []);
-  const { ref, inView } = useInView({ threshold: 0.1 });
+  const { ref, inView } = useInView({ threshold: 0 });
 
   return (
     <div className='post-cont' ref={ref} >
