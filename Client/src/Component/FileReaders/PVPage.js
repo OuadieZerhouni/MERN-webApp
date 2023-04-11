@@ -36,7 +36,7 @@ function EmploiReader() {
   return (
     <div>
       <a href={Download} className="Download-Link">
-        Download
+        Télécharger
       </a>
     <div className="Container">
  

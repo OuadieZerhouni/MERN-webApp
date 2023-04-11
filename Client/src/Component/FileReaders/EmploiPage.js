@@ -32,7 +32,7 @@ function EmploiReader() {
   }, [API_DATABASE, numPages]);
 return (
   <div className="Container">
-        <a href={Download}  className="Download-Link">Download</a>
+        <a href={Download}  className="Download-Link">Télécharger</a>
 
   <div className="Emploi-container">
     <div className="Emploi-pages">

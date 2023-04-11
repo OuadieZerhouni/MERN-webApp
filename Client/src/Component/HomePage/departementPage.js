@@ -38,7 +38,7 @@ const DepartmentList = () => {
 
   return (
     <div className="departement-list-container">
-      <h2 className="departement-list-heading">Departements</h2>
+      <h2 className="departement-list-heading">Départements</h2>
       <ul className="departement-list">
         {departments.map((departement) => (
           <li key={departement._id} className="departement-list-item">

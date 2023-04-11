@@ -43,7 +43,7 @@ else {
         <Link to="/">Accueil</Link>
       </li>
       <li className="header-list">
-        <Link to="/departements">Departements</Link>
+        <Link to="/departements">Départements</Link>
       </li>
 
       {localStorage.getItem("token") && (
