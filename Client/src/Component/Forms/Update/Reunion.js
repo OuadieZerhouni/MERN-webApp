@@ -223,7 +223,7 @@ const ReunionForm = () => {
       ></ProfModalPresent>
       <br />
       <label htmlFor="Option-file" className="form-label">
-        Update Emploi du temps:
+        Update PV:
       </label>
       <input
         className="form-input"

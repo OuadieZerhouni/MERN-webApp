@@ -163,7 +163,7 @@ const FiliereForm = () => {
       <label htmlFor="filiere-Desc" className="form-label">
         Filiere Description:
       </label>
-      <input
+      <textarea
         className="form-input"
         type="text"
         id="filiere-Desc"

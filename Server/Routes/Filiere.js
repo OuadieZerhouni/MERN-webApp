@@ -51,7 +51,7 @@ router.use(verifyToken);
 // Update filiere
 router.put('/:id', [
   body('Nom').not().isEmpty().trim().escape(),
-  body('Description').optional({ nullable: true }).trim().escape(),
+  
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

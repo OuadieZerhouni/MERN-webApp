@@ -198,7 +198,7 @@ const ReunionForm = () => {
       ></ProfModalPresent>
       <br />
       <label htmlFor="Option-file" className="form-label">
-        Emploi du temps:
+        Procé Verbal:
       </label>
       <input
         className="form-input"

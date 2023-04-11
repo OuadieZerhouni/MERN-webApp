@@ -102,7 +102,7 @@ const OptionForm = () => {
       <label htmlFor="Option-Desc" className="form-label">
         Option Description:
       </label>
-      <input
+      <textarea
         className="form-input"
         type="text"
         id="Option-Desc"

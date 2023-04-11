@@ -101,7 +101,7 @@ const DepartementForm = () => {
         <label htmlFor="departement-description" className="form-label">
           Departement Description:
         </label>
-        <input
+        <textarea
           className="form-input"
           type="text"
           id="departement-description"
