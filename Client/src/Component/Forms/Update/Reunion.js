@@ -152,9 +152,9 @@ const ReunionForm = () => {
 
   return (
     <div className="form">
-      <h1 className="form-title">Insérer Reunion</h1>
+      <h1 className="form-title">Modifier Réunion</h1>
       <label htmlFor="reunion-date" className="form-label">
-        Date de Reunion :
+        Date de Réunion :
       </label>
       <input
         className="form-input"
@@ -165,7 +165,7 @@ const ReunionForm = () => {
       />
       <br />
       <label htmlFor="reunion-Lieu" className="form-label">
-        Lieu de Reunion :
+        Lieu de Réunion :
       </label>
       <input
         className="form-input"
@@ -191,7 +191,7 @@ const ReunionForm = () => {
 
       <br />
       <label htmlFor="reunion-id-departement" className="form-label">
-        Selectionez le Departement:
+        Sélectioner le Département:
       </label>
       <button onClick={handleDepartModal} className="Modal-button">
         {SelectedDepart}
@@ -205,14 +205,14 @@ const ReunionForm = () => {
       
       <br />
       <label htmlFor="reunion-prof-present" className="form-label">
-        les Professeurs Presents:
+        Les Professeurs Presents:
       </label>
       <button
         onClick={toggleModalPresent}
         className="Modal-button"
         id="reunion-prof-present"
       >
-        Selectionner
+        Sélectionner
       </button>
       <ProfModalPresent
         IsOpen={ProfModalPresentIsOpen}
@@ -223,7 +223,7 @@ const ReunionForm = () => {
       ></ProfModalPresent>
       <br />
       <label htmlFor="Option-file" className="form-label">
-        Update PV:
+        Modifier PV:
       </label>
       <input
         className="form-input"

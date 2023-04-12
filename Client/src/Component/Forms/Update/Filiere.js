@@ -148,9 +148,9 @@ const FiliereForm = () => {
 
   return (
     <div className="form">
-      <h1 className="form-title">Modifier Filiere</h1>
+      <h1 className="form-title">Modifier Filière</h1>
       <label htmlFor="filiere-nom" className="form-label">
-        Filiere Nom:
+        Filière Nom:
       </label>
       <input
         className="form-input"
@@ -161,7 +161,7 @@ const FiliereForm = () => {
       />
       <br />
       <label htmlFor="filiere-Desc" className="form-label">
-        Filiere Description:
+        Filière Description:
       </label>
       <textarea
         className="form-input"
@@ -172,7 +172,7 @@ const FiliereForm = () => {
       />
       <br />
      <label htmlFor="filiere-date-creation" className="form-label">
-        Filiere Date Creation:
+        Filière Date Création:
       </label>
       <select
         className="form-input"
@@ -181,7 +181,7 @@ const FiliereForm = () => {
         onChange={(e) => setFiliereDateCreation(e.target.value)}
       >
         <option value="" disabled>
-          Select Year
+          Sélectionner une année
         </option>
         {years.map((year) => (
           <option key={year} value={year}>
@@ -191,7 +191,7 @@ const FiliereForm = () => {
       </select>
       <br />
       <label htmlFor="filiere-effectif" className="form-label">
-        Filiere Effectif:
+        Filière Effectif:
       </label>
       <input
         className="form-input"
@@ -202,7 +202,7 @@ const FiliereForm = () => {
       />
       <br />
       <label htmlFor="filiere-id-departement" className="form-label">
-        Filiere Id Departement:
+        Filière Id Département:
       </label>
       <button onClick={handleDepartModal} className="Modal-button">
         {SelectedDepart}
@@ -215,7 +215,7 @@ const FiliereForm = () => {
       ></DepartModal>
       <br />
       <label htmlFor="filiere-coordinateur" className="form-label">
-        Filiere Coordinateur:
+        Filière Coordinateur:
       </label>
       <button onClick={handleCoordinateurModal} className="Modal-button">
         {SelectedCoordinateur}

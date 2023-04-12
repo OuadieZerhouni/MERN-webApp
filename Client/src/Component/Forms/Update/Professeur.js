@@ -153,7 +153,7 @@ const ProfesseurForm = () => {
       <br />
       <label htmlFor="professeur-full-name" className="form-label">
        
-        Nom & prénom:
+        Nom & Prénom:
       </label>
       <input
         className="form-input"
@@ -166,7 +166,7 @@ const ProfesseurForm = () => {
       <br />
       <label htmlFor="professeur-email" className="form-label">
        
-        Email:
+        E-mail:
       </label>
       <input
         className="form-input"
@@ -179,7 +179,7 @@ const ProfesseurForm = () => {
       <br />
       <label htmlFor="professeur-password" className="form-label">
        
-        Mot de Pass:
+        Mot de Passe:
       </label>
       <input
         className="form-input"
@@ -191,7 +191,7 @@ const ProfesseurForm = () => {
       <br />
       <label htmlFor="professeur-role" className="form-label">
         
-        Professeur Role:
+       Rôle du Professeur:
       </label>
       <select
         className="form-input"
@@ -207,7 +207,7 @@ const ProfesseurForm = () => {
       <br />
       <br />
       <label htmlFor="filiere-id-departement" className="form-label">
-       Departement:
+       Département:
       </label>
       <button onClick={handleDepartModal} className="Modal-button">
         {SelectedDepart}

@@ -134,7 +134,7 @@ const OptionForm = () => {
       />
        <br />
      <label htmlFor="filiere-date-creation" className="form-label">
-        Filiere Date Creation:
+        Filière Date Création:
       </label>
       <select
         className="form-input"
@@ -143,7 +143,7 @@ const OptionForm = () => {
         onChange={(e) => setOptionDateCreation(e.target.value)}
       >
         <option value="" disabled>
-          Select Year
+          Sélectionner une année
         </option>
         {years.map((year) => (
           <option key={year} value={year}>
@@ -166,7 +166,7 @@ const OptionForm = () => {
       <br />
       <label htmlFor="Option-filiere" className="form-label">
         {" "}
-        Option Filiere:
+        Option Filière:
       </label>
       <button className="Modal-button" onClick={ToggleModalFiliere}>
         {OptionFiliereNom}

@@ -143,9 +143,9 @@ const DepartementForm = () => {
   return (
     <div>
       <div className="form">
-        <h1 className="form-title">Modifier Departement</h1>
+        <h1 className="form-title">Modifier Département</h1>
         <label htmlFor="departement-nom" className="form-label">
-          Departement Nom:
+          Département Nom:
         </label>
         <input
           className="form-input"
@@ -156,9 +156,9 @@ const DepartementForm = () => {
         />
         <br />
         <label htmlFor="departement-description" className="form-label">
-          Departement Description:
+          Département Description:
         </label>
-        <input
+        <textarea
           className="form-input"
           type="text"
           id="departement-description"
@@ -167,7 +167,7 @@ const DepartementForm = () => {
         />
         <br />
         <label htmlFor="filiere-date-creation" className="form-label">
-        Filiere Date Creation:
+        Filière Date Création:
       </label>
       <select
         className="form-input"
@@ -176,7 +176,7 @@ const DepartementForm = () => {
         onChange={(e) => setDepartementDateCreation(e.target.value)}
       >
         <option value="" disabled>
-          Select Year
+          Séléctionner une année
         </option>
         {years.map((year) => (
           <option key={year} value={year}>
@@ -186,7 +186,7 @@ const DepartementForm = () => {
       </select>
         <br />
         <label htmlFor="departement-professeurs" className="form-label">
-          Departement Professeurs:
+        Professeurs de Département :
         </label>
         <button
           onClick={toggleProfModal}
@@ -194,7 +194,7 @@ const DepartementForm = () => {
           className="Modal-button"
         >
           {" "}
-          Select Professeur{" "}
+          Sélectionner Professeur{" "}
         </button>
         <ProfModal
           IsOpen={ProfModalIsOpen}
@@ -205,7 +205,7 @@ const DepartementForm = () => {
         ></ProfModal>
         <br />
         <label htmlFor="departement-Chef" className="form-label">
-          Chef de Departement :
+          Chef de Département :
         </label>
         <button
           onClick={handleChefModal}
