@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
+const comment = require("./Comment")
 
 const reunionSchema = new mongoose.Schema({
   Date: String,
@@ -10,13 +11,7 @@ const reunionSchema = new mongoose.Schema({
   PV:{
       link: String,
       date_creation: Date,
-      comments: [
-        {
-          value: String,
-          date_comment: Date,
-          professeur: String ,
-        },
-      ],
+      comments: [comment],
     },
 });
 

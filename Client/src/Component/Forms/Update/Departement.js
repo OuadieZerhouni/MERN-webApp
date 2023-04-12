@@ -130,7 +130,6 @@ const DepartementForm = () => {
             selectedProfs.push(prof);
           }
         });
-        console.log(professeursData,professeursByDepartement);
         setProfesseurs(professeursByDepartement);
         setSelectedProfs(selectedProfs);
       } catch (error) {

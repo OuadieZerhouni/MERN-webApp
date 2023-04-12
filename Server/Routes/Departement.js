@@ -101,9 +101,7 @@ router.put(
       const removedProfesseurs = oldProfesseurs.filter(
         (prof) => !professeurs.includes(prof.toString())
       );
-      console.log(oldProfesseurs[0].toString());
 
-      console.log(removedProfesseurs);
       const addedProfesseurs = professeurs.filter(
         (prof) => !oldProfesseurs.includes(prof.toString())
       );

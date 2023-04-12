@@ -14,11 +14,10 @@
   margin-bottom: 20px;
   padding: 10px;
   font-weight: bold;
-  margin: 10px;
-  margin-left: 50px;
+  margin: 0 auto;
+  
 }
 .prof-info p {
-  background-color: #5b709d;
   margin: 0;
   padding: 5px;
   padding-left: 10px;
@@ -26,9 +25,8 @@
   padding-bottom: 10px;
   font-size: 14px;
   font-weight: bold;
-  color: #ffffff;
+  color: black;
   display: inline;
-  border-right: 1px solid #ffffff;
 }
 .tabs {
   position: relative;
