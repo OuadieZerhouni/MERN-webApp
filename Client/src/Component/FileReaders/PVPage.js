@@ -3,7 +3,7 @@ import axios from "axios";
 import "../../CSS/ComponentCSS/PDFReader.css";
 import CommentSection from "./Comment";
 
-function EmploiReader() {
+function PVPage() {
   const [numPages, setNumPages] = useState(null);
   const [images, setImages] = useState([]);
   const API_DATABASE = process.env.REACT_APP_API_DATABASE;
@@ -53,9 +53,9 @@ function EmploiReader() {
         </div>
       </div>
 
-      <CommentSection token={localStorage.getItem("token")}  />
+      <CommentSection token={localStorage.getItem("token")} />
     </div></div>
   );
 }
 
-export default EmploiReader;
+export default PVPage;
