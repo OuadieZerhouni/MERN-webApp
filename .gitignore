@@ -5,3 +5,5 @@ Server/uploads/
 Server/.env
 Client/src/assets/
 
+Server/.env
+.gitignore
