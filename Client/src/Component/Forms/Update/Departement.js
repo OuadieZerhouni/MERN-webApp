@@ -67,7 +67,6 @@ const DepartementForm = () => {
       alert("Veuillez remplir tous les champs Correctememnt");
       return;
     }
-    
 
     axios
       .put( API_DATABASE + "/departements/" + window.location.pathname.split("/")[3],
@@ -131,7 +130,7 @@ const DepartementForm = () => {
             selectedProfs.push(prof);
           }
         });
-  
+        console.log(professeursData,professeursByDepartement);
         setProfesseurs(professeursByDepartement);
         setSelectedProfs(selectedProfs);
       } catch (error) {

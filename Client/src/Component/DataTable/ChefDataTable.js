@@ -305,6 +305,21 @@ const DataTable = ({Prof}) => {
       .catch((error) => {
         console.error(error);
       });
+
+      axios.get(API_DATABASE + "/posts",
+      {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      })
+      .then((response) => {
+        setPosts(response.data);
+      }
+      )
+      .catch((error) => {
+        console.error(error);
+      }
+      )
+
+
   }, [API_DATABASE]);
 
   return (
@@ -380,6 +395,7 @@ const DataTable = ({Prof}) => {
           ReunionProfs={ReunionProfs}
           handleDeleteReunion={handleDeleteReunion}
           _departement={_departement}
+          Prof={Prof}
         />
      <PostTable 
           activeTab={activeTab}

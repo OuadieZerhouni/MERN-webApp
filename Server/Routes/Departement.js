@@ -67,8 +67,8 @@ router.post(
 
       const departement = await Departement.insert(req.body);
       await Promise.all(
-        req.body.professeurs.map((prof) =>
-          Professeur.setIdDepartement(prof, departement._id)
+        req.body.professeurs.map(async(prof) =>
+          await Professeur.setIdDepartement(prof, departement._id)
         )
       );
       res.status(201).json(departement);
@@ -99,10 +99,13 @@ router.put(
       const oldDepartement = await Departement.getById(id);
       const oldProfesseurs = oldDepartement.professeurs;
       const removedProfesseurs = oldProfesseurs.filter(
-        (prof) => !professeurs.includes(prof)
+        (prof) => !professeurs.includes(prof.toString())
       );
+      console.log(oldProfesseurs[0].toString());
+
+      console.log(removedProfesseurs);
       const addedProfesseurs = professeurs.filter(
-        (prof) => !oldProfesseurs.includes(prof)
+        (prof) => !oldProfesseurs.includes(prof.toString())
       );
       await Promise.all(
         removedProfesseurs.map((prof) =>

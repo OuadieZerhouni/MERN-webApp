@@ -15,7 +15,6 @@ const DataTable = ({ Prof }) => {
   const [filieres, setFilieres] = useState([]);
   const [professeurs, setProfesseurs] = useState([]);
   const [reunion, setReunion] = useState([]);
-  const [posts, setPosts] = useState([]);
 
   const [chefs, setChefs] = useState({});
   const [coords, setCoords] = useState({});
@@ -269,6 +268,7 @@ const DataTable = ({ Prof }) => {
           ReunionProfs={ReunionProfs}
           Prof={Prof}
         />
+
       </div>
     </div>
   );
