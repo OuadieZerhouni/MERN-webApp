@@ -156,6 +156,7 @@
   line-height: 1.5;
   margin-bottom: 20px;
   padding: 5px;
+  text-align: justify;
 }
 
 .post-read-more {
@@ -228,6 +229,7 @@ width: 100%;
 
 .departement p {
   margin: 0;
+  text-align: justify;
 }
 .animate {
   transform: translateY(0px);
