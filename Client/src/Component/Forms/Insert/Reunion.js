@@ -40,8 +40,8 @@ const ReunionForm = () => {
     formData.append("Date", reunionDate);
     formData.append("Lieu", reunionLieu);
     formData.append("id_departement", reunionIdDepartement);
-    formData.append("LOJ", reunionLoj);
-    formData.append("prof_present", reunionProfPresent);
+    formData.append("LOJ", JSON.stringify(reunionLoj));
+    formData.append("prof_present", JSON.stringify(reunionProfPresent));
     axios
       .post(API_DATABASE + "/reunions", formData, {
         headers: {

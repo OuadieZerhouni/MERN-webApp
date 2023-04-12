@@ -76,7 +76,7 @@ const CommentSection = ({ token }) => {
 
   return (
     <div className="Commment-section">
-      <h2>Comments</h2>
+      <h2>Commentaire</h2>
       <form onSubmit={handleNewComment}>
         <input
           type="text"
@@ -97,7 +97,7 @@ const CommentSection = ({ token }) => {
           )}</p>{" "}
          
           <small>
-            Posted on {comment.date_comment.split("T")[0]} at{" "}
+            Posté Par {comment.date_comment.split("T")[0]} à{" "}
             {comment.date_comment.split("T")[1].split(".")[0]}
           </small>
         </div>
