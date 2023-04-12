@@ -27,7 +27,7 @@ const DepartementForm = () => {
         const response = await axios.get(`${API_DATABASE}/professeurs`, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
-        const professeurs = response.data.filter((prof) => prof.id_departement !== undefined && prof.id_departement !== "");
+        const professeurs = response.data.filter((prof) => !prof.id_departement);
         setProfesseurs(professeurs);
       } catch (error) {
         console.error(error);
