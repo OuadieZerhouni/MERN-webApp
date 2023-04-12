@@ -21,7 +21,7 @@ function FiliereComponent({
         <>
           {IsAdmin || _departement ? (
             <Link to="/Add/Filiere">
-              <button className="Insert-Btn">insérer Filiere</button>
+              <button className="Insert-Btn">Insérer Filiere</button>
             </Link>
           ) : (
             <></>
@@ -58,7 +58,7 @@ function FiliereComponent({
                               ShowInfo(filiere.Nom, filiere.Description)
                             }
                           >
-                            read more
+                            Voir plus
                           </p>
                         </>
                       ) : (
@@ -125,11 +125,11 @@ function FiliereComponent({
                         <table className="table-container">
                           <thead>
                             <tr>
-                              <th>Option Name</th>
+                              <th>Nom d'Option</th>
                               <th>Description</th>
-                              <th>Date Created</th>
+                              <th>Date de Création</th>
                               <th>Effectif</th>
-                              <th>Emploi_temps</th>
+                              <th>Emploi du temps</th>
                               <th>Actions</th>
                             </tr>
                           </thead>
@@ -145,7 +145,7 @@ function FiliereComponent({
                                     className="btn-modify"
                                     to={"/Emploi_temps/" + option._id}
                                   >
-                                    view
+                                    accéder
                                   </Link>
                                 </td>
                                 {filiere.id_departement ===
