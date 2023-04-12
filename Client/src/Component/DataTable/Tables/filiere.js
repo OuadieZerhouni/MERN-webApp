@@ -121,8 +121,8 @@ function FiliereComponent({
                   </tr>
                   {showOptions[filiere._id] && filiere.Options && (
                     <tr>
-                      <td colSpan="9">
-                        <table className="options-table">
+                      <td colSpan="8">
+                        <table className="table-container">
                           <thead>
                             <tr>
                               <th>Option Name</th>
