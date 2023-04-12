@@ -9,54 +9,49 @@ import ReunionTable from "./Tables/reunion";
 import ProfTable from "./Tables/professeur";
 import PostTable from "./Tables/post";
 
-const DataTable = ({Prof}) => {
+const DataTable = ({ Prof }) => {
   const [activeTab, setActiveTab] = useState("departements");
   const [departements, setDepartements] = useState([]);
   const [filieres, setFilieres] = useState([]);
   const [professeurs, setProfesseurs] = useState([]);
   const [reunion, setReunion] = useState([]);
-  const[posts,setPosts]=useState([]);
+  const [posts, setPosts] = useState([]);
 
-  
   const [chefs, setChefs] = useState({});
   const [coords, setCoords] = useState({});
   const [FiliereDepartement, setFiliereDepartement] = useState({});
   const [ReunionDepartement, setReunionDepartement] = useState({});
   const [ReunionProfs, setReunionProfs] = useState({});
 
-  
   const [PortalOpen, setPortalOpen] = useState(false);
   const [Showedtitle, setShowedtitle] = useState([]);
   const [ShowedDesc, setShowedDesc] = useState([]);
-
-
 
   const API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
-   //handles the portal
-   const togglePortal=()=>{
-    setPortalOpen(!PortalOpen);}
-  const ShowInfo=(title,desc)=>{
+  //handles the portal
+  const togglePortal = () => {
+    setPortalOpen(!PortalOpen);
+  };
+  const ShowInfo = (title, desc) => {
     setShowedtitle(title);
     setShowedDesc(desc);
     togglePortal();
-  }
+  };
 
   useEffect(() => {
     document.title = "Dashboard";
 
     const getChefDepartement = async (id) => {
       return axios
-        .get(API_DATABASE + "/professeurs/" + id, 
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        )
+        .get(API_DATABASE + "/professeurs/" + id, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
         .then((response) => {
           return response.data.FullName;
         })
@@ -67,13 +62,11 @@ const DataTable = ({Prof}) => {
     };
     const getCoordFiliere = async (id) => {
       return axios
-        .get(API_DATABASE + "/professeurs/" + id,
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        )
+        .get(API_DATABASE + "/professeurs/" + id, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
         .then((response) => {
           return response.data.FullName;
         })
@@ -84,14 +77,11 @@ const DataTable = ({Prof}) => {
     };
     const getProfName = async (id) => {
       return axios
-        .get(
-          API_DATABASE + "/professeurs/"+id ,
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          }
-        )
+        .get(API_DATABASE + "/professeurs/" + id, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
         .then((response) => {
           return response.data.FullName;
         })
@@ -103,7 +93,9 @@ const DataTable = ({Prof}) => {
 
     const getDepartFiliere = async (id) => {
       return axios
-      .get(API_DATABASE + "/departements/" + id, { headers: { Authorization: "Bearer " + localStorage.getItem("token") } })
+        .get(API_DATABASE + "/departements/" + id, {
+          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+        })
 
         .then((response) => {
           return response.data.Nom;
@@ -116,9 +108,9 @@ const DataTable = ({Prof}) => {
 
     //departements
     axios
-    .get(API_DATABASE + "/departements", {
-      headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-    })
+      .get(API_DATABASE + "/departements", {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      })
       .then((response) => {
         setDepartements(response.data);
         response.data.forEach(async (department) => {
@@ -140,11 +132,9 @@ const DataTable = ({Prof}) => {
       });
     //filieres
     axios
-      .get(API_DATABASE + "/filieres", 
-        {
-          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-        }
-      )
+      .get(API_DATABASE + "/filieres", {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      })
       .then((response) => {
         setFilieres(response.data);
         response.data.forEach(async (filiere) => {
@@ -174,11 +164,9 @@ const DataTable = ({Prof}) => {
       });
     //professeurs
     axios
-      .get(API_DATABASE + "/professeurs",
-        {
-          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-        }
-      )
+      .get(API_DATABASE + "/professeurs", {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      })
       .then((response) => {
         setProfesseurs(response.data);
       })
@@ -187,12 +175,9 @@ const DataTable = ({Prof}) => {
       });
     //----reunion
     axios
-      .get(
-        API_DATABASE + "/reunions",
-        {
-          headers: { Authorization: "Bearer " + localStorage.getItem("token") },
-        }
-      )
+      .get(API_DATABASE + "/reunions", {
+        headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+      })
       .then((response) => {
         setReunion(response.data);
         response.data.map(async (reunion) => {
@@ -224,7 +209,12 @@ const DataTable = ({Prof}) => {
 
   return (
     <div className="DataTable">
-                <InfoData IsOpen={PortalOpen} toggleModal={togglePortal} title={Showedtitle} description={ShowedDesc} />
+      <InfoData
+        IsOpen={PortalOpen}
+        toggleModal={togglePortal}
+        title={Showedtitle}
+        description={ShowedDesc}
+      />
 
       <div className="tabs">
         <div
@@ -256,7 +246,7 @@ const DataTable = ({Prof}) => {
         <p>Nom : {Prof.FullName}</p>
         <p>E-mail : {Prof.email}</p>
         <p>Grade : {Prof.grade}</p>
-        </div>
+      </div>
       <div className="tab-content">
         <DepartTable
           activeTab={activeTab}
@@ -271,8 +261,14 @@ const DataTable = ({Prof}) => {
           FiliereDepartement={FiliereDepartement}
           ShowInfo={ShowInfo}
         />
-       <ProfTable activeTab={activeTab} professeurs={professeurs} />
-      <ReunionTable activeTab={activeTab} reunions={reunion} ReunionDepartement={ReunionDepartement} ReunionProfs={ReunionProfs} />
+        <ProfTable activeTab={activeTab} professeurs={professeurs} />
+        <ReunionTable
+          activeTab={activeTab}
+          reunions={reunion}
+          ReunionDepartement={ReunionDepartement}
+          ReunionProfs={ReunionProfs}
+          Prof={Prof}
+        />
       </div>
     </div>
   );

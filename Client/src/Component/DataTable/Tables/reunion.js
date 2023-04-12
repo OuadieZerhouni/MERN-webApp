@@ -9,6 +9,7 @@ function Reunion({
   handleDeleteReunion,
   _departement = false,
   IsAdmin = false,
+  Prof = false,
 }) {
   return (
     <div className="table-container">
@@ -61,29 +62,35 @@ function Reunion({
                       : "none"}
                   </td>
                   <td>
+                    {(reunion.prof_present.includes(Prof._id) || IsAdmin) ? (
                     <Link className="btn-modify" to={"/PV/" + reunion._id}>
-                      voir
+                      visiter / commenter
                     </Link>
+                  ) : (
+                    ""
+                  )}
                   </td>
+                  <td>
+                    {reunion.id_departement === _departement["_id"] ||
+                    IsAdmin ? (
+                      <>
+                        <Link to={`/modify/reunion/${reunion._id}`}>
+                          <button className="btn btn-primary">
+                            <i className="fa-solid fa-pen"></i>
+                          </button>
+                        </Link>
 
-                  {reunion.id_departement === _departement["_id"] || IsAdmin ? (
-                    <td>
-                      <Link to={`/modify/reunion/${reunion._id}`}>
-                        <button className="btn btn-primary">
-                          <i className="fa-solid fa-pen"></i>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => {
+                            handleDeleteReunion(reunion._id);
+                          }}
+                        >
+                          <i className="fa-solid fa-trash-can"></i>
                         </button>
-                      </Link>
-
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => {
-                          handleDeleteReunion(reunion._id);
-                        }}
-                      >
-                        <i className="fa-solid fa-trash-can"></i>
-                      </button>
-                    </td>
-                  ) : null}
+                      </>
+                    ) : null}
+                  </td>
                 </tr>
               ))}
             </tbody>
