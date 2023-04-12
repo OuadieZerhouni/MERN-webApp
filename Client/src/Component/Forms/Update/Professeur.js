@@ -1,4 +1,5 @@
 import React, { useState ,useEffect} from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import DepartModal from "../Portal/DepartModal";
 
@@ -16,7 +17,7 @@ const ProfesseurForm = () => {
   const [SelectedDepart, setSelectedDepart] = useState("Not Selected");
 
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
-
+  const Navigate = useNavigate();
   const verifyinputs = () => {
     let Error= document.getElementsByClassName('Error')[0]
     if (
@@ -59,7 +60,7 @@ const ProfesseurForm = () => {
       )
       .then((response) => {
         alert("Professeur modifié")
-        window.location.reload()
+        Navigate("/Dashboard")
       })
       .catch((error) => {
         console.error(error);

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import FilierModal from "../Portal/FileireModal";
 
@@ -21,7 +22,7 @@ const OptionForm = () => {
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 25 }, (_, i) => currentYear - i);
 
-
+  const Navigate =useNavigate();
   const handleModifyOption = () => {
     if (
       OptionNom === "" ||
@@ -29,7 +30,7 @@ const OptionForm = () => {
       OptionDateCreation === "" ||
       OptionEffectif === ""
     ) {
-      alert("Please Fill All Fields");
+      alert("s'il vous plaît remplir tous les champs");
       return;
     }
 
@@ -54,7 +55,7 @@ const OptionForm = () => {
       })
       .then((response) => {
         alert("Option modifié");
-        window.location.reload();
+        Navigate("/Dashboard")
       })
       .catch((error) => {
         console.error(error);

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 import ChefModal from "../Portal/ChefModal";
@@ -55,16 +56,18 @@ const DepartementForm = () => {
   const toggleProfModal = () => {
     setProfModalIsOpen(!ProfModalIsOpen);
   };
-
+ const Navigate= useNavigate()
   const handleModifyDepartement = () => {
     if (
       departementNom === "" ||
       departementDescription === "" ||
       departementDateCreation === ""
+      
     ) {
       alert("Veuillez remplir tous les champs Correctememnt");
       return;
     }
+    
 
     axios
       .put( API_DATABASE + "/departements/" + window.location.pathname.split("/")[3],
@@ -82,7 +85,7 @@ const DepartementForm = () => {
       )
       .then((response) => {
         alert("Departement modifié");
-        window.location.reload();
+        Navigate("/Dashboard");
       })
       .catch((error) => {
         console.error(error);

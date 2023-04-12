@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import DepartModal from "../Portal/DepartModal";
 import CoordinateurModal from "../Portal/ChefModal";
@@ -24,7 +25,7 @@ const FiliereForm = () => {
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 25 }, (_, i) => currentYear - i);
 
-
+  const Navigate=useNavigate();
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
 
   const handleModifyFiliere = () => {
@@ -57,7 +58,7 @@ const FiliereForm = () => {
       )
       .then((response) => {
         alert("Filiere Modifié");
-        window.location.reload();
+        Navigate("/Dashboard");
       })
       .catch((error) => {
         console.error(error);

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 import ProfModalPresent from "../Portal/ProfModal";
@@ -22,6 +23,8 @@ const ReunionForm = () => {
   const [DepartModatIsOpen, setDepartModalIsOpen] = useState(false);
 
   let API_DATABASE = process.env.REACT_APP_API_DATABASE;
+  
+  const Navigate=useNavigate();
 
   const handleUpdateReunion = () => {
     if (
@@ -31,7 +34,7 @@ const ReunionForm = () => {
       reunionLoj === [] ||
       reunionProfPresent === []
     ) {
-      alert("Please Fill All Fields");
+      alert("s'il vous plaît remplir tous les champs");
       return;
     }
 
@@ -51,8 +54,8 @@ const ReunionForm = () => {
           "Content-Type": "multipart/form-data",
         },})
       .then((response) => {
-        alert("Reunion modifié");
-        window.location.reload();
+        alert("Réunion modifié");
+        Navigate("/Dashboard")
       })
       .catch((error) => {
 
@@ -76,7 +79,7 @@ const ReunionForm = () => {
   /*handle ProfModal*/
   const toggleModalPresent = () => {
     if (SelectedDepart === "Not Selected") {
-      alert("Please Select Departement First");
+      alert("s'il vous plaît sélectionner un département");
       return;
     } else {
       axios
@@ -90,7 +93,7 @@ const ReunionForm = () => {
         )
         .then((response) => {
           if (response.data.length === 0) {
-            alert("No Professeur in this Departement");
+            alert("Pas de Professeur Dans Ce Département");
             return;
           }
           setProfesseurs(response.data);
