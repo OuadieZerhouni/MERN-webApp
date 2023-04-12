@@ -102,7 +102,7 @@ const ReunionForm = () => {
   const handlePresentSelection = (Presents) => {
     setReunionProfPresent(Presents);
     setProfModalPresentIsOpen(false);
-    console.log(ProfModalPresentIsOpen);
+   
   };
 
   /*hanle departModal*/
@@ -132,7 +132,7 @@ const ReunionForm = () => {
         setReunionIdDepartement(data.id_departement);
         setReunionLoj(data.LOJ);
         setReunionProfPresent(data.prof_present);
-        console.log(data.LOJ);
+        
         axios
           .get(API_DATABASE + "/departements", {
             headers: {

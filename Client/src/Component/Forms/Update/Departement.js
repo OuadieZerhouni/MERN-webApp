@@ -40,7 +40,6 @@ const DepartementForm = () => {
   /* Professeur Modal handling */
 
   const handleProfSelection = (profIds) => {
-    console.log(profIds);
     setDepartementProfesseurs(profIds);
     setSelectedProfs([]);
     professeurs.forEach((prof) => {
@@ -159,7 +158,7 @@ const DepartementForm = () => {
         <label htmlFor="departement-description" className="form-label">
           Departement Description:
         </label>
-        <textarea
+        <input
           className="form-input"
           type="text"
           id="departement-description"

@@ -43,7 +43,7 @@ const OptionForm = () => {
     formData.append("Description", OptionDescription);
     formData.append("Date_Creation", OptionDateCreation);
     formData.append("effectif", OptionEffectif);
-    console.log(formData.get("_id"));
+   
     axios
       .put(API_DATABASE + "/Options/"+window.location.pathname.split("/")[3]
       , formData, {

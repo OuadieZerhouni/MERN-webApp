@@ -61,7 +61,6 @@ router.get(
   "/callback",
   passport.authenticate("google", { failureRedirect: "/login" }),
   async (req, res) => {
-    console.log(req.user);
     let token;
     const prof = await ProfesseurService.getByEmail(req.user.email);
     if (prof) {
@@ -72,7 +71,6 @@ router.get(
           process.env.SECRET_KEY,
           { expiresIn: "24h" }
         );
-        console.log(departement);
         res.redirect(CLIENT_URL+"/redirect?token=" + token+"&departement="+departement._id);
 
       } else {

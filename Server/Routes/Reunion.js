@@ -127,7 +127,6 @@ router.put(
   AdminChefVerifyProfInsert,
   async (req, res) => {
     try {
-      console.log(req.params.id);
       req.body.prof_present = JSON.parse(req.body.prof_present);
       req.body.LOJ = JSON.parse(req.body.LOJ);
       const reunion = await Reunion.update(req.params.id, req.body);
@@ -152,7 +151,6 @@ router.delete('/:id', AdminChefVerifyReunionDelete, async (req, res) => {
 // POST a comment
 router.post('/:id/comments', async (req, res) => {
   try{
-    console.log("564"+req.body.comment);
     req.body.comment.professeur = jwt.decode(req.headers.authorization.split(' ')[1]).user;
     req.body.comment.date_comment  = new Date().toISOString();
     const comment = await Reunion.AddComment(req.params.id, req.body.comment);

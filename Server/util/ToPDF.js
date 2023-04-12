@@ -22,7 +22,6 @@ exports.pdfToImages = async (pdfPath) => {
 
   try {
     await pdfPoppler.convert(pdfPath, opts);
-    console.log(`Successfully converted PDF to images: ${pdfPath}`);
     return pdfPath;
   } catch (error) {
     console.error(`Failed to convert PDF to images: ${pdfPath}`, error);
@@ -54,7 +53,6 @@ exports.ToPDF = async (file, optionName) => {
         if (err) {
           reject(err);
         } else {
-          console.log(pdfPath);
           resolve(pdfPath);
         }
       });

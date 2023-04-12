@@ -16,7 +16,7 @@ const DepartmentList = () => {
   };
 
   const getFilieres = (Id, filieres) => {
-    console.log(filieres);
+   
     return filieres.filter((filiere) => filiere.id_departement === Id);
   };
   useEffect(() => {

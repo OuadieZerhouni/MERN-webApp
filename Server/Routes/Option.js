@@ -20,7 +20,7 @@ router.get("/Emploi_temps/:id", async (req, res) => {
     );
     let filePath = emploiTemps.Lien_consultation;
     imageDirPath = filePath.replace(".pdf", "");
-    console.log(filePath);
+    
 
     let Path = `${imageDirPath}\\images`;
 
@@ -108,7 +108,7 @@ router.post(
       }
 
       const imageDirPath = await pdfToImages(req.file.path);
-      console.log(req.body);
+      
 
       const optionData = {
         Nom: req.body.Nom,

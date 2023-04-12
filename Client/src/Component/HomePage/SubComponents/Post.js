@@ -12,7 +12,6 @@ export default function Post() {
       .get(`${API_Database}/post`,{},
         {headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }})
       .then((res) => {
-        console.log(res.data);
         setPosts(res.data);
       })
       .catch((err) => {

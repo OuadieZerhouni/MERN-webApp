@@ -8,7 +8,6 @@ exports.getOptionsByFiliereId = async (id) => {
 exports.getOptionById = async (id) => {
 
   const option=await Filiere.find({ "Options._id": id }).select("Options.$");
-  console.log(option[0].Options[0])
   return option[0].Options[0];
 };
 exports.insertOption = async (id_filiere, option) => {

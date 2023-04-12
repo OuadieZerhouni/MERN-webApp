@@ -28,7 +28,6 @@ router.get("/", async (req, res) => {
 router.get("/departement/:id", async (req, res) => {
   try {
     const professeurs = await Professeur.getByDepartement(req.params.id);
-    console.log(professeurs);
     res.send(professeurs);
   } catch (error) {
     console.error(error);

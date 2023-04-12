@@ -8,9 +8,7 @@ const Redirect = () => {
     const departement = window.location.href.split("=")[2];
     if (departement) {
       axios.get(URL + "/departements/" + departement).then((res) => {
-        console.log(res.data);
         window.localStorage.setItem("departement", JSON.stringify(res.data));
-        console.log(window.localStorage.getItem("departement"));
         window.localStorage.setItem("token", token);
         window.location.href = "/Dashboard";
       });

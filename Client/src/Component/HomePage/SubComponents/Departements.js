@@ -15,7 +15,6 @@ export default function Departement() {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then((res) => {
-        console.log(res.data);
         setDepartements(res.data);
       })
       .catch((err) => {
