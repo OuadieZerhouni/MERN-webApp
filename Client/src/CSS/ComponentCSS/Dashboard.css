@@ -59,17 +59,18 @@
   left: 50%;
   transform: translateX(-50%);
   width: 0%;
-  height: 2px;
+  height: 4px;
+  border-radius: 10px;
   background-color: rgb(47 77 133);
   transition: width 0.3s ease-in-out;
 }
 
 .tab:hover::after {
-  width: 80%;
+  width: 90%;
 }
-.tab:hover {
-  color: rgb(47 77 133);
-}
+/* .tab:hover {
+  color: rgb(253, 254, 255);
+} */
 
 .tab.active::after {
   width: 80%;

@@ -85,9 +85,6 @@ function App() {
           <Route path='/modify/reunion/:id' element={<WithAuthModifyReunion/>} />
           <Route path='/modify/professeur/:id' element={<WithAuthModifyProfesseur/>} />
           <Route path='/modify/option/:id' element={<WithAuthModifyOption/>} />
-          
-          
-
 
           <Route path="/PV/:id" element={<WithAutPVviewer />} />
           <Route path="/Emploi_temps/:id" element={<EmploiTempsViewer />} />

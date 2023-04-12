@@ -45,9 +45,9 @@ function FiliereComponent({
                   <tr>
                     <td>{filiere.Nom}</td>
                     <td>
-                      {filiere.Description.length > 50 ? (
+                      {filiere.Description.length > 25 ? (
                         <>
-                          filiere.Description.substring(0, 50) ...{" "}
+                          {filiere.Description.substring(0, 25)+'...'}
                           <p
                             style={{
                               display: "inline",
@@ -73,9 +73,9 @@ function FiliereComponent({
                         ? FiliereDepartement[filiere._id]
                         : ""}
                     </td>
-                    {filiere.id_departement === _departement["_id"] ||
-                    IsAdmin ? (
-                      <td>
+                  <td>  {(filiere.id_departement === _departement["_id"] ||
+                    IsAdmin) ? (
+                      <>
                         <Link to={`/modify/filiere/${filiere._id}`}>
                           <button className="btn btn-primary"><i className="fa-solid fa-pen"></i></button>
                         </Link>
@@ -88,10 +88,10 @@ function FiliereComponent({
                         >
                           <i className="fa-solid fa-trash-can"></i>
                         </button>
-                      </td>
+                      </>
                     ) : (
                       ""
-                    )}
+                    )}</td>
 
                     <td>
                       <button
@@ -107,11 +107,16 @@ function FiliereComponent({
                           ? <i className="fa-solid fa-eye-slash"></i>
                           : <i className="fa-solid fa-eye"></i>}
                       </button>
+                      {(filiere.id_departement === _departement["_id"] ||
+                    IsAdmin) ? (
                       <Link to={`/add/option/${filiere._id}`}>
                           <button className="btn btn-primary">
-                          <i className="fa-solid fa-plus">Option</i>
+                          <i className="fa-solid fa-plus"></i>
                           </button>
                         </Link>
+                    ) : (
+                      ""
+                    )}
                     </td>
                   </tr>
                   {showOptions[filiere._id] && filiere.Options && (

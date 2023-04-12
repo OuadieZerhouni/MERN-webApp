@@ -6,7 +6,6 @@ import DataTable from "../DataTable/ProfDataTable";
 
 
 export default function Dashboard({Prof}) {
-    Prof = Prof.Prof;
   return (
     <div className="Dash-cont">
       <DataTable Prof={Prof}/>
