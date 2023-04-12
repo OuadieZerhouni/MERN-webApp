@@ -38,7 +38,7 @@ function EmploiReader() {
       <a href={Download} className="Download-Link">
         Télécharger
       </a>
-    <div className="Container">
+    <div className="Container" class="pv-comment">
  
       <div className="PDF-container">
         <div className="PDF-pages">
@@ -53,7 +53,7 @@ function EmploiReader() {
         </div>
       </div>
 
-      <CommentSection token={localStorage.getItem("token")} />
+      <CommentSection token={localStorage.getItem("token")}  />
     </div></div>
   );
 }
