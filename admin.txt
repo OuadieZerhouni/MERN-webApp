@@ -1,4 +1,3 @@
-pwd ="azerty@2003"
-email="admin-Super@gmail.usmab"
-red=rgb(175 8 27)
-blue=rgb(47 77 133)
+pwd =""
+email=""
+
