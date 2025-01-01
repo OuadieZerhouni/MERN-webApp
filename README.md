@@ -1,4 +1,4 @@
-# School Porject : MERn web to Manage Departments and Meetings of the University "ESTF" ,
+# School Porject : MERN web to Manage Departments and Meetings of the University "ESTF" ,
 
 
 Notre projet de fin d'étude porte sur la conception et la mise en place d'une application web destinée à la gestion de départements. 
